@@ -15,11 +15,16 @@ class Provincia extends Imperio {
   }
 }
 
-class Poblacion {
+class Localidad {
   private demografia: Productor;
   private poblacion: Almacen;
 
-  constructor (id: number, nombre: string, esCapital: boolean, provincia: Provincia, poblacion: number, posicion: Punto) {
+  constructor (private id: number, private nombre: string, private esCapital: boolean, private provincia: Provincia,
+    private numeroDeHabitantes: number, private posicion: Punto) {
 
   }
+
+  public getPosicion() { return this.posicion; }
 }
+
+export { Localidad };

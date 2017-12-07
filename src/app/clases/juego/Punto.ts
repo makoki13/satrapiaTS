@@ -10,5 +10,5 @@ class Punto {
 
 enum TipoTerreno {Sin_Definir, Prado, Bosque, Mar, Agua_Poco_Profunda}
 
-export {Punto};
+export { Punto };
 export { TipoTerreno };
