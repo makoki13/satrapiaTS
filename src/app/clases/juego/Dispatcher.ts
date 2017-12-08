@@ -23,7 +23,7 @@ class Dispatcher {
     this.listaDeTareas = new Array<Tarea>();
   }
 
-  addTarea(c: any, f: string, tiempo: number, param?: any) {
+  addTareaRepetitiva(c: any, f: string, tiempo: number, param?: any) {
     let nuevoVencimiento: Date;
     let t: Tarea;
 

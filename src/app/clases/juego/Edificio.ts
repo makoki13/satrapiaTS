@@ -32,7 +32,7 @@ class Palacio extends Edificio {
     this.almacen = new Almacen ( 66, 'Deposito de oro', [ORO], null);
     const cantidadInicial = 2;
     this.recaudador = new Extractor (this.impuestos, this.almacen, cantidadInicial);
-    this.disp.addTarea(this, 'recaudaImpuestos', 5);
+    this.disp.addTareaRepetitiva(this, 'recaudaImpuestos', 5);
   }
 
   public recaudaImpuestos ( ) {
@@ -77,7 +77,7 @@ class MinaDeOro extends Edificio {
     const cantidadInicial = 1;
     this.mineros = new Extractor (this.filon, this.almacen, cantidadInicial);
 
-    this.disp.addTarea(this, 'extrae', 7);
+    this.disp.addTareaRepetitiva(this, 'extrae', 7);
   }
 
   extrae() {
