@@ -1,16 +1,15 @@
 class Recurso {
-  constructor (id: number, nombre: string, tipo: TipoRecurso) {
-
+  private nombre;
+  constructor (id: number, nombre: string, private tipo: TipoRecurso) {
+    this.nombre = nombre;
   }
+
+  getNombre() { return this.nombre; }
 }
 
 enum TipoRecurso { NATURAL = 1, FABRICADO = 2, MILITAR = 3 }
 
-class ORO extends Recurso {
-  constructor () {
-    super (1, 'ORO', 1);
-  }
-}
+const ORO: Recurso = new Recurso (1, 'ORO', 1);
 
 class UnidadMilitar extends Recurso {
   private dañoRecibido = 0;

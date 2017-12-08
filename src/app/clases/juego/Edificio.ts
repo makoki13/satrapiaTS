@@ -6,7 +6,12 @@ import { Punto } from './Punto';
 import { ORO } from './Recurso';
 import { UnidadMilitar } from './Recurso';
 
-enum TipoEdificio { PALACIO = 1, SILOS = 2, CUARTEL = 3, MERCADO = 4, EMBAJADA = 5, TABERNA = 6, EJERCITO = 1000}
+import { Dispatcher } from './Dispatcher';
+
+enum TipoEdificio {
+  PALACIO = 1, SILOS = 2, CUARTEL = 3, MERCADO = 4, EMBAJADA = 5, TABERNA = 6,
+  GRANJA  = 101, MINA_DE_ORO = 102,
+  EJERCITO = 1000}
 
 class Edificio {
 
@@ -20,20 +25,30 @@ class Palacio extends Edificio {
   private impuestos: Productor;
   private almacen: Almacen;
 
-  constructor (id: number, nombre: string) {
-    super (id, nombre, 1);
+  constructor (id: number, nombre: string, private disp: Dispatcher) {
+    super (id, nombre, TipoEdificio.PALACIO);
 
-    this.impuestos = new Productor ( null, ORO, 0, Number.MAX_SAFE_INTEGER, 0);
+    this.impuestos = new Productor ( null, ORO, 10, 10, 0);
     this.almacen = new Almacen ( 66, 'Deposito de oro', [ORO], null);
-    this.recaudador = new Extractor (this.impuestos, this.almacen, 0);
+    const cantidadInicial = 2;
+    this.recaudador = new Extractor (this.impuestos, this.almacen, cantidadInicial);
+    this.disp.addTarea(this, 'recaudaImpuestos', 5);
   }
+
+  public recaudaImpuestos ( ) {
+    const cantidad = this.recaudador.getCantidad();
+    this.almacen.addCantidad (cantidad);
+    console.log ( 'Almacen del palacio tiene ' + this.getOroActual() );
+   }
+
+  public getOroActual() { return this.almacen.getCantidad(); }
 }
 
 class Silos extends Edificio {
   private almacenes: Array < Almacen >;
 
   constructor (id: number, nombre: string) {
-    super (id, nombre, 2);
+    super (id, nombre, TipoEdificio.SILOS);
   }
 
   public addAlmacen ( nuevoAlmacen: Almacen) {
@@ -45,8 +60,35 @@ class Cuartel extends Edificio {
   private unidades: Array < UnidadMilitar >;
 
   constructor (id: number, nombre: string) {
-    super (id, nombre, 3);
+    super (id, nombre, TipoEdificio.CUARTEL);
   }
 }
 
+class MinaDeOro extends Edificio {
+  private mineros: Extractor;
+  private filon: Productor;
+  private almacen: Almacen;
+
+  constructor (id: number, nombre: string, private posicion: Punto, private disp: Dispatcher) {
+    super (id, nombre, TipoEdificio.MINA_DE_ORO);
+
+    this.filon = new Productor ( null, ORO, 30, 30, 0);
+    this.almacen = new Almacen ( 66, 'Filón de oro', [ORO], null);
+    const cantidadInicial = 1;
+    this.mineros = new Extractor (this.filon, this.almacen, cantidadInicial);
+
+    this.disp.addTarea(this, 'extrae', 7);
+  }
+
+  extrae() {
+    const cantidad = this.mineros.getCantidad();
+    this.almacen.addCantidad (cantidad);
+    console.log ( 'Almacen de la mina de oro tiene ' + this.getOroActual() );
+  }
+
+  public getOroActual() { return this.almacen.getCantidad(); }
+}
+
 export { Cuartel };
+export { Palacio };
+export { MinaDeOro };

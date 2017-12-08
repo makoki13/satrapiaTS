@@ -2,8 +2,13 @@ import { Productor } from './Productor';
 import { Almacen } from './Almacen';
 
 class Extractor {
-  constructor (productor: Productor, almacen: Almacen, cantidad: number) {
+  constructor (private productor: Productor, private almacen: Almacen, private cantidad: number) {
 
+  }
+
+  getCantidad( ) {
+    const cantidadExtraida = this.productor.extrae ( this.cantidad );
+    return cantidadExtraida;
   }
 }
 
