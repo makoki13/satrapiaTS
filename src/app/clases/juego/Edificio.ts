@@ -15,7 +15,7 @@ enum TipoEdificio {
 
 class Edificio {
 
-  constructor ( private id: number, private nombre: string, private tipo: TipoEdificio) {
+  constructor ( private id: number, private nombre: string, private tipo: TipoEdificio, private posicion: Punto) {
 
   }
 }
@@ -25,8 +25,8 @@ class Palacio extends Edificio {
   private impuestos: Productor;
   private almacen: Almacen;
 
-  constructor (id: number, nombre: string, private disp: Dispatcher) {
-    super (id, nombre, TipoEdificio.PALACIO);
+  constructor (id: number, nombre: string, private disp: Dispatcher, posicion: Punto) {
+    super (id, nombre, TipoEdificio.PALACIO, posicion);
 
     this.impuestos = new Productor ( null, ORO, 10, 10, 0);
     this.almacen = new Almacen ( 66, 'Deposito de oro', [ORO], null);
@@ -47,8 +47,8 @@ class Palacio extends Edificio {
 class Silos extends Edificio {
   private almacenes: Array < Almacen >;
 
-  constructor (id: number, nombre: string) {
-    super (id, nombre, TipoEdificio.SILOS);
+  constructor (id: number, nombre: string, private disp: Dispatcher, posicion: Punto) {
+    super (id, nombre, TipoEdificio.SILOS, posicion);
   }
 
   public addAlmacen ( nuevoAlmacen: Almacen) {
@@ -59,8 +59,8 @@ class Silos extends Edificio {
 class Cuartel extends Edificio {
   private unidades: Array < UnidadMilitar >;
 
-  constructor (id: number, nombre: string) {
-    super (id, nombre, TipoEdificio.CUARTEL);
+  constructor (id: number, nombre: string, private disp: Dispatcher, posicion: Punto) {
+    super (id, nombre, TipoEdificio.CUARTEL, posicion);
   }
 }
 
@@ -69,11 +69,11 @@ class MinaDeOro extends Edificio {
   private filon: Productor;
   private almacen: Almacen;
 
-  constructor (id: number, nombre: string, private posicion: Punto, private disp: Dispatcher) {
-    super (id, nombre, TipoEdificio.MINA_DE_ORO);
+  constructor (id: number, nombre: string, private disp: Dispatcher, posicion: Punto) {
+    super (id, nombre, TipoEdificio.MINA_DE_ORO, posicion);
 
     this.filon = new Productor ( null, ORO, 30, 30, 0);
-    this.almacen = new Almacen ( 66, 'Filón de oro', [ORO], null);
+    this.almacen = new Almacen ( 66, 'Filón de oro', [ORO], posicion);
     const cantidadInicial = 1;
     this.mineros = new Extractor (this.filon, this.almacen, cantidadInicial);
 
@@ -84,6 +84,8 @@ class MinaDeOro extends Edificio {
     const cantidad = this.mineros.getCantidad();
     this.almacen.addCantidad (cantidad);
     console.log ( 'Almacen de la mina de oro tiene ' + this.getOroActual() );
+
+    /* Pendiente: Si el almacen alcanza el tope enviar un transporte de oro a palacio */
   }
 
   public getOroActual() { return this.almacen.getCantidad(); }
