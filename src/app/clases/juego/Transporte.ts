@@ -19,7 +19,7 @@ class Transporte {
 
     envia() {
         this.modificaPosicionActual();
-        if ( (this.ruta.length === 1) && (this.posicionActual === this.posicionFinal) ) {
+        if ( (this.ruta.length === 0) && (this.posicionActual === this.posicionFinal) ) {
             this.almacenDestino.addCantidad(this.cantidad);
             this.muere();
         }
