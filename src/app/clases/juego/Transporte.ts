@@ -33,3 +33,5 @@ class Transporte {
 
     }
 }
+
+export { Transporte };

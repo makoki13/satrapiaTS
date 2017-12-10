@@ -4,8 +4,37 @@ export class TomTom {
     public static calculaViaje (origen: Punto, destino: Punto) {
         const ruta: Array < Punto > = [];
 
-        const nuevoPunto = new Punto (5, 5);
-        ruta.push ( nuevoPunto );
+        let x_actual = origen.getX();
+        let y_actual = origen.getY();
+
+        const x_destino = destino.getX();
+        const y_destino = destino.getY();
+
+        let seguirCalculando = true;
+        while (seguirCalculando) {
+            if (x_actual > x_destino ) {
+                x_actual--;
+            } else {
+                if (x_actual < x_destino ) {
+                    x_actual++;
+                }
+            }
+
+            if (y_actual > y_destino ) {
+                y_actual--;
+            } else {
+                if (y_actual < y_destino ) {
+                    y_actual++;
+                }
+            }
+
+            const nuevoPunto = new Punto (x_actual, y_actual);
+            ruta.push ( nuevoPunto );
+
+            if ( (x_actual === x_destino) && (y_actual === y_destino) ) {
+                seguirCalculando = false;
+            }
+        }
 
         return ruta;
     }

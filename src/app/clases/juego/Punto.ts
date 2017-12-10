@@ -8,6 +8,9 @@ class Punto {
   }
 
   setAltura (z: number) { this.z = z; }
+
+  getX() { return this.x; }
+  getY() { return this.y; }
 }
 
 enum TipoTerreno {Sin_Definir, Prado, Bosque, Mar, Agua_Poco_Profunda}

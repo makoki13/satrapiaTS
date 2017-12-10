@@ -5,6 +5,7 @@ import { Almacen } from './Almacen';
 import { Punto } from './Punto';
 import { ORO } from './Recurso';
 import { UnidadMilitar } from './Recurso';
+import { Transporte } from './Transporte';
 
 import { Dispatcher } from './Dispatcher';
 
@@ -15,21 +16,26 @@ enum TipoEdificio {
 
 class Edificio {
 
-  constructor ( private id: number, private nombre: string, private tipo: TipoEdificio, private posicion: Punto) {
+  constructor ( private id: number, private nombre: string, private tipo: TipoEdificio, private posicion: Punto,
+    protected palacio: Palacio) {
 
   }
+
+  public getPosicion() { return this.posicion; }
+
+  protected getAlmacenPalacio () { return this.palacio.getAlmacen(); }
 }
 
 class Palacio extends Edificio {
   private recaudador: Extractor;
   private impuestos: Productor;
-  private almacen: Almacen;
+  protected almacen: Almacen;
 
   constructor (id: number, nombre: string, private disp: Dispatcher, posicion: Punto) {
-    super (id, nombre, TipoEdificio.PALACIO, posicion);
+    super (id, nombre, TipoEdificio.PALACIO, posicion, null);
 
     this.impuestos = new Productor ( null, ORO, 10, 10, 0);
-    this.almacen = new Almacen ( 66, 'Deposito de oro', [ORO], null);
+    this.almacen = new Almacen ( 66, 'Deposito de oro', [ORO], null, Number.MAX_SAFE_INTEGER.valueOf());
     const cantidadInicial = 2;
     this.recaudador = new Extractor (this.impuestos, this.almacen, cantidadInicial);
     this.disp.addTareaRepetitiva(this, 'recaudaImpuestos', 5);
@@ -42,13 +48,15 @@ class Palacio extends Edificio {
    }
 
   public getOroActual() { return this.almacen.getCantidad(); }
+
+  public getAlmacen ()  { return this.almacen; }
 }
 
 class Silos extends Edificio {
   private almacenes: Array < Almacen >;
 
-  constructor (id: number, nombre: string, private disp: Dispatcher, posicion: Punto) {
-    super (id, nombre, TipoEdificio.SILOS, posicion);
+  constructor (id: number, nombre: string, private disp: Dispatcher, posicion: Punto, palacio: Palacio) {
+    super (id, nombre, TipoEdificio.SILOS, posicion, palacio);
   }
 
   public addAlmacen ( nuevoAlmacen: Almacen) {
@@ -59,8 +67,8 @@ class Silos extends Edificio {
 class Cuartel extends Edificio {
   private unidades: Array < UnidadMilitar >;
 
-  constructor (id: number, nombre: string, private disp: Dispatcher, posicion: Punto) {
-    super (id, nombre, TipoEdificio.CUARTEL, posicion);
+  constructor (id: number, nombre: string, private disp: Dispatcher, posicion: Punto, palacio: Palacio) {
+    super (id, nombre, TipoEdificio.CUARTEL, posicion, palacio);
   }
 }
 
@@ -69,11 +77,11 @@ class MinaDeOro extends Edificio {
   private filon: Productor;
   private almacen: Almacen;
 
-  constructor (id: number, nombre: string, private disp: Dispatcher, posicion: Punto) {
-    super (id, nombre, TipoEdificio.MINA_DE_ORO, posicion);
+  constructor (id: number, nombre: string, private disp: Dispatcher, posicion: Punto, palacio: Palacio) {
+    super (id, nombre, TipoEdificio.MINA_DE_ORO, posicion, palacio);
 
     this.filon = new Productor ( null, ORO, 30, 30, 0);
-    this.almacen = new Almacen ( 66, 'Filón de oro', [ORO], posicion);
+    this.almacen = new Almacen ( 66, 'Filón de oro', [ORO], posicion, 50);
     const cantidadInicial = 1;
     this.mineros = new Extractor (this.filon, this.almacen, cantidadInicial);
 
@@ -86,6 +94,17 @@ class MinaDeOro extends Edificio {
     console.log ( 'Almacen de la mina de oro tiene ' + this.getOroActual() );
 
     /* Pendiente: Si el almacen alcanza el tope enviar un transporte de oro a palacio */
+    if (this.almacen.getCantidad() >= this.almacen.getMaxCantidad()) {
+      this.enviaOroHaciaPalacio();
+    }
+  }
+
+  enviaOroHaciaPalacio() {
+    const cantidad = this.almacen.restaCantidad(this.almacen.getCantidad());
+    const transporteDeOro = new Transporte (this.almacen, super.getAlmacenPalacio(), ORO, cantidad );
+
+    transporteDeOro.calculaViaje();
+    this.disp.addTareaRepetitiva(transporteDeOro, 'envia', 1);
   }
 
   public getOroActual() { return this.almacen.getCantidad(); }
