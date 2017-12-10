@@ -11,8 +11,8 @@ class Tarea {
     this.vencimiento.setSeconds(this.vencimiento.getSeconds() + this.delta);
   }
 
-  execFuncion() {
-    this.clase[this.funcion](this.parametros);
+  execFuncion(): any {
+    return this.clase[this.funcion](this.parametros);
   }
 }
 
@@ -48,7 +48,7 @@ class Dispatcher {
       this.listaDeTareas.forEach(element => {
         if (element.getVencimiento() < horaActual ) {
           element.setVencimiento();
-          element.execFuncion();
+          const rt = element.execFuncion();
           console.log('Tarea ' + element.getVencimiento());
         }
       });
