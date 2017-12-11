@@ -70,10 +70,25 @@ class CentroDeInvestigacion extends Edificio {
         subinvestigacion.addIteminvestigacion(itemInvestigacion);
       investigacion.addSubinvestigacion(subinvestigacion);
 
-    subinvestigacion = new TipoSubInvestigacion(3, 'MADERA'); investigacion.addSubinvestigacion(subinvestigacion);
-    subinvestigacion = new TipoSubInvestigacion(4, 'EXTRACCION DE ORO'); investigacion.addSubinvestigacion(subinvestigacion);
-    subinvestigacion = new TipoSubInvestigacion(5, 'EXTRACCION DE PIEDRA'); investigacion.addSubinvestigacion(subinvestigacion);
-    subinvestigacion = new TipoSubInvestigacion(6, 'EXTRACCION DE METALES'); investigacion.addSubinvestigacion(subinvestigacion);
+      subinvestigacion = new TipoSubInvestigacion(3, 'MADERA');
+        itemInvestigacion = new TipoItemInvestigacion (1, 'Mejorar producción un 5%', 50, false);
+        subinvestigacion.addIteminvestigacion(itemInvestigacion);
+      investigacion.addSubinvestigacion(subinvestigacion);
+
+      subinvestigacion = new TipoSubInvestigacion(4, 'EXTRACCION DE ORO');
+        itemInvestigacion = new TipoItemInvestigacion (1, 'Mejorar producción un 5%', 50, false);
+        subinvestigacion.addIteminvestigacion(itemInvestigacion);
+      investigacion.addSubinvestigacion(subinvestigacion);
+
+      subinvestigacion = new TipoSubInvestigacion(5, 'EXTRACCION DE PIEDRA');
+        itemInvestigacion = new TipoItemInvestigacion (1, 'Mejorar producción un 5%', 50, false);
+        subinvestigacion.addIteminvestigacion(itemInvestigacion);
+      investigacion.addSubinvestigacion(subinvestigacion);
+
+      subinvestigacion = new TipoSubInvestigacion(6, 'EXTRACCION DE METALES');
+        itemInvestigacion = new TipoItemInvestigacion (1, 'Obtener hierro', 50, false);
+        subinvestigacion.addIteminvestigacion(itemInvestigacion);
+      investigacion.addSubinvestigacion(subinvestigacion);
     this.listaInvestigaciones.push(investigacion);
 
     investigacion = new TipoInvestigacion(2, 'EJERCITO');
