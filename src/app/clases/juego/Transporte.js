@@ -16,7 +16,6 @@ var Transporte = /** @class */ (function () {
         this.modificaPosicionActual();
         console.log('Pos: ' + this.posicionActual.getX() + ',' + this.posicionActual.getY());
         if ((this.ruta.length === 0) && (Punto_1.Punto.sonIguales(this.posicionActual, this.posicionFinal))) {
-            // if ( (this.ruta.length === 0) ) {
             console.log('descarga en palacio');
             this.almacenDestino.addCantidad(this.cantidad);
             return -1; // suicidio

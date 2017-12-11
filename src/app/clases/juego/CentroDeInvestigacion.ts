@@ -9,13 +9,14 @@ class TipoInvestigacion {
   public listaDeSubinvestigaciones: Array < TipoSubInvestigacion >;
 
   constructor (private id: number, private nombre: string) {
-
+    this.listaDeSubinvestigaciones = new Array < TipoSubInvestigacion > ();
   }
 
   addSubinvestigacion(subinvestigacion: TipoSubInvestigacion) {
     this.listaDeSubinvestigaciones.push(subinvestigacion);
   }
 
+  getID() { return this.id; }
   getNombre() { return this.nombre; }
 }
 
@@ -23,12 +24,15 @@ class TipoSubInvestigacion {
   public listaDeItems: Array < TipoItemInvestigacion >;
 
   constructor (private id: number, private nombre: string) {
-
+    this.listaDeItems = new Array < TipoItemInvestigacion > ();
   }
 
   addIteminvestigacion(item: TipoItemInvestigacion) {
     this.listaDeItems.push(item);
   }
+
+  getID() { return this.id; }
+  getNombre() { return this.nombre; }
 }
 
 class TipoItemInvestigacion {
@@ -98,27 +102,31 @@ class CentroDeInvestigacion extends Edificio {
     this.listaInvestigaciones.push(investigacion);
   }
 
-  getLista() {
-    interface Investigacion {
-      nombre: string;
-      subinvestigaciones: Array < string >;
-    }
+  getLista() { return this.listaInvestigaciones; }
 
-    const investigaciones = Array < Investigacion > ();
+  getLista___old() {
+    const v: Array < any > = [];
+    const vsub: Array < any > = [];
 
     this.listaInvestigaciones.forEach (elemento => {
-      /* PERDIDO...
-      const s = 'HOLA';
-      const vs = Array < string > ('ADIOS');
-      const e: Investigacion = {s, vs };
-      investigaciones.push(e);
-      */
-    });
+      elemento.listaDeSubinvestigaciones.forEach (subelemento => {
+        vsub.push (
+          {
+            id: subelemento.getID(),
+            nombre: subelemento.getNombre()
+          });
+        });
 
+      v.push (
+        {
+          id: elemento.getID(),
+          nombre: elemento.getNombre(),
+          subinvestigaciones: vsub
+        });
+      });
     const lista = {
-      investigaciones: investigaciones
+      investigaciones: v
     };
-
     return lista;
   }
 
@@ -131,6 +139,9 @@ class CentroDeInvestigacion extends Edificio {
   }
 
   estaComprada(idTipo, idSubtipo, idItem) {
-    return this.listaInvestigaciones[idTipo].listaDeSubinvestigaciones[idSubtipo].listaDeItems[idItem].getConseguido(); }
+    return this.listaInvestigaciones[idTipo].listaDeSubinvestigaciones[idSubtipo].listaDeItems[idItem].getConseguido();
+  }
 }
+
+export { CentroDeInvestigacion };
 
