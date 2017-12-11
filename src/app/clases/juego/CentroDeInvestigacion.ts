@@ -15,6 +15,8 @@ class TipoInvestigacion {
   addSubinvestigacion(subinvestigacion: TipoSubInvestigacion) {
     this.listaDeSubinvestigaciones.push(subinvestigacion);
   }
+
+  getNombre() { return this.nombre; }
 }
 
 class TipoSubInvestigacion {
@@ -97,7 +99,27 @@ class CentroDeInvestigacion extends Edificio {
   }
 
   getLista() {
+    interface Investigacion {
+      nombre: string;
+      subinvestigaciones: Array < string >;
+    }
 
+    const investigaciones = Array < Investigacion > ();
+
+    this.listaInvestigaciones.forEach (elemento => {
+      /* PERDIDO...
+      const s = 'HOLA';
+      const vs = Array < string > ('ADIOS');
+      const e: Investigacion = {s, vs };
+      investigaciones.push(e);
+      */
+    });
+
+    const lista = {
+      investigaciones: investigaciones
+    };
+
+    return lista;
   }
 
   compraInvestigacion(idTipo, idSubtipo, idItem) {
