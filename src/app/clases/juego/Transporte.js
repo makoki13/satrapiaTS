@@ -1,5 +1,6 @@
 "use strict";
 exports.__esModule = true;
+var Punto_1 = require("./Punto");
 var TomTom_1 = require("./TomTom");
 var Transporte = /** @class */ (function () {
     function Transporte(almacenOrigen, almacenDestino, recurso, cantidad) {
@@ -13,15 +14,16 @@ var Transporte = /** @class */ (function () {
     };
     Transporte.prototype.envia = function () {
         this.modificaPosicionActual();
-        if ((this.ruta.length === 0) && (this.posicionActual === this.posicionFinal)) {
+        console.log('Pos: ' + this.posicionActual.getX() + ',' + this.posicionActual.getY());
+        if ((this.ruta.length === 0) && (Punto_1.Punto.sonIguales(this.posicionActual, this.posicionFinal))) {
+            // if ( (this.ruta.length === 0) ) {
+            console.log('descarga en palacio');
             this.almacenDestino.addCantidad(this.cantidad);
-            this.muere();
+            return -1; // suicidio
         }
     };
     Transporte.prototype.modificaPosicionActual = function () {
         this.posicionActual = this.ruta.pop();
-    };
-    Transporte.prototype.muere = function () {
     };
     return Transporte;
 }());

@@ -2,6 +2,8 @@
 exports.__esModule = true;
 var Almacen = /** @class */ (function () {
     function Almacen(id, nombre, tipo, posicion, maxCantidad) {
+        this.id = id;
+        this.nombre = nombre;
         this.posicion = posicion;
         this.maxCantidad = maxCantidad;
         this.cantidad = 0;
@@ -9,7 +11,9 @@ var Almacen = /** @class */ (function () {
     Almacen.prototype.addCantidad = function (cantidad) {
         // console.log (this.cantidad) ;
         this.cantidad = this.cantidad + Number(cantidad).valueOf();
-        // console.log( ' almacen del palacio ti ' + this.cantidad);
+        if (this.id === 66) {
+            console.log(' almacen ' + this.nombre + ' del palacio tiene ' + this.cantidad);
+        }
     };
     Almacen.prototype.restaCantidad = function (cantidad) {
         if (cantidad > this.cantidad) {

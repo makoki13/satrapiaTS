@@ -11,6 +11,8 @@ class Tarea {
     this.vencimiento.setSeconds(this.vencimiento.getSeconds() + this.delta);
   }
 
+  getNombreFuncion() { return this.funcion; }
+
   execFuncion(): any {
     return this.clase[this.funcion](this.parametros);
   }
@@ -45,11 +47,14 @@ class Dispatcher {
     if (numTareas === 0) {
       console.log(' Sin tareas pendientes ');
     } else {
-      this.listaDeTareas.forEach(element => {
+      this.listaDeTareas.forEach((element, indice) => {
         if (element.getVencimiento() < horaActual ) {
           element.setVencimiento();
           const rt = element.execFuncion();
-          console.log('Tarea ' + element.getVencimiento());
+          // console.log('Tarea ' + element.getNombreFuncion() + ' con indice ' + indice + ' devolvió ' + rt);
+          if ( rt === -1 ) {
+            this.listaDeTareas.splice(indice, 1);
+          }
         }
       });
     }

@@ -15,6 +15,7 @@ var Tarea = /** @class */ (function () {
     Tarea.prototype.setVencimiento = function () {
         this.vencimiento.setSeconds(this.vencimiento.getSeconds() + this.delta);
     };
+    Tarea.prototype.getNombreFuncion = function () { return this.funcion; };
     Tarea.prototype.execFuncion = function () {
         return this.clase[this.funcion](this.parametros);
     };
@@ -34,6 +35,7 @@ var Dispatcher = /** @class */ (function () {
     };
     Dispatcher.prototype.nada = function () { };
     Dispatcher.prototype.ejecuta = function () {
+        var _this = this;
         var horaActual = new Date;
         console.log(horaActual);
         var numTareas = this.listaDeTareas.length;
@@ -41,11 +43,14 @@ var Dispatcher = /** @class */ (function () {
             console.log(' Sin tareas pendientes ');
         }
         else {
-            this.listaDeTareas.forEach(function (element) {
+            this.listaDeTareas.forEach(function (element, indice) {
                 if (element.getVencimiento() < horaActual) {
                     element.setVencimiento();
                     var rt = element.execFuncion();
-                    console.log('Tarea ' + element.getVencimiento());
+                    console.log('Tarea ' + element.getNombreFuncion() + ' con indice ' + indice + ' devolvió ' + rt);
+                    if (rt === -1) {
+                        _this.listaDeTareas.splice(indice, 1);
+                    }
                 }
             });
         }

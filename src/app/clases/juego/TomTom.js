@@ -34,6 +34,7 @@ var TomTom = /** @class */ (function () {
                 seguirCalculando = false;
             }
         }
+        ruta = ruta.reverse();
         return ruta;
     };
     return TomTom;

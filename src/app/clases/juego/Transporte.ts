@@ -19,18 +19,16 @@ class Transporte {
 
     envia() {
         this.modificaPosicionActual();
-        if ( (this.ruta.length === 0) && (this.posicionActual === this.posicionFinal) ) {
-            this.almacenDestino.addCantidad(this.cantidad);
-            this.muere();
+        console.log ('Pos: ' + this.posicionActual.getX() + ',' + this.posicionActual.getY() );
+        if ( (this.ruta.length === 0) && (Punto.sonIguales(this.posicionActual, this.posicionFinal)) ) {
+          console.log ('descarga en palacio');
+          this.almacenDestino.addCantidad(this.cantidad);
+          return -1; // suicidio
         }
     }
 
     private modificaPosicionActual() {
         this.posicionActual = this.ruta.pop();
-    }
-
-    private muere() {
-
     }
 }
 

@@ -45,16 +45,16 @@ var Palacio = /** @class */ (function (_super) {
         var _this = _super.call(this, id, nombre, TipoEdificio.PALACIO, posicion, null) || this;
         _this.disp = disp;
         _this.impuestos = new Productor_1.Productor(null, Recurso_1.ORO, 10, 10, 0);
-        _this.almacen = new Almacen_1.Almacen(66, 'Deposito de oro', [Recurso_1.ORO], null, Number.MAX_SAFE_INTEGER.valueOf());
+        _this.almacen = new Almacen_1.Almacen(66, 'Deposito de oro', [Recurso_1.ORO], posicion, Number.MAX_VALUE.valueOf());
         var cantidadInicial = 2;
         _this.recaudador = new Extractor_1.Extractor(_this.impuestos, _this.almacen, cantidadInicial);
-        _this.disp.addTareaRepetitiva(_this, 'recaudaImpuestos', 5);
         return _this;
+        // this.disp.addTareaRepetitiva(this, 'recaudaImpuestos', 5); temporalmente para pruebas
     }
     Palacio.prototype.recaudaImpuestos = function () {
         var cantidad = this.recaudador.getCantidad();
         this.almacen.addCantidad(cantidad);
-        console.log('Almacen del palacio tiene ' + this.getOroActual());
+        // console.log ( 'Almacen del palacio tiene ' + this.getOroActual() );
     };
     Palacio.prototype.getOroActual = function () { return this.almacen.getCantidad(); };
     Palacio.prototype.getAlmacen = function () { return this.almacen; };
@@ -88,20 +88,24 @@ var MinaDeOro = /** @class */ (function (_super) {
     function MinaDeOro(id, nombre, disp, posicion, palacio) {
         var _this = _super.call(this, id, nombre, TipoEdificio.MINA_DE_ORO, posicion, palacio) || this;
         _this.disp = disp;
+        _this.hayPedidoEnMarcha = false;
         _this.filon = new Productor_1.Productor(null, Recurso_1.ORO, 30, 30, 0);
-        _this.almacen = new Almacen_1.Almacen(66, 'Filón de oro', [Recurso_1.ORO], posicion, 50);
+        _this.almacen = new Almacen_1.Almacen(67, 'Filón de oro', [Recurso_1.ORO], posicion, 5);
         var cantidadInicial = 1;
         _this.mineros = new Extractor_1.Extractor(_this.filon, _this.almacen, cantidadInicial);
-        _this.disp.addTareaRepetitiva(_this, 'extrae', 7);
+        _this.disp.addTareaRepetitiva(_this, 'extrae', 1);
         return _this;
     }
     MinaDeOro.prototype.extrae = function () {
         var cantidad = this.mineros.getCantidad();
         this.almacen.addCantidad(cantidad);
-        console.log('Almacen de la mina de oro tiene ' + this.getOroActual());
+        // console.log ( 'Almacen de la mina de oro tiene ' + this.getOroActual() + ' Capacidad máx: ' + this.almacen.getMaxCantidad() );
         /* Pendiente: Si el almacen alcanza el tope enviar un transporte de oro a palacio */
         if (this.almacen.getCantidad() >= this.almacen.getMaxCantidad()) {
-            this.enviaOroHaciaPalacio();
+            if (this.hayPedidoEnMarcha === false) {
+                this.hayPedidoEnMarcha = true;
+                this.enviaOroHaciaPalacio();
+            }
         }
     };
     MinaDeOro.prototype.enviaOroHaciaPalacio = function () {

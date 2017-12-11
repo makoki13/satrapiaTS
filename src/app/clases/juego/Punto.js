@@ -6,6 +6,9 @@ var Punto = /** @class */ (function () {
         this.y = y;
         this.z = z;
     }
+    Punto.sonIguales = function (p, q) {
+        return ((p.getX() === q.getX()) && (p.getY() === q.getY()));
+    };
     Punto.prototype.setAltura = function (z) { this.z = z; };
     Punto.prototype.getX = function () { return this.x; };
     Punto.prototype.getY = function () { return this.y; };

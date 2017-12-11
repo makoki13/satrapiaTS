@@ -3,6 +3,10 @@ class Punto {
   private region: number; // Geografia fisica
   private provincia: number; // Geografia politica
 
+  static sonIguales(p: Punto, q: Punto)  {
+    return ( (p.getX() === q.getX()) && (p.getY() === q.getY()) );
+  }
+
   constructor(private x: number, private y: number, private z?: number) {
 
   }

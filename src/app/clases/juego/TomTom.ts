@@ -2,7 +2,7 @@ import { Punto } from './Punto';
 
 export class TomTom {
     public static calculaViaje (origen: Punto, destino: Punto) {
-        const ruta: Array < Punto > = [];
+        let ruta: Array < Punto > = [];
 
         let x_actual = origen.getX();
         let y_actual = origen.getY();
@@ -35,6 +35,8 @@ export class TomTom {
                 seguirCalculando = false;
             }
         }
+
+        ruta = ruta.reverse();
 
         return ruta;
     }

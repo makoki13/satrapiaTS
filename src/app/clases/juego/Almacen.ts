@@ -4,14 +4,14 @@ import { Punto } from './Punto';
 class Almacen {
   private cantidad: number;
 
-  constructor (id: number, nombre: string, tipo: Array<Recurso>, private posicion: Punto, private maxCantidad: number) {
+  constructor (private id: number, private nombre: string, tipo: Array<Recurso>, private posicion: Punto, private maxCantidad: number) {
     this.cantidad = 0;
   }
 
   public addCantidad (cantidad: number) {
     // console.log (this.cantidad) ;
     this.cantidad = this.cantidad + Number(cantidad).valueOf();
-    // console.log( ' almacen del palacio ti ' + this.cantidad);
+    if (this.id === 66) { console.log( ' almacen ' + this.nombre + ' del palacio tiene ' + this.cantidad); }
   }
 
   public restaCantidad ( cantidad: number) {
