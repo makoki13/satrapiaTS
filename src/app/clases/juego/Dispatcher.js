@@ -16,7 +16,7 @@ var Tarea = /** @class */ (function () {
         this.vencimiento.setSeconds(this.vencimiento.getSeconds() + this.delta);
     };
     Tarea.prototype.execFuncion = function () {
-        this.clase[this.funcion](this.parametros);
+        return this.clase[this.funcion](this.parametros);
     };
     return Tarea;
 }());
@@ -24,7 +24,7 @@ var Dispatcher = /** @class */ (function () {
     function Dispatcher() {
         this.listaDeTareas = new Array();
     }
-    Dispatcher.prototype.addTarea = function (c, f, tiempo, param) {
+    Dispatcher.prototype.addTareaRepetitiva = function (c, f, tiempo, param) {
         var nuevoVencimiento;
         var t;
         nuevoVencimiento = new Date();
@@ -44,7 +44,7 @@ var Dispatcher = /** @class */ (function () {
             this.listaDeTareas.forEach(function (element) {
                 if (element.getVencimiento() < horaActual) {
                     element.setVencimiento();
-                    element.execFuncion();
+                    var rt = element.execFuncion();
                     console.log('Tarea ' + element.getVencimiento());
                 }
             });

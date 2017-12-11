@@ -7,6 +7,8 @@ var Punto = /** @class */ (function () {
         this.z = z;
     }
     Punto.prototype.setAltura = function (z) { this.z = z; };
+    Punto.prototype.getX = function () { return this.x; };
+    Punto.prototype.getY = function () { return this.y; };
     return Punto;
 }());
 exports.Punto = Punto;

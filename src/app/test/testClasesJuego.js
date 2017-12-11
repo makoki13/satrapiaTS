@@ -39,8 +39,8 @@ var Edificio_1 = require("../clases/juego/Edificio");
 var Dispatcher_1 = require("../clases/juego/Dispatcher");
 var Punto_1 = require("../clases/juego/Punto");
 var myDispatcher = new Dispatcher_1.Dispatcher();
-var miPalacio = new Edificio_1.Palacio(1, 'Palacio de Makoki', myDispatcher);
-var miMinaDeOro = new Edificio_1.MinaDeOro(2, 'Mina de la Sierra', new Punto_1.Punto(10, 10), myDispatcher);
+var miPalacio = new Edificio_1.Palacio(1, 'Palacio de Makoki', myDispatcher, new Punto_1.Punto(0, 0));
+var miMinaDeOro = new Edificio_1.MinaDeOro(2, 'Mina de la Sierra', myDispatcher, new Punto_1.Punto(10, 10));
 function sleep(ms) {
     return new Promise(function (resolve) { return setTimeout(resolve, ms); });
 }

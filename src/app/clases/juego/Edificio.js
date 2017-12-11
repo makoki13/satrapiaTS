@@ -14,6 +14,7 @@ var Extractor_1 = require("./Extractor");
 var Productor_1 = require("./Productor");
 var Almacen_1 = require("./Almacen");
 var Recurso_1 = require("./Recurso");
+var Transporte_1 = require("./Transporte");
 var TipoEdificio;
 (function (TipoEdificio) {
     TipoEdificio[TipoEdificio["PALACIO"] = 1] = "PALACIO";
@@ -27,23 +28,27 @@ var TipoEdificio;
     TipoEdificio[TipoEdificio["EJERCITO"] = 1000] = "EJERCITO";
 })(TipoEdificio || (TipoEdificio = {}));
 var Edificio = /** @class */ (function () {
-    function Edificio(id, nombre, tipo) {
+    function Edificio(id, nombre, tipo, posicion, palacio) {
         this.id = id;
         this.nombre = nombre;
         this.tipo = tipo;
+        this.posicion = posicion;
+        this.palacio = palacio;
     }
+    Edificio.prototype.getPosicion = function () { return this.posicion; };
+    Edificio.prototype.getAlmacenPalacio = function () { return this.palacio.getAlmacen(); };
     return Edificio;
 }());
 var Palacio = /** @class */ (function (_super) {
     __extends(Palacio, _super);
-    function Palacio(id, nombre, disp) {
-        var _this = _super.call(this, id, nombre, TipoEdificio.PALACIO) || this;
+    function Palacio(id, nombre, disp, posicion) {
+        var _this = _super.call(this, id, nombre, TipoEdificio.PALACIO, posicion, null) || this;
         _this.disp = disp;
         _this.impuestos = new Productor_1.Productor(null, Recurso_1.ORO, 10, 10, 0);
-        _this.almacen = new Almacen_1.Almacen(66, 'Deposito de oro', [Recurso_1.ORO], null);
+        _this.almacen = new Almacen_1.Almacen(66, 'Deposito de oro', [Recurso_1.ORO], null, Number.MAX_SAFE_INTEGER.valueOf());
         var cantidadInicial = 2;
         _this.recaudador = new Extractor_1.Extractor(_this.impuestos, _this.almacen, cantidadInicial);
-        _this.disp.addTarea(_this, 'recaudaImpuestos', 5);
+        _this.disp.addTareaRepetitiva(_this, 'recaudaImpuestos', 5);
         return _this;
     }
     Palacio.prototype.recaudaImpuestos = function () {
@@ -52,13 +57,16 @@ var Palacio = /** @class */ (function (_super) {
         console.log('Almacen del palacio tiene ' + this.getOroActual());
     };
     Palacio.prototype.getOroActual = function () { return this.almacen.getCantidad(); };
+    Palacio.prototype.getAlmacen = function () { return this.almacen; };
     return Palacio;
 }(Edificio));
 exports.Palacio = Palacio;
 var Silos = /** @class */ (function (_super) {
     __extends(Silos, _super);
-    function Silos(id, nombre) {
-        return _super.call(this, id, nombre, TipoEdificio.SILOS) || this;
+    function Silos(id, nombre, disp, posicion, palacio) {
+        var _this = _super.call(this, id, nombre, TipoEdificio.SILOS, posicion, palacio) || this;
+        _this.disp = disp;
+        return _this;
     }
     Silos.prototype.addAlmacen = function (nuevoAlmacen) {
         this.almacenes.push(nuevoAlmacen);
@@ -67,29 +75,40 @@ var Silos = /** @class */ (function (_super) {
 }(Edificio));
 var Cuartel = /** @class */ (function (_super) {
     __extends(Cuartel, _super);
-    function Cuartel(id, nombre) {
-        return _super.call(this, id, nombre, TipoEdificio.CUARTEL) || this;
+    function Cuartel(id, nombre, disp, posicion, palacio) {
+        var _this = _super.call(this, id, nombre, TipoEdificio.CUARTEL, posicion, palacio) || this;
+        _this.disp = disp;
+        return _this;
     }
     return Cuartel;
 }(Edificio));
 exports.Cuartel = Cuartel;
 var MinaDeOro = /** @class */ (function (_super) {
     __extends(MinaDeOro, _super);
-    function MinaDeOro(id, nombre, posicion, disp) {
-        var _this = _super.call(this, id, nombre, TipoEdificio.MINA_DE_ORO) || this;
-        _this.posicion = posicion;
+    function MinaDeOro(id, nombre, disp, posicion, palacio) {
+        var _this = _super.call(this, id, nombre, TipoEdificio.MINA_DE_ORO, posicion, palacio) || this;
         _this.disp = disp;
         _this.filon = new Productor_1.Productor(null, Recurso_1.ORO, 30, 30, 0);
-        _this.almacen = new Almacen_1.Almacen(66, 'Filón de oro', [Recurso_1.ORO], null);
+        _this.almacen = new Almacen_1.Almacen(66, 'Filón de oro', [Recurso_1.ORO], posicion, 50);
         var cantidadInicial = 1;
         _this.mineros = new Extractor_1.Extractor(_this.filon, _this.almacen, cantidadInicial);
-        _this.disp.addTarea(_this, 'extrae', 7);
+        _this.disp.addTareaRepetitiva(_this, 'extrae', 7);
         return _this;
     }
     MinaDeOro.prototype.extrae = function () {
         var cantidad = this.mineros.getCantidad();
         this.almacen.addCantidad(cantidad);
         console.log('Almacen de la mina de oro tiene ' + this.getOroActual());
+        /* Pendiente: Si el almacen alcanza el tope enviar un transporte de oro a palacio */
+        if (this.almacen.getCantidad() >= this.almacen.getMaxCantidad()) {
+            this.enviaOroHaciaPalacio();
+        }
+    };
+    MinaDeOro.prototype.enviaOroHaciaPalacio = function () {
+        var cantidad = this.almacen.restaCantidad(this.almacen.getCantidad());
+        var transporteDeOro = new Transporte_1.Transporte(this.almacen, _super.prototype.getAlmacenPalacio.call(this), Recurso_1.ORO, cantidad);
+        transporteDeOro.calculaViaje();
+        this.disp.addTareaRepetitiva(transporteDeOro, 'envia', 1);
     };
     MinaDeOro.prototype.getOroActual = function () { return this.almacen.getCantidad(); };
     return MinaDeOro;
