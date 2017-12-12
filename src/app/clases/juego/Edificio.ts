@@ -8,6 +8,7 @@ import { UnidadMilitar } from './Recurso';
 import { Transporte } from './Transporte';
 
 import { Dispatcher } from './Dispatcher';
+import { CentroDeInvestigacion } from './CentroDeInvestigacion';
 
 enum TipoEdificio {
   PALACIO = 1, SILOS = 2, CUARTEL = 3, MERCADO = 4, EMBAJADA = 5, TABERNA = 6, CENTRO_DE_INVESTIGACION = 7,
@@ -16,6 +17,8 @@ enum TipoEdificio {
 
 class Edificio {
 
+  protected centroDeInvestigacion: CentroDeInvestigacion;
+
   constructor ( private id: number, private nombre: string, private tipo: TipoEdificio, private posicion: Punto,
     protected palacio: Palacio) {
 
@@ -23,7 +26,12 @@ class Edificio {
 
   public getPosicion() { return this.posicion; }
 
+  public setPalacio (p: Palacio) { this.palacio = p; }
+
   protected getAlmacenPalacio () { return this.palacio.getAlmacen(); }
+
+  public setCentroDeInvestigacionPalacio (ci: CentroDeInvestigacion) { this.palacio.centroDeInvestigacion = ci; }
+  protected getCentroInvestigacionPalacio () { return this.palacio.centroDeInvestigacion; }
 }
 
 class Palacio extends Edificio {
@@ -40,6 +48,8 @@ class Palacio extends Edificio {
     this.recaudador = new Extractor (this.impuestos, this.almacen, cantidadInicial);
     this.disp.addTareaRepetitiva(this, 'recaudaImpuestos', 15);
   }
+
+  public setPalacio() { super.setPalacio(this); }
 
   public recaudaImpuestos ( ) {
     const cantidad = this.recaudador.getCantidad();
@@ -69,6 +79,17 @@ class Cuartel extends Edificio {
 
   constructor (id: number, nombre: string, private disp: Dispatcher, posicion: Punto, palacio: Palacio) {
     super (id, nombre, TipoEdificio.CUARTEL, posicion, palacio);
+  }
+
+  getTropas() { return JSON.stringify(this.unidades); }
+
+  entrenaCivilesConHonda() {
+    const myCI = super.getCentroInvestigacionPalacio();
+    if (myCI.estaComprada(2, 1, 1)) {
+      console.log(' Se inicia reclutamiento de unidades de infanteria: "Civiles con honda".');
+    } else {
+      console.log(' No se puede entrenar "Civiles con honda". La investigación no está realizada.');
+    }
   }
 }
 

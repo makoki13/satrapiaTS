@@ -36,13 +36,20 @@ class TipoSubInvestigacion {
 }
 
 class TipoItemInvestigacion {
-  constructor (private id: number, private nombre: string, private precio: number, private conseguido: boolean) {
+  constructor (private id: number, private nombre: string, private precio: number, private tiempo: number, private conseguido: boolean) {
 
   }
 
+  getID() { return this.id; }
+  getNombre() { return this.nombre; }
   getPrecio() { return this.precio; }
+  getTiempo() { return this.tiempo; }
 
-  setconseguido() { this.conseguido = true; }
+  setconseguido() {
+    this.conseguido = true;
+    console.log ( ' Comprada la investigación: ' + this.nombre);
+  }
+
   getConseguido() { return this.conseguido; }
 }
 
@@ -57,46 +64,49 @@ class CentroDeInvestigacion extends Edificio {
 
     let investigacion = new TipoInvestigacion(1, 'RECURSOS NATURALES');
       let subinvestigacion = new TipoSubInvestigacion(1, 'AGRICULTURA');
-        let itemInvestigacion = new TipoItemInvestigacion (1, 'Cultivar frutales', 100, false);
+        let itemInvestigacion = new TipoItemInvestigacion (1, 'Cultivar frutales', 100, 10, false);
         subinvestigacion.addIteminvestigacion(itemInvestigacion);
-        itemInvestigacion = new TipoItemInvestigacion (2, 'Cultivar algodon', 150, false);
+        itemInvestigacion = new TipoItemInvestigacion (2, 'Cultivar algodon', 150, 15, false);
         subinvestigacion.addIteminvestigacion(itemInvestigacion);
       investigacion.addSubinvestigacion(subinvestigacion);
 
       subinvestigacion = new TipoSubInvestigacion(2, 'GANADERIA');
-        itemInvestigacion = new TipoItemInvestigacion (1, 'Criar cabras', 50, false);
+        itemInvestigacion = new TipoItemInvestigacion (1, 'Criar cabras', 50, 5, false);
         subinvestigacion.addIteminvestigacion(itemInvestigacion);
-        itemInvestigacion = new TipoItemInvestigacion (2, 'Criar gusanos de seda', 80, false);
+        itemInvestigacion = new TipoItemInvestigacion (2, 'Criar gusanos de seda', 80, 8, false);
         subinvestigacion.addIteminvestigacion(itemInvestigacion);
       investigacion.addSubinvestigacion(subinvestigacion);
 
       subinvestigacion = new TipoSubInvestigacion(3, 'MADERA');
-        itemInvestigacion = new TipoItemInvestigacion (1, 'Mejorar producción un 5%', 50, false);
+        itemInvestigacion = new TipoItemInvestigacion (1, 'Mejorar producción un 5%', 50, 5, false);
         subinvestigacion.addIteminvestigacion(itemInvestigacion);
       investigacion.addSubinvestigacion(subinvestigacion);
 
       subinvestigacion = new TipoSubInvestigacion(4, 'EXTRACCION DE ORO');
-        itemInvestigacion = new TipoItemInvestigacion (1, 'Mejorar producción un 5%', 50, false);
+        itemInvestigacion = new TipoItemInvestigacion (1, 'Mejorar producción un 5%', 50, 5, false);
         subinvestigacion.addIteminvestigacion(itemInvestigacion);
       investigacion.addSubinvestigacion(subinvestigacion);
 
       subinvestigacion = new TipoSubInvestigacion(5, 'EXTRACCION DE PIEDRA');
-        itemInvestigacion = new TipoItemInvestigacion (1, 'Mejorar producción un 5%', 50, false);
+        itemInvestigacion = new TipoItemInvestigacion (1, 'Mejorar producción un 5%', 50, 5, false);
         subinvestigacion.addIteminvestigacion(itemInvestigacion);
       investigacion.addSubinvestigacion(subinvestigacion);
 
       subinvestigacion = new TipoSubInvestigacion(6, 'EXTRACCION DE METALES');
-        itemInvestigacion = new TipoItemInvestigacion (1, 'Obtener hierro', 50, false);
+        itemInvestigacion = new TipoItemInvestigacion (1, 'Obtener hierro', 50, 5, false);
         subinvestigacion.addIteminvestigacion(itemInvestigacion);
       investigacion.addSubinvestigacion(subinvestigacion);
     this.listaInvestigaciones.push(investigacion);
 
     investigacion = new TipoInvestigacion(2, 'EJERCITO');
-    subinvestigacion = new TipoSubInvestigacion(1, 'INFANTERIA'); investigacion.addSubinvestigacion(subinvestigacion);
-    subinvestigacion = new TipoSubInvestigacion(2, 'CABALLERIA'); investigacion.addSubinvestigacion(subinvestigacion);
-    subinvestigacion = new TipoSubInvestigacion(3, 'CARROS'); investigacion.addSubinvestigacion(subinvestigacion);
-    subinvestigacion = new TipoSubInvestigacion(4, 'ASALTO'); investigacion.addSubinvestigacion(subinvestigacion);
-    subinvestigacion = new TipoSubInvestigacion(5, 'OFICIALES'); investigacion.addSubinvestigacion(subinvestigacion);
+      subinvestigacion = new TipoSubInvestigacion(1, 'INFANTERIA');
+        itemInvestigacion = new TipoItemInvestigacion (1, 'Civil con hondas', 10, 5, false);
+        subinvestigacion.addIteminvestigacion(itemInvestigacion);
+      investigacion.addSubinvestigacion(subinvestigacion);
+      subinvestigacion = new TipoSubInvestigacion(2, 'CABALLERIA'); investigacion.addSubinvestigacion(subinvestigacion);
+      subinvestigacion = new TipoSubInvestigacion(3, 'CARROS'); investigacion.addSubinvestigacion(subinvestigacion);
+      subinvestigacion = new TipoSubInvestigacion(4, 'ASALTO'); investigacion.addSubinvestigacion(subinvestigacion);
+      subinvestigacion = new TipoSubInvestigacion(5, 'OFICIALES'); investigacion.addSubinvestigacion(subinvestigacion);
     this.listaInvestigaciones.push(investigacion);
 
     investigacion = new TipoInvestigacion(3, 'COMERCIO');
@@ -117,36 +127,25 @@ class CentroDeInvestigacion extends Edificio {
     this.listaInvestigaciones.push(investigacion);
   }
 
-  getLista() { return this.listaInvestigaciones; }
+  getLista() { return JSON.stringify(this.listaInvestigaciones); }
 
-  getLista___old() {
-    const v: Array < any > = [];
-    const vsub: Array < any > = [];
-
-    this.listaInvestigaciones.forEach (elemento => {
-      elemento.listaDeSubinvestigaciones.forEach (subelemento => {
-        vsub.push (
-          {
-            id: subelemento.getID(),
-            nombre: subelemento.getNombre()
-          });
-        });
-
-      v.push (
-        {
-          id: elemento.getID(),
-          nombre: elemento.getNombre(),
-          subinvestigaciones: vsub
-        });
-      });
-    const lista = {
-      investigaciones: v
-    };
-    return lista;
+  private getItem (idTipo, idSubtipo, idItem): TipoItemInvestigacion  {
+    const investigacion =  this.listaInvestigaciones.filter( x => x.getID() === idTipo);
+    const subinvestigacion = investigacion[0].listaDeSubinvestigaciones.filter( x => x.getID() === idSubtipo);
+    const item = subinvestigacion[0].listaDeItems.filter( x => x.getID() === idItem);
+    return item[0];
   }
 
-  compraInvestigacion(idTipo, idSubtipo, idItem) {
-    this.listaInvestigaciones[idTipo].listaDeSubinvestigaciones[idSubtipo].listaDeItems[idItem].setconseguido();
+  iniciaInvestigacion(idTipo, idSubtipo, idItem) {
+    const item = this.getItem (idTipo, idSubtipo, idItem);
+    this.disp.addTareaRepetitiva(this, 'compraInvestigacion', item.getTiempo(), Array < any > (idTipo, idSubtipo, idItem));
+  }
+
+  compraInvestigacion(v: Array < any >) {
+    const idTipo = v[0]; const idSubtipo = v[1]; const idItem = v[2];
+    const item = this.getItem (idTipo, idSubtipo, idItem);
+    item.setconseguido();
+    return -1; // Finalizar tarea
   }
 
   cancelaInvestigacion() {
@@ -154,7 +153,8 @@ class CentroDeInvestigacion extends Edificio {
   }
 
   estaComprada(idTipo, idSubtipo, idItem) {
-    return this.listaInvestigaciones[idTipo].listaDeSubinvestigaciones[idSubtipo].listaDeItems[idItem].getConseguido();
+    const item = this.getItem (idTipo, idSubtipo, idItem);
+    return item.getConseguido();
   }
 }
 

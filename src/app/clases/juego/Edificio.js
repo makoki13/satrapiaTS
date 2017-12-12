@@ -38,7 +38,10 @@ var Edificio = /** @class */ (function () {
         this.palacio = palacio;
     }
     Edificio.prototype.getPosicion = function () { return this.posicion; };
+    Edificio.prototype.setPalacio = function (p) { this.palacio = p; };
     Edificio.prototype.getAlmacenPalacio = function () { return this.palacio.getAlmacen(); };
+    Edificio.prototype.setCentroDeInvestigacionPalacio = function (ci) { this.palacio.centroDeInvestigacion = ci; };
+    Edificio.prototype.getCentroInvestigacionPalacio = function () { return this.palacio.centroDeInvestigacion; };
     return Edificio;
 }());
 exports.Edificio = Edificio;
@@ -54,6 +57,7 @@ var Palacio = /** @class */ (function (_super) {
         _this.disp.addTareaRepetitiva(_this, 'recaudaImpuestos', 15);
         return _this;
     }
+    Palacio.prototype.setPalacio = function () { _super.prototype.setPalacio.call(this, this); };
     Palacio.prototype.recaudaImpuestos = function () {
         var cantidad = this.recaudador.getCantidad();
         this.almacen.addCantidad(cantidad);
@@ -83,6 +87,16 @@ var Cuartel = /** @class */ (function (_super) {
         _this.disp = disp;
         return _this;
     }
+    Cuartel.prototype.getTropas = function () { return JSON.stringify(this.unidades); };
+    Cuartel.prototype.entrenaCivilesConHonda = function () {
+        var myCI = _super.prototype.getCentroInvestigacionPalacio.call(this);
+        if (myCI.estaComprada(2, 1, 1)) {
+            console.log(' Se inicia reclutamiento de unidades de infanteria: "Civiles con honda".');
+        }
+        else {
+            console.log(' No se puede entrenar "Civiles con honda". La investigación no está realizada.');
+        }
+    };
     return Cuartel;
 }(Edificio));
 exports.Cuartel = Cuartel;

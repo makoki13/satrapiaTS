@@ -30,4 +30,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 PENDIENTES:
 - Transporte de recursos entre almacenes [HECHO!]
 - Coste de unidades / infraestructuras
-- Investigaciones
+- Investigaciones [PREPARADO]
