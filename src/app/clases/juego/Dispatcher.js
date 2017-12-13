@@ -37,8 +37,8 @@ var Dispatcher = /** @class */ (function () {
     Dispatcher.prototype.ejecuta = function () {
         var _this = this;
         var horaActual = new Date;
-        console.log(horaActual);
         var numTareas = this.listaDeTareas.length;
+        console.log(horaActual + ' Num Tareas: ' + numTareas);
         if (numTareas === 0) {
             console.log(' Sin tareas pendientes ');
         }
@@ -47,7 +47,7 @@ var Dispatcher = /** @class */ (function () {
                 if (element.getVencimiento() < horaActual) {
                     element.setVencimiento();
                     var rt = element.execFuncion();
-                    // console.log('Tarea ' + element.getNombreFuncion() + ' con indice ' + indice + ' devolvió ' + rt);
+                    console.log('Tarea ' + element.getNombreFuncion() + ' con indice ' + indice + ' devolvió ' + rt);
                     if (rt === -1) {
                         _this.listaDeTareas.splice(indice, 1);
                     }

@@ -41,8 +41,9 @@ class Dispatcher {
 
   ejecuta() {
     const horaActual = new Date;
-    console.log(horaActual);
     const numTareas = this.listaDeTareas.length;
+
+    console.log(horaActual +  ' Num Tareas: ' + numTareas);
 
     if (numTareas === 0) {
       console.log(' Sin tareas pendientes ');
@@ -51,7 +52,7 @@ class Dispatcher {
         if (element.getVencimiento() < horaActual ) {
           element.setVencimiento();
           const rt = element.execFuncion();
-          // console.log('Tarea ' + element.getNombreFuncion() + ' con indice ' + indice + ' devolvió ' + rt);
+          console.log('Tarea ' + element.getNombreFuncion() + ' con indice ' + indice + ' devolvió ' + rt);
           if ( rt === -1 ) {
             this.listaDeTareas.splice(indice, 1);
           }

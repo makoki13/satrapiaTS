@@ -15,6 +15,7 @@ var Productor_1 = require("./Productor");
 var Almacen_1 = require("./Almacen");
 var Recurso_1 = require("./Recurso");
 var Transporte_1 = require("./Transporte");
+var Recurso_2 = require("./Recurso");
 var TipoEdificio;
 (function (TipoEdificio) {
     TipoEdificio[TipoEdificio["PALACIO"] = 1] = "PALACIO";
@@ -85,13 +86,42 @@ var Cuartel = /** @class */ (function (_super) {
     function Cuartel(id, nombre, disp, posicion, palacio) {
         var _this = _super.call(this, id, nombre, TipoEdificio.CUARTEL, posicion, palacio) || this;
         _this.disp = disp;
+        _this.unidades = new Array();
         return _this;
     }
     Cuartel.prototype.getTropas = function () { return JSON.stringify(this.unidades); };
-    Cuartel.prototype.entrenaCivilesConHonda = function () {
+    Cuartel.prototype.addUnidades = function (v) {
+        var idTipo = v[0];
+        var cantidad = v[1];
+        var indiceElemento = -1;
+        this.unidades.forEach(function (x, indice) {
+            if (x.id === idTipo) {
+                indiceElemento = indice;
+            }
+        });
+        //  .findIndex(x => x.id === idTipo);
+        if (indiceElemento === -1) {
+            var nuevaUnidad = { id: idTipo, cantidad: cantidad };
+            this.unidades.push(nuevaUnidad);
+        }
+        else {
+            this.unidades[indiceElemento].cantidad += cantidad;
+        }
+        console.log(this.getTropas());
+        return -1;
+    };
+    Cuartel.prototype.entrenaCivilesConHonda = function (cantidad) {
+        if (cantidad === void 0) { cantidad = 0; }
+        if (cantidad === 0) {
+            cantidad = Recurso_2.CivilConHonda.maxUnidadesEnEntrenamiento();
+        }
+        if (cantidad > Recurso_2.CivilConHonda.maxUnidadesEnEntrenamiento()) {
+            cantidad = Recurso_2.CivilConHonda.maxUnidadesEnEntrenamiento();
+        }
         var myCI = _super.prototype.getCentroInvestigacionPalacio.call(this);
         if (myCI.estaComprada(2, 1, 1)) {
             console.log(' Se inicia reclutamiento de unidades de infanteria: "Civiles con honda".');
+            this.disp.addTareaRepetitiva(this, 'addUnidades', 5, Array(10001, cantidad));
         }
         else {
             console.log(' No se puede entrenar "Civiles con honda". La investigación no está realizada.');

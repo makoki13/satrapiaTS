@@ -72,7 +72,6 @@ miPalacio.setCentroDeInvestigacionPalacio(myCI);
 // console.log (myCI.getLista());
 // myCI.iniciaInvestigacion (1, 4, 1);
 var myCuartel = new Edificio_1.Cuartel(1, 'Centro de reclutamiento', myDispatcher, miPalacio.getPosicion(), miPalacio);
-console.log(myCuartel.getTropas());
 // myCI.iniciaInvestigacion (2, 1, 1);
 myCI.compraInvestigacion([2, 1, 1]);
 myCuartel.entrenaCivilesConHonda();

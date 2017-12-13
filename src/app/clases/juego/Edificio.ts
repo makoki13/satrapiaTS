@@ -7,6 +7,8 @@ import { ORO } from './Recurso';
 import { UnidadMilitar } from './Recurso';
 import { Transporte } from './Transporte';
 
+import { CivilConHonda } from './Recurso';
+
 import { Dispatcher } from './Dispatcher';
 import { CentroDeInvestigacion } from './CentroDeInvestigacion';
 
@@ -74,19 +76,49 @@ class Silos extends Edificio {
   }
 }
 
+interface Unidades {
+  id: number;
+  cantidad: number;
+}
+
 class Cuartel extends Edificio {
-  private unidades: Array < UnidadMilitar >;
+  private unidades: Array < Unidades >;
 
   constructor (id: number, nombre: string, private disp: Dispatcher, posicion: Punto, palacio: Palacio) {
     super (id, nombre, TipoEdificio.CUARTEL, posicion, palacio);
+
+    this.unidades = new Array < Unidades > ();
   }
 
   getTropas() { return JSON.stringify(this.unidades); }
 
-  entrenaCivilesConHonda() {
+  addUnidades (v: Array < any >) {
+    const idTipo: number = v[0]; const cantidad: number = v[1];
+    let indiceElemento = -1;
+    this.unidades.forEach( (x, indice) => {
+      if (x.id === idTipo) {indiceElemento = indice; }
+    });
+
+    //  .findIndex(x => x.id === idTipo);
+    if ( indiceElemento === -1) {
+      const nuevaUnidad: Unidades = {id: idTipo, cantidad: cantidad};
+      this.unidades.push (nuevaUnidad);
+    } else {
+      this.unidades[indiceElemento].cantidad += cantidad;
+    }
+
+    console.log (this.getTropas());
+
+    return -1;
+  }
+
+  entrenaCivilesConHonda(cantidad: number = 0) {
+    if (cantidad === 0) { cantidad = CivilConHonda.maxUnidadesEnEntrenamiento(); }
+    if (cantidad > CivilConHonda.maxUnidadesEnEntrenamiento()) { cantidad = CivilConHonda.maxUnidadesEnEntrenamiento(); }
     const myCI = super.getCentroInvestigacionPalacio();
     if (myCI.estaComprada(2, 1, 1)) {
       console.log(' Se inicia reclutamiento de unidades de infanteria: "Civiles con honda".');
+      this.disp.addTareaRepetitiva(this, 'addUnidades', 5, Array < any > ( 10001, cantidad ));
     } else {
       console.log(' No se puede entrenar "Civiles con honda". La investigación no está realizada.');
     }
