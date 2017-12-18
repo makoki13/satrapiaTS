@@ -1,9 +1,13 @@
 import { UnidadMilitar } from './Recurso';
-import { Cuartel } from './edificio';
+import { Cuartel, Palacio } from './edificio';
 import { Punto } from './Punto';
 
+import { Dispatcher } from './Dispatcher';
+
 class Ejercito extends Cuartel {
-  constructor (id: number, nombre: string, private posicion: Punto) {
-    super (id, nombre);
+  private posicionActual: Punto;
+  constructor (id: number, nombre: string, posicion: Punto, disp: Dispatcher, palacio: Palacio) {
+    super (id, nombre, disp , posicion, palacio);
+    this.posicionActual = posicion;
   }
 }

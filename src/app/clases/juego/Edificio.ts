@@ -48,7 +48,7 @@ class Palacio extends Edificio {
     this.almacen = new Almacen ( 66, 'Deposito de oro', [ORO], posicion, Number.MAX_VALUE.valueOf());
     const cantidadInicial = 2;
     this.recaudador = new Extractor (this.impuestos, this.almacen, cantidadInicial);
-    this.disp.addTareaRepetitiva(this, 'recaudaImpuestos', 15);
+    this.disp.addTareaRepetitiva(this, 'recaudaImpuestos', 1);
   }
 
   public setPalacio() { super.setPalacio(this); }
