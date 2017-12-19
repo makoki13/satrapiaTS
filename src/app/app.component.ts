@@ -1,5 +1,29 @@
 import { Component } from '@angular/core';
 
+import {Routes, RouterModule, Router} from '@angular/router';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  router: Router;
+  constructor(private _router: Router) {
+    this.router = _router;
+    this.moveToHome();
+  }
+  public moveToLogin() {
+    this.router.navigate(['login']);
+  }
+
+  public moveToHome() {
+    this.router.navigate(['home']);
+  }
+}
+
+/*
+
 import { Palacio } from './clases/juego/Edificio';
 import { CentroDeInvestigacion } from './clases/juego/CentroDeInvestigacion';
 import { Dispatcher } from './clases/juego/Dispatcher';
@@ -47,6 +71,6 @@ export class AppComponent {
     }
   }
 }
-
+*/
 
 

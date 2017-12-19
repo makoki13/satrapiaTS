@@ -1,8 +1,21 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>Welcome to {{ title }}!</h1>
-  <h2>Cantidad: {{ cantidad }}</h2>
-  <h2>Test Cantidad: {{ myPalacio.getOroActual() }}</h2>
-  <textarea>{{ myCuartel.getTropas() }}</textarea>
-</div>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+  <span>Satrapía 0.1</span>
+  </mat-toolbar-row>
+  <mat-toolbar-row>
+    <span class="align_to_right"></span>
+    <button mat-button [routerLink]="['login']"><mat-icon>account_circle</mat-icon> Registro</button>
+  </mat-toolbar-row>
+</mat-toolbar>
 
+<router-outlet></router-outlet>
+
+<!--
+  <div style="text-align:center">
+    <h1>Welcome to {{ title }}!</h1>
+    <h2>Cantidad: {{ cantidad }}</h2>
+    <h2>Test Cantidad: {{ myPalacio.getOroActual() }}</h2>
+    <textarea>{{ myCuartel.getTropas() }}</textarea>
+  </div>
+ -->
