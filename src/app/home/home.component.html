@@ -1,13 +1,9 @@
-<nav mat-tab-nav-bar>
-    <a mat-tab-link
-      *ngFor="let routeLink of routeLinks; let i = index"
-      [routerLink]="routeLink.link"
-      [active]="activeLinkIndex === i"
-      (click)="activeLinkIndex = i">
-      {{routeLink.label}}
-    </a>
-  </nav>
-
+<nav>
+  <button (click)=moveToPalacio()>PALACIO</button>
+  <button (click)=moveToPalacio()>CIUDAD</button>
+  <button (click)=moveToPalacio()>REINO</button>    
+  <button (click)=moveToPalacio()>MUNDO</button>
+</nav>
   <router-outlet></router-outlet>
 
   <!--

@@ -3,7 +3,6 @@ import {Component, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {RouterModule, Router} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {PalacioComponent} from './palacio/palacio.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @Component({
@@ -13,38 +12,12 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 })
 
 export class HomeComponent {
-  routeLinks: any[];
-  asyncTabs: Observable <any>;
-  activeLinkIndex = 0;
-  constructor(private router: Router) {
-    this.routeLinks = [
-      {label: 'Palacio', link: 'palacio'},
-      {label: 'Ciudad', link: 'ciudad'},
-      {label: 'Pais', link: 'pais'},
-      {label: 'Mundo', link: 'mundo'},
-    ];
+  router: Router;
+  constructor(private _router: Router) {
+    this.router = _router;
+  }
 
-    this.asyncTabs = Observable.create((observer: any) => {
-      setTimeout(() => {
-        observer.next(this.asyncTabs);
-      }, 1000);
-    });
-
-    this.activeLinkIndex = this.routeLinks.indexOf(this.routeLinks.find(tab => router.url.indexOf(tab.link) !== -1));
+  public moveToPalacio() {
+    this.router.navigate(['palacio']);
   }
 }
-
-@NgModule({
-  imports: [ BrowserModule,
-  FormsModule,
-    ReactiveFormsModule,
-        RouterModule.forRoot([
-      {path: '', redirectTo: 'welcome', pathMatch: 'full'},
-      { path: 'palacio', component: PalacioComponent }
-    ])
-  ],
-  declarations: [ HomeComponent, PalacioComponent ],
-  bootstrap: [ HomeComponent ]
-})
-
-export class AppModule {}

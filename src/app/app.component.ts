@@ -13,12 +13,17 @@ export class AppComponent {
     this.router = _router;
     this.moveToHome();
   }
+
   public moveToLogin() {
     this.router.navigate(['login']);
   }
 
   public moveToHome() {
     this.router.navigate(['home']);
+  }
+
+  public moveToPalacio() {
+    this.router.navigate(['palacio']);
   }
 }
 
