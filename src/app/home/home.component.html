@@ -1,10 +1,22 @@
+<router-outlet name="palacio"></router-outlet>
+<router-outlet name="ciudad"></router-outlet>
+<router-outlet name="login"></router-outlet>
+<router-outlet name="elRouter"></router-outlet>
+<!--
 <nav>
-  <button (click)=moveToPalacio()>PALACIO</button>
-  <button (click)=moveToPalacio()>CIUDAD</button>
-  <button (click)=moveToPalacio()>REINO</button>    
-  <button (click)=moveToPalacio()>MUNDO</button>
+  <a mat-icon-button [routerLink]="['home']">Home</a>
+  <a mat-icon-button routerLink = "/palacio/">PALACIO 1</a>
+-->
+<!--
+  <button mat-button routerLink="palacio">PALACIO</button>
+  <button mat-button (click)=moveToPalacio()>CIUDAD</button>
+  <button mat-button (click)=moveToPalacio()>REINO</button>
+  <button mat-button (click)=moveToPalacio()>MUNDO</button>
+-->
+<!--
 </nav>
-  <router-outlet></router-outlet>
+<router-outlet name="palacio"></router-outlet>
+-->
 
   <!--
     <mat-tab-group class="demo-tab-group">

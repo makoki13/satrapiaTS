@@ -1,23 +1,27 @@
-import {Observable} from 'rxjs/Observable';
-import {Component, NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
-import {RouterModule, Router} from '@angular/router';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { Component, OnInit } from '@angular/core';
+import { PalacioComponent } from './palacio/palacio.component';
+import {Routes, RouterModule, Router} from '@angular/router';
+
+import {routing} from './home.routing';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  templateUrl: 'home.component.html',
+  styleUrls: ['home.component.css']
 })
 
-export class HomeComponent {
-  router: Router;
-  constructor(private _router: Router) {
-    this.router = _router;
+export class HomeComponent implements OnInit {
+
+  constructor() {
+
+  }
+
+  ngOnInit() {}
+
+  public moveToHome() {
   }
 
   public moveToPalacio() {
-    this.router.navigate(['palacio']);
+    this.router.navigate(['/second', {outlets: {'secondchild': [this.value]}}]);
   }
 }

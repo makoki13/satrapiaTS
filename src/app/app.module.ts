@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import {routing} from './app.routing';
+import {RoutingModule} from './app.routing';
 import { AppComponent } from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import 'hammerjs';
@@ -13,13 +13,15 @@ import {MatSelectModule, MatListModule, MatTabsModule, MatInputModule, MatCardMo
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { PalacioComponent } from './home/palacio/palacio.component';
+import { CiudadComponent } from './home/ciudad/ciudad.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    PalacioComponent
+    PalacioComponent,
+    CiudadComponent
   ],
   imports: [
     FormsModule,
@@ -34,7 +36,7 @@ import { PalacioComponent } from './home/palacio/palacio.component';
     MatSelectModule,
     MatListModule,
     MatTabsModule,
-    routing
+    RoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

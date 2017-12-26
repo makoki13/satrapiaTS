@@ -1,21 +1,40 @@
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+// import {routing} from './home.routing';
 import { HomeComponent } from './home.component';
-import {RouterModule, Router} from '@angular/router';
-import {Component, NgModule} from '@angular/core';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import 'hammerjs';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatButtonModule} from '@angular/material/button';
 
-import { routing } from './home.routing';
-import { AppComponent } from '../app.component';
+import {MatSelectModule, MatListModule, MatTabsModule, MatInputModule, MatCardModule, MatIconModule} from '@angular/material';
+import { PalacioComponent } from './palacio/palacio.component';
+import { CiudadComponent } from './ciudad/ciudad.component';
 
 @NgModule({
-    imports: [
-      routing
-    ],
-    declarations: [
-        AppComponent
-    ]
-  })
-  export class AppModule {
-    // Diagnostic only: inspect router configuration
-    constructor(router: Router) {
-      console.log('Routes: ', JSON.stringify(router.config, undefined, 2));
-    }
-  }
+  declarations: [
+    HomeComponent,
+    PalacioComponent,
+    CiudadComponent
+  ],
+  imports: [
+    FormsModule,
+    HttpModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatInputModule,
+    MatSelectModule,
+    MatListModule,
+    MatTabsModule,
+    routing
+  ],
+  providers: [],
+  bootstrap: [HomeComponent]
+})
+export class HomeModule { }
