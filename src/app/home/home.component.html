@@ -1,3 +1,13 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span class="align_to_right"></span>
+    <button mat-button [routerLink]="['/home', {outlets: {palacio: ['palacio']}}]"><mat-icon>account_balance</mat-icon> PALACIO</button>
+    <button mat-button [routerLink]="['/home', {outlets: {palacio: ['ciudad']}}]"><mat-icon>account_circle</mat-icon> CIUDAD</button>
+    <button mat-button [routerLink]="['/home', {outlets: {palacio: ['ciudad']}}]"><mat-icon>call_split</mat-icon> PAIS</button>
+    <button mat-button [routerLink]="['/home', {outlets: {palacio: ['ciudad']}}]"><mat-icon>language</mat-icon> MUNDO</button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
 <router-outlet name="palacio"></router-outlet>
 <router-outlet name="ciudad"></router-outlet>
 <router-outlet name="login"></router-outlet>

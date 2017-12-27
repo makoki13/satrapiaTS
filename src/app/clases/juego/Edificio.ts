@@ -4,6 +4,7 @@ import { Productor } from './Productor';
 import { Almacen } from './Almacen';
 import { Punto } from './Punto';
 import { ORO } from './Recurso';
+import { POBLACION } from './Recurso';
 import { UnidadMilitar } from './Recurso';
 import { Transporte } from './Transporte';
 
@@ -38,17 +39,28 @@ class Edificio {
 
 class Palacio extends Edificio {
   private recaudador: Extractor;
+  private crecimientoDemografico: Extractor;
+
   private impuestos: Productor;
+  private alojamientos: Productor;
+
   protected almacen: Almacen;
+  protected poblacion: Almacen;
 
   constructor (id: number, nombre: string, private disp: Dispatcher, posicion: Punto) {
     super (id, nombre, TipoEdificio.PALACIO, posicion, null);
 
+    let cantidadInicial = 2;
     this.impuestos = new Productor ( null, ORO, 10, 10, 0);
     this.almacen = new Almacen ( 66, 'Deposito de oro', [ORO], posicion, Number.MAX_VALUE.valueOf());
-    const cantidadInicial = 2;
     this.recaudador = new Extractor (this.impuestos, this.almacen, cantidadInicial);
     this.disp.addTareaRepetitiva(this, 'recaudaImpuestos', 1);
+
+    cantidadInicial = 50; const cantidadMaxima = 1000;
+    this.alojamientos = new Productor ( null, POBLACION, cantidadInicial, cantidadMaxima, 0);
+    this.poblacion = new Almacen ( 67, 'Población', [POBLACION], posicion, cantidadMaxima);
+    this.crecimientoDemografico = new Extractor (this.alojamientos, this.poblacion, cantidadInicial);
+    this.disp.addTareaRepetitiva(this, 'realizaCenso', 1);
   }
 
   public setPalacio() { super.setPalacio(this); }
@@ -59,7 +71,14 @@ class Palacio extends Edificio {
     // console.log ( 'Almacen del palacio tiene ' + this.getOroActual() );
    }
 
+   public realizaCenso ( ) {
+    const cantidad = this.crecimientoDemografico.getCantidad();
+    this.poblacion.addCantidad (cantidad);
+    // console.log ( 'Almacen del palacio tiene ' + this.getOroActual() );
+   }
+
   public getOroActual() { return this.almacen.getCantidad(); }
+  public getPoblacionActual() { return this.poblacion.getCantidad(); }
 
   public getAlmacen ()  { return this.almacen; }
 }

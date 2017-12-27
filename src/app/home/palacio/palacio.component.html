@@ -1,3 +1,9 @@
-<h3>Palacete</h3>
-<router-outlet></router-outlet>
+<form class="example-form">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Población actual" @Input(readonly) value="{{ myPalacio.getPoblacionActual() }}">
+  </mat-form-field>
 
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Oro en palacio" value="{{ myPalacio.getOroActual() }}">
+  </mat-form-field>
+</form>

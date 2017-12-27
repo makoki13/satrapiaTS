@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PalacioComponent } from './palacio/palacio.component';
 import {Routes, RouterModule, Router} from '@angular/router';
 
-import {routing} from './home.routing';
+import {RoutingModule} from './home.routing';
 
 @Component({
   selector: 'app-home',
@@ -11,9 +11,10 @@ import {routing} from './home.routing';
 })
 
 export class HomeComponent implements OnInit {
-
-  constructor() {
-
+  router: Router;
+  constructor(private _router: Router) {
+    this.router = _router;
+    this.moveToPalacio();
   }
 
   ngOnInit() {}
@@ -22,6 +23,6 @@ export class HomeComponent implements OnInit {
   }
 
   public moveToPalacio() {
-    this.router.navigate(['/second', {outlets: {'secondchild': [this.value]}}]);
+    // this.router.navigate(['home']);
   }
 }
