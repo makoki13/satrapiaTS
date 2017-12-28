@@ -1,6 +1,6 @@
 import { Edificio } from './Edificio';
 import { TipoEdificio} from './Edificio';
-import { Palacio } from './Edificio';
+import { Capital } from './Capital';
 import { Punto } from './Punto';
 
 import { Dispatcher } from './Dispatcher';
@@ -57,8 +57,10 @@ class CentroDeInvestigacion extends Edificio {
 
   private listaInvestigaciones: Array < TipoInvestigacion >;
 
-  constructor (id: number, nombre: string, private disp: Dispatcher, posicion: Punto, palacio: Palacio) {
-    super (id, nombre, TipoEdificio.CENTRO_DE_INVESTIGACION, posicion, palacio);
+  constructor (id: number, nombre: string, private capital: Capital, private disp: Dispatcher) {
+    super (id, nombre, TipoEdificio.CENTRO_DE_INVESTIGACION, capital.getPosicion());
+
+    this.capital.setCentroDeInvestigacion(this);
 
     this.listaInvestigaciones = new Array < TipoInvestigacion > ();
 

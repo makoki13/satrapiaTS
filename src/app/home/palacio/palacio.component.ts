@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Palacio } from '../../clases/juego/Edificio';
+import { Palacio } from '../../clases/juego/Palacio';
 import { CentroDeInvestigacion } from '../../clases/juego/CentroDeInvestigacion';
 import { Dispatcher } from '../../clases/juego/Dispatcher';
 import { Punto } from '../../clases/juego/Punto';
 import { Cuartel } from '../../clases/juego/Edificio';
+import { Capital } from '../../clases/juego/Capital';
+import { Provincia } from '../../clases/juego/Imperio';
+import { Jugador } from '../../clases/juego/Jugador';
 
 @Component({
   selector: 'app-palacio',
@@ -12,25 +15,17 @@ import { Cuartel } from '../../clases/juego/Edificio';
   styleUrls: ['./palacio.component.css']
 })
 export class PalacioComponent implements OnInit {
+  myCapital: Capital;
   myDispatcher: Dispatcher;
   myPalacio: Palacio;
-  myCuartel: Cuartel;
 
   title = 'Satrapía';
-  cantidad: number;
 
   constructor() {
+    this.myCapital = new Capital(1, 'Gandia', true, new Provincia(1, 'Valencia', new Jugador(), false, false), 0, new Punto(0, 0));
     this.myDispatcher = new Dispatcher ();
 
-    this.myPalacio = new Palacio (1, 'Palacio de Makoki', this.myDispatcher, new Punto (0, 0));
-    this.myPalacio.setPalacio();
-
-    const myCI = new CentroDeInvestigacion (1, 'DSIC', this.myDispatcher, new Punto (0, 0), this.myPalacio);
-    this.myPalacio.setCentroDeInvestigacionPalacio (myCI);
-
-    this.myCuartel = new Cuartel (1, 'Centro de reclutamiento', this.myDispatcher, this.myPalacio.getPosicion(), this.myPalacio);
-    myCI.compraInvestigacion([2, 1, 1]);
-    this.myCuartel.entrenaCivilesConHonda();
+    this.myPalacio = new Palacio (1, 'Palacio de Makoki', this.myCapital, this.myDispatcher);
 
     this.runDispatcher();
   }
@@ -46,7 +41,6 @@ export class PalacioComponent implements OnInit {
   async runDispatcher() {
     while (true) {
       this.myDispatcher.ejecuta();
-      this.cantidad = this.myPalacio.getOroActual();
       await this.sleep(1000);
     }
   }

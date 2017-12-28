@@ -25,6 +25,8 @@ class Localidad {
   }
 
   public getPosicion() { return this.posicion; }
+  public getNombre() { return this.nombre; }
 }
 
+export { Provincia };
 export { Localidad };
