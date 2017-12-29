@@ -11,6 +11,7 @@ enum TipoRecurso { NATURAL = 1, FABRICADO = 2, MILITAR = 3 }
 
 const ORO: Recurso = new Recurso (1, 'ORO', 1);
 const POBLACION: Recurso = new Recurso (2, 'POBLACION', 3);
+const COMIDA: Recurso = new Recurso (3, 'COMIDA', 1);
 
 class UnidadMilitar extends Recurso {
   static unidadesEnCuartel: number;
@@ -44,6 +45,7 @@ class Arquero extends UnidadMilitar {
 
 export { Recurso };
 export { ORO };
+export { COMIDA };
 export { POBLACION };
 export { UnidadMilitar };
 

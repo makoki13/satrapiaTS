@@ -129,7 +129,23 @@ class CentroDeInvestigacion extends Edificio {
     this.listaInvestigaciones.push(investigacion);
   }
 
-  getLista() { return JSON.stringify(this.listaInvestigaciones); }
+  getLista() { return this.listaInvestigaciones; }
+
+  getListaConseguidos() {
+    return this.listaInvestigaciones.filter( function( investigacion ) {
+      let valor = false;
+      const listaSubInvestigaciones = investigacion.listaDeSubinvestigaciones;
+      listaSubInvestigaciones.forEach ( function ( subInvestigacion ) {
+        const listaItems = subInvestigacion.listaDeItems;
+        listaItems.forEach ( function ( item ) {
+          if (item.getConseguido() === true ) { valor = true; }
+        });
+      });
+      return valor;
+    });
+  }
+
+  getListaJSON() { return JSON.stringify(this.listaInvestigaciones); }
 
   private getItem (idTipo, idSubtipo, idItem): TipoItemInvestigacion  {
     const investigacion =  this.listaInvestigaciones.filter( x => x.getID() === idTipo);

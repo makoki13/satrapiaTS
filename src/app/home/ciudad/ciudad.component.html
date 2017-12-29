@@ -1,9 +1,39 @@
 <form class="example-form">
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="Población actual" value="{{ myCapital.getNombre() }}">
-  </mat-form-field>
-
-  <mat-form-field class="example-full-width">
-    <input matInput placeholder="Oro en palacio" value="{{ myCapital.getNombre() }}">
+    <input matInput placeholder="Nombre de la ciudad" value="{{ myCapital.getNombre() }}">
   </mat-form-field>
 </form>
+
+<div>
+    <div>CENTRO DE INVESTIGACIÓN</div>
+    <div id="listaCI" *ngFor="let investigacion of myCI.getListaConseguidos()">
+        <ul>
+            <li>
+              {{ investigacion.getNombre() }}
+              <ul>
+                <li>Item 1</li>
+                <li>Item 2</li>
+              </ul>
+            </li>
+          </ul>
+    </div>
+  </div>
+<div>
+  <div>SILOS</div>
+  <div id="listaCI" *ngFor="let almacen of mySilos.getLista()">
+      <ul>
+          <li>
+            {{ almacen.getCantidad() }} de un máximo de {{ almacen.getMaxCantidad() }}
+          </li>
+        </ul>
+  </div>
+<div>
+  <div>CUARTEL</div>
+  <div id="listaCuartel" *ngFor="let unidades of myCuartel.getTropas()">
+      <ul>
+          <li>
+            {{ unidades.id }} : {{ unidades.cantidad }} unidades
+          </li>
+        </ul>
+  </div>
+</div>

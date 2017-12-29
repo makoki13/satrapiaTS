@@ -4,7 +4,7 @@ import { Extractor } from './Extractor';
 import { Productor } from './Productor';
 import { Almacen } from './Almacen';
 import { Punto } from './Punto';
-import { ORO } from './Recurso';
+import { ORO, COMIDA } from './Recurso';
 import { POBLACION } from './Recurso';
 import { UnidadMilitar } from './Recurso';
 import { Transporte } from './Transporte';
@@ -13,6 +13,7 @@ import { CivilConHonda } from './Recurso';
 
 import { Dispatcher } from './Dispatcher';
 import { CentroDeInvestigacion } from './CentroDeInvestigacion';
+import { noUndefined } from '@angular/compiler/src/util';
 
 /******************************************************************************************/
 /** CLASE EDIFICIO */
@@ -34,15 +35,22 @@ class Edificio {
 /******************************************************************************************/
 /** CLASE SILOS */
 class Silos extends Edificio {
-  private almacenes: Array < Almacen >;
+  public almacenes: Array < Almacen >;
 
   constructor (id: number, nombre: string, private capital: Capital, private disp: Dispatcher) {
     super (id, nombre, TipoEdificio.SILOS, capital.getPosicion());
     this.capital.setSilos(this);
+
+    this.almacenes = new Array < Almacen > ();
   }
 
   public addAlmacen ( nuevoAlmacen: Almacen) {
-      this.almacenes.push ( nuevoAlmacen );
+      const almacenTest = new Almacen (1, 'TTTT', [COMIDA], this.capital.getPosicion(), 1000));
+      this.almacenes.push ( almacenTest );
+  }
+
+  public getLista() {
+    return this.almacenes;
   }
 }
 
@@ -63,7 +71,8 @@ class Cuartel extends Edificio {
     this.unidades = new Array < Unidades > ();
   }
 
-  getTropas() { return JSON.stringify(this.unidades); }
+  getTropas() { return this.unidades; }
+  getTropasJSON() { return JSON.stringify(this.unidades); }
 
   addUnidades (v: Array < any >) {
     const idTipo: number = v[0]; const cantidad: number = v[1];
