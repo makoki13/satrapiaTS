@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CentroDeInvestigacion } from '../../clases/juego/CentroDeInvestigacion';
+import { TipoInvestigacion } from '../../clases/juego/CentroDeInvestigacion';
 import { Capital } from '../../clases/juego/Capital';
 import { Dispatcher } from '../../clases/juego/Dispatcher';
 import { Provincia } from '../../clases/juego/Imperio';
-import { Jugador } from '../../clases/juego/Jugador';
+import { Jugador, TipoJugador } from '../../clases/juego/Jugador';
 import { Punto } from '../../clases/juego/Punto';
 import { Cuartel, Silos } from '../../clases/juego/Edificio';
 import { Almacen } from '../../clases/juego/Almacen';
 import { COMIDA } from '../../clases/juego/Recurso';
+import { UnidadMilitar } from '../../clases/juego/Recurso';
 
 @Component({
   selector: 'app-ciudad',
@@ -24,7 +26,8 @@ export class CiudadComponent implements OnInit {
   title = 'Satrapía';
 
   constructor() {
-    this.myCapital = new Capital(1, 'Gandia', true, new Provincia(1, 'Valencia', new Jugador(), false, false), 0, new Punto(0, 0));
+    this.myCapital = new Capital(1, 'Gandia', true, new Provincia(1, 'Valencia',
+      new Jugador(1, 1, 'Makoki', TipoJugador.EMPERADOR), false, false), 0, new Punto(0, 0));
     this.myDispatcher = new Dispatcher ();
 
     this.mySilos = new Silos(3, 'Silos de la ciudad', this.myCapital, this.myDispatcher);

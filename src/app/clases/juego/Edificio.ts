@@ -24,12 +24,14 @@ enum TipoEdificio {
 
 
 class Edificio {
+  public status = 'Sin actividad';
 
   constructor ( private id: number, private nombre: string, private tipo: TipoEdificio, private posicion: Punto) {
 
   }
 
   public getPosicion() { return this.posicion; }
+  public setStatus( mensaje ) { this.status = mensaje; }
 }
 
 /******************************************************************************************/
@@ -45,7 +47,7 @@ class Silos extends Edificio {
   }
 
   public addAlmacen ( nuevoAlmacen: Almacen) {
-      const almacenTest = new Almacen (1, 'TTTT', [COMIDA], this.capital.getPosicion(), 1000));
+      const almacenTest = new Almacen (1, 'TTTT', [COMIDA], this.capital.getPosicion(), 1000);
       this.almacenes.push ( almacenTest );
   }
 
@@ -57,7 +59,7 @@ class Silos extends Edificio {
 /******************************************************************************************/
 /** CLASE CUARTEL */
 interface Unidades {
-  id: number;
+  unidad: UnidadMilitar;
   cantidad: number;
 }
 
@@ -74,22 +76,27 @@ class Cuartel extends Edificio {
   getTropas() { return this.unidades; }
   getTropasJSON() { return JSON.stringify(this.unidades); }
 
+  getStatus() { return this.status; }
+  setStatus( mensaje: string ) { super.setStatus(mensaje); }
+
   addUnidades (v: Array < any >) {
-    const idTipo: number = v[0]; const cantidad: number = v[1];
+    const tipo: UnidadMilitar = v[0]; const cantidad: number = v[1];
     let indiceElemento = -1;
     this.unidades.forEach( (x, indice) => {
-      if (x.id === idTipo) {indiceElemento = indice; }
+      if (x.unidad.getID() === tipo.getID()) {indiceElemento = indice; }
     });
 
     //  .findIndex(x => x.id === idTipo);
     if ( indiceElemento === -1) {
-      const nuevaUnidad: Unidades = {id: idTipo, cantidad: cantidad};
+      const nuevaUnidad: Unidades = {unidad: tipo, cantidad: cantidad};
       this.unidades.push (nuevaUnidad);
     } else {
       this.unidades[indiceElemento].cantidad += cantidad;
     }
 
     console.log (this.getTropas());
+
+    this.setStatus ('Sin actividad');
 
     return -1;
   }
@@ -100,7 +107,8 @@ class Cuartel extends Edificio {
     const myCI = this.capital.getCentroDeInvestigacion();
     if (myCI.estaComprada(2, 1, 1)) {
       console.log(' Se inicia reclutamiento de unidades de infanteria: "Civiles con honda".');
-      this.disp.addTareaRepetitiva(this, 'addUnidades', 5, Array < any > ( 10001, cantidad ));
+      this.setStatus ('Entrenando ' + cantidad + ' civiles con honda');
+      this.disp.addTareaRepetitiva(this, 'addUnidades', 5, Array < any > ( new CivilConHonda(100, 1, 1, 100), cantidad ));
     } else {
       console.log(' No se puede entrenar "Civiles con honda". La investigación no está realizada.');
     }

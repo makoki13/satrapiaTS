@@ -13,12 +13,14 @@ import { LoginComponent } from '../login/login.component';
 import { HomeComponent } from './home.component';
 import { PalacioComponent } from './palacio/palacio.component';
 import { CiudadComponent } from './ciudad/ciudad.component';
+import { PaisComponent } from './pais/pais.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     PalacioComponent,
-    CiudadComponent
+    CiudadComponent,
+    PaisComponent
   ],
   imports: [
     FormsModule,

@@ -1,5 +1,5 @@
 class Jugador {
-  construct (idJugador: number, idUsuario: number, nombre: string, tipo: TipoJugador) {
+  constructor (private idJugador: number, private idUsuario: number, private nombre: string, private tipo: TipoJugador) {
 
   }
 }

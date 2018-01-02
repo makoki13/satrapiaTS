@@ -18,6 +18,17 @@ class TipoInvestigacion {
 
   getID() { return this.id; }
   getNombre() { return this.nombre; }
+
+  getSubinvestigacionesConseguidos() {
+    return this.listaDeSubinvestigaciones.filter( function( subInvestigacion ) {
+      let valor = false;
+      const listaItems = subInvestigacion.listaDeItems;
+        listaItems.forEach ( function ( item ) {
+          if (item.getConseguido() === true ) { valor = true; }
+        });
+        return valor;
+      });
+  }
 }
 
 class TipoSubInvestigacion {
@@ -33,6 +44,14 @@ class TipoSubInvestigacion {
 
   getID() { return this.id; }
   getNombre() { return this.nombre; }
+
+  getItemsConseguidos() {
+    return this.listaDeItems.filter( function( item ) {
+      let valor = false;
+      if (item.getConseguido() === true ) { valor = true; }
+      return valor;
+    });
+  }
 }
 
 class TipoItemInvestigacion {
@@ -145,6 +164,17 @@ class CentroDeInvestigacion extends Edificio {
     });
   }
 
+  getListaConseguidosInvestigacion( investigacion: TipoInvestigacion) {
+    return investigacion.listaDeSubinvestigaciones.filter( function( subInvestigacion ) {
+      let valor = false;
+      const listaItems = subInvestigacion.listaDeItems;
+        listaItems.forEach ( function ( item ) {
+          if (item.getConseguido() === true ) { valor = true; }
+        });
+        return valor;
+      });
+  }
+
   getListaJSON() { return JSON.stringify(this.listaInvestigaciones); }
 
   private getItem (idTipo, idSubtipo, idItem): TipoItemInvestigacion  {
@@ -177,4 +207,5 @@ class CentroDeInvestigacion extends Edificio {
 }
 
 export { CentroDeInvestigacion };
+export { TipoInvestigacion };
 

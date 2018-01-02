@@ -14,6 +14,7 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { PalacioComponent } from './home/palacio/palacio.component';
 import { CiudadComponent } from './home/ciudad/ciudad.component';
+import { PaisComponent } from './home/pais/pais.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { CiudadComponent } from './home/ciudad/ciudad.component';
     LoginComponent,
     HomeComponent,
     PalacioComponent,
-    CiudadComponent
+    CiudadComponent,
+    PaisComponent
   ],
   imports: [
     FormsModule,

@@ -7,7 +7,7 @@ import { Punto } from '../../clases/juego/Punto';
 import { Cuartel } from '../../clases/juego/Edificio';
 import { Capital } from '../../clases/juego/Capital';
 import { Provincia } from '../../clases/juego/Imperio';
-import { Jugador } from '../../clases/juego/Jugador';
+import { Jugador, TipoJugador } from '../../clases/juego/Jugador';
 
 @Component({
   selector: 'app-palacio',
@@ -22,7 +22,8 @@ export class PalacioComponent implements OnInit {
   title = 'Satrapía';
 
   constructor() {
-    this.myCapital = new Capital(1, 'Gandia', true, new Provincia(1, 'Valencia', new Jugador(), false, false), 0, new Punto(0, 0));
+    this.myCapital = new Capital(1, 'Gandia', true,
+      new Provincia(1, 'Valencia', new Jugador(1, 1, 'Makoki', TipoJugador.EMPERADOR), false, false), 0, new Punto(0, 0));
     this.myDispatcher = new Dispatcher ();
 
     this.myPalacio = new Palacio (1, 'Palacio de Makoki', this.myCapital, this.myDispatcher);

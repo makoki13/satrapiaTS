@@ -10,9 +10,12 @@
         <ul>
             <li>
               {{ investigacion.getNombre() }}
-              <ul>
-                <li>Item 1</li>
-                <li>Item 2</li>
+              <ul *ngFor="let subinvestigacion of investigacion.getSubinvestigacionesConseguidos()">
+                <li>{{ subinvestigacion.getNombre() }}
+                  <ul *ngFor="let iteminvestigacion of subinvestigacion.getItemsConseguidos()">
+                    <li>{{ iteminvestigacion.getNombre() }}</li>
+                  </ul>
+                </li>
               </ul>
             </li>
           </ul>
@@ -29,10 +32,11 @@
   </div>
 <div>
   <div>CUARTEL</div>
+  <div>{{ myCuartel.getStatus() }}</div>
   <div id="listaCuartel" *ngFor="let unidades of myCuartel.getTropas()">
       <ul>
           <li>
-            {{ unidades.id }} : {{ unidades.cantidad }} unidades
+            {{ unidades.unidad.getNombre() }} : {{ unidades.cantidad }} unidades
           </li>
         </ul>
   </div>

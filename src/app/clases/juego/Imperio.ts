@@ -7,6 +7,8 @@ class Imperio {
   constructor (private id: number, private nombre: string, private lider: Jugador, private tribu: boolean) {
 
   }
+
+  getNombre() { return this.nombre; }
 }
 
 class Provincia extends Imperio {
@@ -28,5 +30,6 @@ class Localidad {
   public getNombre() { return this.nombre; }
 }
 
+export { Imperio };
 export { Provincia };
 export { Localidad };
