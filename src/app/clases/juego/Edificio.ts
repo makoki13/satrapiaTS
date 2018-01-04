@@ -141,7 +141,7 @@ class MinaDeOro extends Edificio {
 
   extrae() {
     const cantidad = this.mineros.getCantidad();
-    if (cantidad === 0) {this.setStatus ('Mina de oro agotada'); return -1; }
+    // if (cantidad === 0) {this.setStatus ('Mina de oro agotada'); return -1; }
     this.almacen.addCantidad (cantidad);
     console.log ( 'Almacen de la mina de oro tiene ' + this.getOroActual() + ' Capacidad máx: ' + this.almacen.getMaxCantidad() );
 
@@ -168,6 +168,8 @@ class MinaDeOro extends Edificio {
 
   public getStatus() { return this.status; }
   public setStatus( mensaje: string ) { super.setStatus(mensaje); }
+
+  public estaActiva() { return (this.filon.getStock() > 0); }
 }
 
 export { Cuartel };

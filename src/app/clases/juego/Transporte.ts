@@ -25,7 +25,7 @@ class Transporte {
         if ( (this.ruta.length === 0) && (Punto.sonIguales(this.posicionActual, this.posicionFinal)) ) {
           console.log ('descarga en palacio');
           this.almacenDestino.addCantidad(this.cantidad);
-          // this.origen.setStatus('Envio finalizado');
+          this.origen.setStatus('Envio finalizado');
           this.origen.hayEnvioEnMarcha = false;
           return -1; // suicidio
         }

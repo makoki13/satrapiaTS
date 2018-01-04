@@ -9,6 +9,7 @@
       <ul>
           <li>
             {{ mina.getNombre() }} tiene {{ mina.getOroActual() }} de una capacidad máxima de {{ mina.getMaxAlmacen() }}
+            [<div style="display:inline-block;" *ngIf="mina.estaActiva()"> Activa </div><div style="display:inline-block;" *ngIf="!mina.estaActiva()"> Agotada </div>]
             <div>{{ mina.getStatus() }}</div>
           </li>
         </ul>

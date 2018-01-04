@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Injectable } from '@angular/core';
 
+import { HomeComponent } from './../home.component';
+
 import { Palacio } from '../../clases/juego/Palacio';
 import { CentroDeInvestigacion } from '../../clases/juego/CentroDeInvestigacion';
 import { Dispatcher } from '../../clases/juego/Dispatcher';
@@ -25,29 +27,11 @@ export class PalacioComponent implements OnInit {
   title = 'Satrapía';
 
   constructor() {
-    this.myCapital = new Capital(1, 'Gandia',
-      new Provincia(1, 'Valencia', new Jugador(1, 1, 'Makoki', TipoJugador.EMPERADOR), false, false),
-      new Punto(0, 0));
-    this.myDispatcher = new Dispatcher ();
-
-    this.myPalacio = new Palacio (1, 'Palacio de Makoki', this.myCapital, this.myDispatcher);
-
-    this.runDispatcher();
+    this.myCapital = HomeComponent.myCapital;
+    this.myDispatcher = HomeComponent.myDispatcher;
+    this.myPalacio = this.myCapital.getPalacio();
   }
 
   ngOnInit() {
   }
-
-
-  sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
-  async runDispatcher() {
-    while (true) {
-      this.myDispatcher.ejecuta();
-      await this.sleep(1000);
-    }
-  }
-
 }

@@ -1,17 +1,18 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
     <span class="align_to_right"></span>
-    <button mat-button (click)="activa(1);" [routerLink]="['/home', {outlets: {palacio: ['palacio']}}]"><mat-icon>account_balance</mat-icon> PALACIO</button>
+    <button mat-button (click)="activa(1);" [routerLink]="['/home', {outlets: {palacio: ['palacio']}}]" routerLinkActive="active"><mat-icon>account_balance</mat-icon> PALACIO</button>
     <button mat-button (click)="activa(2);" [routerLink]="['/home', {outlets: {ciudad:  ['ciudad']}}]"><mat-icon>account_circle</mat-icon> CIUDAD</button>
-    <button mat-button (click)="activa(3);" [routerLink]="['/home', {outlets: {pais:    ['pais']}}]"><mat-icon>call_split</mat-icon> PAIS</button>
-    <button mat-button (click)="activa(4);" [routerLink]="['/home', {outlets: {palacio: ['ciudad']}}]"><mat-icon>language</mat-icon> MUNDO</button>
-    <button mat-button (click)="activa(5);" [routerLink]="['/home', {outlets: {palacio: ['ciudad']}}]"><mat-icon>extension</mat-icon> CONFIGURACIÓN</button>
+    <button mat-button (click)="activa(3);" [routerLink]="['/home', {outlets: {pais:    ['pais']}}]" routerLinkActive="active"><mat-icon>call_split</mat-icon> PAIS</button>
+    <button mat-button (click)="activa(4);" [routerLink]="['/home', {outlets: {palacio: ['mundo']}}]"><mat-icon>language</mat-icon> MUNDO</button>
+    <button mat-button [routerLink]="['/home', {outlets: {palacio: ['config']}}]"><mat-icon>extension</mat-icon> CONFIGURACIÓN</button>
+    <button id=btnAjustes mat-button [routerLink]="['/home', {outlets: {palacio: ['tuning']}}]"><mat-icon>extension</mat-icon> AJUSTES</button>
   </mat-toolbar-row>
 </mat-toolbar>
 
 <div [hidden]="!r1"><router-outlet name="palacio"></router-outlet></div>
 <div [hidden]="!r2"><router-outlet name="ciudad"></router-outlet></div>
 <div [hidden]="!r3"><router-outlet name="pais"></router-outlet></div>
-<div [hidden]="!r4"><router-outlet name="login"></router-outlet></div>
-<div [hidden]="!r5"><router-outlet name="elRouter"></router-outlet></div>
+<div><router-outlet name="login"></router-outlet></div>
+<div><router-outlet name="elRouter"></router-outlet></div>
 

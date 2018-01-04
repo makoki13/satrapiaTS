@@ -29,24 +29,14 @@ export class CiudadComponent implements OnInit {
 
   constructor() {
     this.myCapital = HomeComponent.myCapital;
-    /*
-    this.myCapital = new Capital(1, 'Gandia',
-      new Provincia(1, 'Valencia', new Jugador(1, 1, 'Makoki', TipoJugador.EMPERADOR), false, false),
-      new Punto(0, 0));
-    */
-    this.myDispatcher = new Dispatcher ();
+    this.myDispatcher = HomeComponent.myDispatcher;
+    this.mySilos = this.myCapital.getSilos();
 
-    this.mySilos = new Silos(3, 'Silos de la ciudad', this.myCapital, this.myDispatcher);
-    const almacenAlimentos: Almacen = new Almacen (1, 'Silo comida', [COMIDA], this.myCapital.getPosicion(), 5000);
-    this.mySilos.addAlmacen (almacenAlimentos);
+    this.myCI = this.myCapital.getCentroDeInvestigacion();
+    this.myCI.compraInvestigacion([2, 1, 1]); // Test solamente
 
-    this.myCI = new CentroDeInvestigacion (1, 'DSIC', this.myCapital, this.myDispatcher);
-    this.myCI.compraInvestigacion([2, 1, 1]);
-
-    this.myCuartel = new Cuartel (1, 'Centro de reclutamiento', this.myCapital, this.myDispatcher);
-    this.myCuartel.entrenaCivilesConHonda();
-
-    this.runDispatcher();
+    this.myCuartel =  this.myCapital.getCuartel();
+    this.myCuartel.entrenaCivilesConHonda(); // Test solamente
   }
 
   getAlmacenes() { return this.mySilos.getLista(); }
@@ -54,16 +44,4 @@ export class CiudadComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
-  async runDispatcher() {
-    while (true) {
-      this.myDispatcher.ejecuta();
-      await this.sleep(1000);
-    }
-  }
-
 }

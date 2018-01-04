@@ -17,6 +17,8 @@ class Productor {
     // console.log ( ' el productor de ' + this.recurso.getNombre() + ' tiene un stock de ' + this.cantidadInicial);
     return cantidad;
   }
+
+  public getStock() { return this.cantidadInicial; }
 }
 
 export { Productor };

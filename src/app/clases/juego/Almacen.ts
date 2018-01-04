@@ -9,9 +9,9 @@ class Almacen {
   }
 
   public addCantidad (cantidad: number) {
-    // console.log (this.cantidad) ;
     this.cantidad = this.cantidad + Number(cantidad).valueOf();
-    if (this.id === 66) { console.log( ' almacen ' + this.nombre + ' del palacio tiene ' + this.cantidad); }
+    // if (this.id === 66) { console.log( ' almacen ' + this.nombre + ' del palacio tiene ' + this.cantidad); }
+    console.log( ' almacen ' + this.id + ' ' + this.nombre + ' tiene ' + this.cantidad);
   }
 
   public restaCantidad ( cantidad: number) {

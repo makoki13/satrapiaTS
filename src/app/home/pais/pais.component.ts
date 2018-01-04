@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+
+import { HomeComponent } from './../home.component';
+
 import { Punto } from '../../clases/juego/Punto';
 import { Imperio } from '../../clases/juego/Imperio';
 import { Provincia } from '../../clases/juego/Imperio';
@@ -19,36 +22,18 @@ export class PaisComponent implements OnInit {
   myCapital: Capital;
   myDispatcher: Dispatcher;
   myPalacio: Palacio;
-  // myMinasDeOro: Array <MinaDeOro>;
+  myMinasDeOro: Array <MinaDeOro>;
 
   constructor() {
-    this.myDispatcher = new Dispatcher ();
-
-    this.myJugador = new Jugador (1, 1, 'Makoki', TipoJugador.EMPERADOR);
-    this.myImperio = new Imperio (1, 'Valencia', this.myJugador, false);
-    this.myCapital = new Capital(1, 'Gandia',
-      new Provincia(1, 'Valencia', new Jugador(1, 1, 'Makoki', TipoJugador.EMPERADOR), false, false),
-      new Punto(0, 0));
-    this.myPalacio = new Palacio (1, 'Palacio de Makoki', this.myCapital, this.myDispatcher);
-    const miMinaDeOro = new MinaDeOro (2, 'Mina de la Sierra', this.myCapital, this.myDispatcher);
-
-    this.runDispatcher();
+    this.myImperio = HomeComponent.myImperio;
+    this.myCapital = HomeComponent.myCapital;
+    this.myDispatcher = HomeComponent.myDispatcher;
+    this.myJugador = HomeComponent.myJugador;
+    this.myMinasDeOro = this.myCapital.getMinasDeOro();
   }
 
   ngOnInit() {
   }
 
   getMinasDeOro() { return this.myCapital.getMinasDeOro(); }
-
-  sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
-  async runDispatcher() {
-    while (true) {
-      this.myDispatcher.ejecuta();
-      await this.sleep(1000);
-    }
-  }
-
 }

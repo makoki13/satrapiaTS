@@ -1,12 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { PalacioComponent } from './palacio/palacio.component';
+
 import { Capital } from '../clases/juego/Capital';
-import { Provincia } from '../clases/juego/Imperio';
+import { Provincia, Imperio } from '../clases/juego/Imperio';
+import { Palacio } from '../clases/juego/Palacio';
+
+import { Dispatcher } from '../clases/juego/Dispatcher';
 import { Jugador, TipoJugador } from '../clases/juego/Jugador';
 import { Punto } from '../clases/juego/Punto';
 import {Routes, RouterModule, Router} from '@angular/router';
 
 import {RoutingModule} from './home.routing';
+import { MinaDeOro, Cuartel, Silos } from '../clases/juego/Edificio';
+import { CentroDeInvestigacion } from '../clases/juego/CentroDeInvestigacion';
+import { Almacen } from '../clases/juego/Almacen';
+import { COMIDA } from '../clases/juego/Recurso';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +23,11 @@ import {RoutingModule} from './home.routing';
 })
 
 export class HomeComponent implements OnInit {
+  static myImperio: Imperio;
   static myCapital: Capital;
+  static myDispatcher: Dispatcher;
+  static minaDeOro: MinaDeOro;
+  static myJugador: Jugador;
 
   router: Router;
 
@@ -27,11 +39,42 @@ export class HomeComponent implements OnInit {
 
   constructor(private _router: Router) {
     this.router = _router;
-    this.moveToPalacio();
+    // this.moveToPalacio();
+
+    HomeComponent.myDispatcher = new Dispatcher ();
+
+    HomeComponent.myJugador = new Jugador (1, 1, 'Makoki', TipoJugador.EMPERADOR);
+
+    HomeComponent.myImperio = new Imperio (1, 'Valencia', HomeComponent.myJugador, false);
 
     HomeComponent.myCapital = new Capital(1, 'Gandia',
       new Provincia(1, 'Valencia', new Jugador(1, 1, 'Makoki', TipoJugador.EMPERADOR), false, false),
       new Punto(0, 0));
+
+    const myPalacio: Palacio = new Palacio (1, 'Palacio de Makoki', HomeComponent.myCapital, HomeComponent.myDispatcher);
+
+    const myCI: CentroDeInvestigacion = new CentroDeInvestigacion (1, 'DSIC', HomeComponent.myCapital, HomeComponent.myDispatcher);
+
+    const myCuartel: Cuartel = new Cuartel (1, 'Centro de reclutamiento', HomeComponent.myCapital, HomeComponent.myDispatcher);
+
+    const mySilos: Silos = new Silos(3, 'Silos de la ciudad', HomeComponent.myCapital, HomeComponent.myDispatcher);
+    const almacenAlimentos: Almacen = new Almacen (1, 'Silo comida', [COMIDA], HomeComponent.myCapital.getPosicion(), 5000);
+    mySilos.addAlmacen (almacenAlimentos);
+
+    HomeComponent.minaDeOro = new MinaDeOro (1, 'Mina de oro de la sierra', HomeComponent.myCapital, HomeComponent.myDispatcher);
+
+    this.runDispatcher();
+  }
+
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async runDispatcher() {
+    while (true) {
+      HomeComponent.myDispatcher.ejecuta();
+      await this.sleep(1000);
+    }
   }
 
   ngOnInit() {}
@@ -40,8 +83,7 @@ export class HomeComponent implements OnInit {
   }
 
   public moveToPalacio() {
-    console.log ('Move to palacio');
-    // this.router.navigate(['home']);
+
   }
 
   private anula () {
