@@ -25,6 +25,7 @@ enum TipoEdificio {
 
 class Edificio {
   public status = 'Sin actividad';
+  public hayEnvioEnMarcha = false;
 
   constructor ( private id: number, private nombre: string, private tipo: TipoEdificio, private posicion: Punto) {
 
@@ -32,6 +33,7 @@ class Edificio {
 
   public getPosicion() { return this.posicion; }
   public setStatus( mensaje ) { this.status = mensaje; }
+  public getNombre() { return this.nombre; }
 }
 
 /******************************************************************************************/
@@ -122,8 +124,6 @@ class MinaDeOro extends Edificio {
   private filon: Productor;
   private almacen: Almacen;
 
-  private hayEnvioEnMarcha = false;
-
   constructor (id: number, nombre: string, private capital: Capital, private disp: Dispatcher) {
     super (id, nombre, TipoEdificio.MINA_DE_ORO, capital.getPosicion());
 
@@ -135,12 +135,15 @@ class MinaDeOro extends Edificio {
     this.mineros = new Extractor (this.filon, this.almacen, cantidadInicial);
 
     this.disp.addTareaRepetitiva(this, 'extrae', 1);
+
+    this.setStatus ('Sin envios actuales');
   }
 
   extrae() {
     const cantidad = this.mineros.getCantidad();
+    if (cantidad === 0) {this.setStatus ('Mina de oro agotada'); return -1; }
     this.almacen.addCantidad (cantidad);
-    // console.log ( 'Almacen de la mina de oro tiene ' + this.getOroActual() + ' Capacidad máx: ' + this.almacen.getMaxCantidad() );
+    console.log ( 'Almacen de la mina de oro tiene ' + this.getOroActual() + ' Capacidad máx: ' + this.almacen.getMaxCantidad() );
 
     /* Si el almacen alcanza el tope enviar un transporte de oro a palacio */
     if (this.almacen.getCantidad() >= this.almacen.getMaxCantidad()) {
@@ -153,13 +156,18 @@ class MinaDeOro extends Edificio {
 
   enviaOroHaciaPalacio() {
     const cantidad = this.almacen.restaCantidad(this.almacen.getCantidad());
-    const transporteDeOro = new Transporte (this.almacen, this.capital.getPalacio().getAlmacen(), ORO, cantidad );
+    const transporteDeOro = new Transporte (this.almacen, this.capital.getPalacio().getAlmacen(), ORO, cantidad, this );
 
     transporteDeOro.calculaViaje();
+    this.setStatus ('Enviando oro...');
     this.disp.addTareaRepetitiva(transporteDeOro, 'envia', 1);
   }
 
   public getOroActual() { return this.almacen.getCantidad(); }
+  public getMaxAlmacen() { return this.almacen.getMaxCantidad(); }
+
+  public getStatus() { return this.status; }
+  public setStatus( mensaje: string ) { super.setStatus(mensaje); }
 }
 
 export { Cuartel };

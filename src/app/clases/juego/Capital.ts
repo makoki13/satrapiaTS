@@ -1,7 +1,8 @@
-import { Localidad } from './Imperio';
+import { Localidad, Provincia } from './Imperio';
 import { Palacio } from './Palacio';
 import { CentroDeInvestigacion } from './CentroDeInvestigacion';
 import { Silos, Cuartel, MinaDeOro } from './Edificio';
+import { Punto } from './Punto';
 
 class Capital extends Localidad {
   protected palacio: Palacio;
@@ -10,6 +11,12 @@ class Capital extends Localidad {
   protected cuartel: Cuartel;
 
   protected minasDeOro: Array<MinaDeOro>;
+
+  constructor(id: number, nombre: string, provincia: Provincia, posicion: Punto ) {
+    super(id, nombre, true, provincia, 50, posicion);
+
+    this.minasDeOro = Array();
+  }
 
   public setPalacio (p: Palacio) { this.palacio = p; }
   public getPalacio () { return this.palacio; }
@@ -24,6 +31,7 @@ class Capital extends Localidad {
   public getCuartel () { return this.cuartel; }
 
   public addMinaDeOro(m: MinaDeOro) { this.minasDeOro.push(m); }
+  public getMinasDeOro() { return this.minasDeOro; }
 }
 
 export { Capital };

@@ -1,3 +1,5 @@
+import { HomeComponent } from './../home.component';
+import { HomeModule } from './../home.module';
 import { Component, OnInit } from '@angular/core';
 import { CentroDeInvestigacion } from '../../clases/juego/CentroDeInvestigacion';
 import { TipoInvestigacion } from '../../clases/juego/CentroDeInvestigacion';
@@ -26,8 +28,12 @@ export class CiudadComponent implements OnInit {
   title = 'Satrapía';
 
   constructor() {
-    this.myCapital = new Capital(1, 'Gandia', true, new Provincia(1, 'Valencia',
-      new Jugador(1, 1, 'Makoki', TipoJugador.EMPERADOR), false, false), 0, new Punto(0, 0));
+    this.myCapital = HomeComponent.myCapital;
+    /*
+    this.myCapital = new Capital(1, 'Gandia',
+      new Provincia(1, 'Valencia', new Jugador(1, 1, 'Makoki', TipoJugador.EMPERADOR), false, false),
+      new Punto(0, 0));
+    */
     this.myDispatcher = new Dispatcher ();
 
     this.mySilos = new Silos(3, 'Silos de la ciudad', this.myCapital, this.myDispatcher);

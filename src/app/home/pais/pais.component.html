@@ -3,3 +3,14 @@
     <input matInput placeholder="Nombre del país" value="{{ myImperio.getNombre() }}">
   </mat-form-field>
 </form>
+<div>
+  <div>MINAS DE ORO</div>
+  <div id="listaCI" *ngFor="let mina of getMinasDeOro()">
+      <ul>
+          <li>
+            {{ mina.getNombre() }} tiene {{ mina.getOroActual() }} de una capacidad máxima de {{ mina.getMaxAlmacen() }}
+            <div>{{ mina.getStatus() }}</div>
+          </li>
+        </ul>
+  </div>
+<div>

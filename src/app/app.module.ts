@@ -40,7 +40,13 @@ import { PaisComponent } from './home/pais/pais.component';
     MatTabsModule,
     RoutingModule
   ],
-  providers: [],
+  providers: [
+    LoginComponent,
+    HomeComponent,
+    PalacioComponent,
+    CiudadComponent,
+    PaisComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

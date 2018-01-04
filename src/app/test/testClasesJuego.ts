@@ -35,8 +35,9 @@ import { Jugador, TipoJugador } from '../clases/juego/Jugador';
 
 const myDispatcher = new Dispatcher ();
 
-const myCapital = new Capital(1, 'Gandia', true,
-  new Provincia(1, 'Valencia', new Jugador(1, 1, 'Makoki', TipoJugador.EMPERADOR), false, false), 0, new Punto(0, 0));
+const myCapital = new Capital(1, 'Gandia',
+  new Provincia(1, 'Valencia', new Jugador(1, 1, 'Makoki', TipoJugador.EMPERADOR), false, false),
+  new Punto(0, 0));
 
 const miPalacio = new Palacio (1, 'Palacio de Makoki', myCapital, myDispatcher);
 const myCI = new CentroDeInvestigacion (1, 'DSIC', myCapital, myDispatcher);

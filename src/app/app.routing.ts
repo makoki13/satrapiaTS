@@ -12,8 +12,8 @@ const routes: Routes = [
     {path: 'login', component: LoginComponent, pathMatch: 'full'},
     {path: 'home', component: HomeComponent, children: [
         {path: 'palacio', component: PalacioComponent, outlet: 'palacio'},
-        {path: 'ciudad', component: CiudadComponent, outlet: 'palacio'},
-        {path: 'pais', component: PaisComponent, outlet: 'palacio'}
+        {path: 'ciudad', component: CiudadComponent, outlet: 'ciudad'},
+        {path: 'pais', component: PaisComponent, outlet: 'pais'}
     ]},
 ];
 
