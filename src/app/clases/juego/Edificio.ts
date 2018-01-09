@@ -34,6 +34,7 @@ class Edificio {
   public getPosicion() { return this.posicion; }
   public setStatus( mensaje ) { this.status = mensaje; }
   public getNombre() { return this.nombre; }
+  public getStatus() { return this.status; }
 }
 
 /******************************************************************************************/

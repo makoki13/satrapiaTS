@@ -55,6 +55,17 @@ class Palacio extends Edificio {
   public getPoblacionActual() { return this.poblacion.getCantidad(); }
 
   public getAlmacen ()  { return this.almacen; }
+
+  public gastaOro(cantidad: number) {
+    const cantidadActual = this.almacen.getCantidad();
+    if ( cantidadActual < cantidad ) {cantidad = cantidadActual; }
+    this.almacen.restaCantidad(cantidad);
+    return cantidad;
+  }
+
+  public entraOro(cantidad: number) {
+    this.almacen.addCantidad (cantidad);
+  }
 }
 
 export { Palacio };

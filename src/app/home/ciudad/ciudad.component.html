@@ -1,43 +1,55 @@
-<form class="example-form">
-  <mat-form-field class="example-full-width">
-    <input matInput placeholder="Nombre de la ciudad" value="{{ myCapital.getNombre() }}">
-  </mat-form-field>
-</form>
+<div style="width:100%;">
+  <div style="display: inline-block;border:0px solid green;width:20%">
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Nombre de la ciudad" value="{{ myCapital.getNombre() }}">
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Oro en palacio" value="{{ myCapital.getPalacio().getOroActual() }}">
+      </mat-form-field>
+    </form>
 
-<div>
-    <div>CENTRO DE INVESTIGACIÓN</div>
-    <div id="listaCI" *ngFor="let investigacion of myCI.getListaConseguidos()">
-        <ul>
-            <li>
-              {{ investigacion.getNombre() }}
-              <ul *ngFor="let subinvestigacion of investigacion.getSubinvestigacionesConseguidos()">
-                <li>{{ subinvestigacion.getNombre() }}
-                  <ul *ngFor="let iteminvestigacion of subinvestigacion.getItemsConseguidos()">
-                    <li>{{ iteminvestigacion.getNombre() }}</li>
-                  </ul>
+    <div style="padding-bottom: 10px; border:1px solid black;">
+      CENTRO DE INVESTIGACIÓN
+      <br>
+      {{  myCI.getStatus() }}
+    </div>
+    <div>SILOS</div>
+    <div id="listaCI" *ngFor="let almacen of mySilos.getLista()">
+          <ul>
+              <li>
+                {{ almacen.getCantidad() }} de un máximo de {{ almacen.getMaxCantidad() }}
+              </li>
+            </ul>
+    </div>
+    <div>CUARTEL</div>
+    <div>{{ myCuartel.getStatus() }}</div>
+    <div id="listaCuartel" *ngFor="let unidades of myCuartel.getTropas()">
+          <ul>
+              <li>
+                {{ unidades.unidad.getNombre() }} : {{ unidades.cantidad }} unidades
+              </li>
+            </ul>
+    </div>
+  </div>
+
+  <div id="detalle" style="display: inline-block;border:0px solid red;width:79%; height:100%; vertical-align:top;">
+    <div style="display: inline-block;border:0px solid red; vertical-align:top;height:100%;width:30%;" *ngFor="let investigacion of myCI.getLista()">
+      <ul>
+        <li>
+          {{ investigacion.getNombre() }}
+          <ul *ngFor="let subinvestigacion of investigacion.getLista()">
+            <li>{{ subinvestigacion.getNombre() }}
+              <ul *ngFor="let itemInvestigacion of subinvestigacion.getLista()">
+                <li #parentLI [ngStyle]="{ 'color': getColorInvestigacion( itemInvestigacion ) }" style="height:50px;vertical-align:bottom;">
+                  {{ itemInvestigacion.getNombre() }} [ {{ itemInvestigacion.getPrecio() }} ]
+                  <button *ngIf="parentLI.style.color=='green'"  mat-button (click)="investiga( itemInvestigacion );">INVESTIGAR</button>
                 </li>
               </ul>
             </li>
           </ul>
+        </li>
+      </ul>
     </div>
-  </div>
-<div>
-  <div>SILOS</div>
-  <div id="listaCI" *ngFor="let almacen of mySilos.getLista()">
-      <ul>
-          <li>
-            {{ almacen.getCantidad() }} de un máximo de {{ almacen.getMaxCantidad() }}
-          </li>
-        </ul>
-  </div>
-<div>
-  <div>CUARTEL</div>
-  <div>{{ myCuartel.getStatus() }}</div>
-  <div id="listaCuartel" *ngFor="let unidades of myCuartel.getTropas()">
-      <ul>
-          <li>
-            {{ unidades.unidad.getNombre() }} : {{ unidades.cantidad }} unidades
-          </li>
-        </ul>
   </div>
 </div>

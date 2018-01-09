@@ -1,0 +1,16 @@
+<p>HOLAAA</p>
+<div id="listaCI" *ngFor="let investigacion of myCI.getListaConseguidos()">
+  <ul>
+      <li>
+        {{ investigacion.getNombre() }}
+        <ul *ngFor="let subinvestigacion of investigacion.getSubinvestigacionesConseguidos()">
+          <li>{{ subinvestigacion.getNombre() }}
+            <ul *ngFor="let iteminvestigacion of subinvestigacion.getItemsConseguidos()">
+              <li>{{ iteminvestigacion.getNombre() }}</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+  </ul>
+</div>
+

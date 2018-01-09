@@ -1,7 +1,7 @@
 import { HomeComponent } from './../home.component';
 import { HomeModule } from './../home.module';
 import { Component, OnInit } from '@angular/core';
-import { CentroDeInvestigacion } from '../../clases/juego/CentroDeInvestigacion';
+import { CentroDeInvestigacion, TipoItemInvestigacion } from '../../clases/juego/CentroDeInvestigacion';
 import { TipoInvestigacion } from '../../clases/juego/CentroDeInvestigacion';
 import { Capital } from '../../clases/juego/Capital';
 import { Dispatcher } from '../../clases/juego/Dispatcher';
@@ -33,14 +33,33 @@ export class CiudadComponent implements OnInit {
     this.mySilos = this.myCapital.getSilos();
 
     this.myCI = this.myCapital.getCentroDeInvestigacion();
-    this.myCI.compraInvestigacion([2, 1, 1]); // Test solamente
+    // this.myCI.compraInvestigacion([2, 1, 1]); // Test solamente
 
-    this.myCuartel =  this.myCapital.getCuartel();
-    this.myCuartel.entrenaCivilesConHonda(); // Test solamente
+    this.myCuartel = this.myCapital.getCuartel();
+    // this.myCuartel.entrenaCivilesConHonda(); // Test solamente
   }
 
   getAlmacenes() { return this.mySilos.getLista(); }
   getInvestigaciones() { return this.myCI.getLista(); }
+
+  public getColorInvestigacion(item: TipoItemInvestigacion) {
+    if (item.getConseguido() === true) { return 'black'; }
+    const importe = item.getPrecio();
+    if (importe > this.myCapital.getPalacio().getOroActual()) { return 'silver'; }
+
+    const indiceActual = item.getID();
+    if (indiceActual > 1) {
+      if  (item.getSubTipo().estaInvestigada(indiceActual - 1) === false) { return 'silver'; }
+    }
+
+    if (item.estaSiendoInvestigada()) { return 'red'; }
+
+    return 'green';
+  }
+
+  public investiga (item: TipoItemInvestigacion) {
+    this.myCI.iniciaInvestigacion (item.getSubTipo().getTipo().getID(), item.getSubTipo().getID(), item.getID());
+  }
 
   ngOnInit() {
   }
