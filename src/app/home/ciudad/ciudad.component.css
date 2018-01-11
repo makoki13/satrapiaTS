@@ -9,4 +9,6 @@
   width: 100%;
 }
 
-#detalle li { font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif, sans-serif; font-size: 14px;}
+#detalle li { font-family: Roboto; font-size: 14px; text-shadow: 1px 1px 1px gainsboro; color: black}
+.cabecera1 {font-family: Roboto; color:blueviolet; font-weight: bolder; font-size: 18px; text-shadow: 1px 1px 1px yellow;}
+.cabecera2 {font-family: Roboto; color:black; font-weight: bolder; font-size: 18px; text-shadow: 1px 1px 1px gainsboro;}

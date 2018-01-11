@@ -12,6 +12,9 @@ import { Cuartel, Silos } from '../../clases/juego/Edificio';
 import { Almacen } from '../../clases/juego/Almacen';
 import { COMIDA } from '../../clases/juego/Recurso';
 import { UnidadMilitar } from '../../clases/juego/Recurso';
+import { CivilConHonda } from '../../clases/juego/Recurso';
+
+import {MatListModule} from '@angular/material/list';
 
 @Component({
   selector: 'app-ciudad',
@@ -47,16 +50,16 @@ export class CiudadComponent implements OnInit {
   getInvestigaciones() { return this.myCI.getLista(); }
 
   public getColorInvestigacion(item: TipoItemInvestigacion) {
+    if (item.estaSiendoInvestigada()) { return 'red'; }
+
     if (item.getConseguido() === true) { return 'black'; }
     const importe = item.getPrecio();
-    if (importe > this.myCapital.getPalacio().getOroActual()) { return 'silver'; }
+    if (importe > this.myCapital.getPalacio().getOroActual()) { return 'gray'; }
 
     const indiceActual = item.getID();
     if (indiceActual > 1) {
-      if  (item.getSubTipo().estaInvestigada(indiceActual - 1) === false) { return 'silver'; }
+      if  (item.getSubTipo().estaInvestigada(indiceActual - 1) === false) { return 'gray'; }
     }
-
-    if (item.estaSiendoInvestigada()) { return 'red'; }
 
     return 'green';
   }

@@ -120,44 +120,55 @@ class Cuartel extends Edificio {
     myCI.getListaUnidadesMilitaresConseguidas().forEach ( function ( item) {
       const indice = item.getID();
 
-      console.log ('UNIDAD:::: ' + indice);
+      console.log (elCuartel.unidades);
       switch (indice) {
         // case 1: unidadItem = new CivilConHonda ( 100, 1, 100, 100); // Obtenerlo del item de investigacion
         case 1:
+          let existe = false;
           elCuartel.unidades.forEach( (x) => {
             console.log ('UNIDAD 2:::: ' + x.unidad.getID());
-            if (x.unidad.getID() === 1001) {lista.push (x); }
+            if (x.unidad.getID() === 1001) {lista.push (x); existe = true; }
           });
+          if (existe === false ) {
+            const nuevaUnidad: Unidades = {unidad: new CivilConHonda(100, 1, 1, 100) , cantidad: 0, investigacion: item}; // Ojo....
+            elCuartel.unidades.push (nuevaUnidad);
+            lista.push (nuevaUnidad);
+          }
           break;
+
           default:
           console.log ('UNIDAD 0:::: ' + indice);
       }
-
-      /*
-      let cantidadItem = 0;
-      elCuartel.unidades.forEach( (x) => {
-        if (x.unidad.getID() === indice ) {cantidadItem = x.cantidad; }
-      });
-
-      const elemento: Unidades = { unidad: unidadItem, cantidad: cantidadItem, investigacion: item};
-
-      lista.push (elemento);
-      */
     });
 
     return lista;
   }
 
   entrenaCivilesConHonda(cantidad: number = 0) {
-    if (cantidad === 0) { cantidad = CivilConHonda.maxUnidadesEnEntrenamiento(); }
-    if (cantidad > CivilConHonda.maxUnidadesEnEntrenamiento()) { cantidad = CivilConHonda.maxUnidadesEnEntrenamiento(); }
+    const tipoUnidad = new CivilConHonda(100, 1, 1, 100);
+    const maxUnidadesEnEntrenamiento = tipoUnidad.getMaxUnidadesEnEntrenamiento();
+    if (cantidad === 0) { cantidad = maxUnidadesEnEntrenamiento; }
+    if (cantidad > maxUnidadesEnEntrenamiento) { cantidad = maxUnidadesEnEntrenamiento; }
     const myCI = this.capital.getCentroDeInvestigacion();
     if (myCI.estaComprada(2, 1, 1)) {
       console.log(' Se inicia reclutamiento de unidades de infanteria: "Civiles con honda".');
       this.setStatus ('Entrenando ' + cantidad + ' civiles con honda');
 
+      this.unidades.forEach( (x) => {
+        if (x.unidad.getID() === 1001) {
+          const precio = x.unidad.getCosteUnitario();
+          const importeTotal = precio * cantidad;
+          const cantidadObtenida = this.capital.getPalacio().gastaOro(importeTotal);
+          if (cantidadObtenida < importeTotal ) {
+            this.capital.getPalacio().entraOro(cantidadObtenida);
+            this.setStatus (' Se aborta el reclutamiento de ' + cantidad + x.unidad.getNombre() + ': Oro insuficiente');
+            return false;
+          }
+        }
+      });
+
       this.disp.addTareaRepetitiva(this, 'addUnidades', 5,
-        Array < any > ( new CivilConHonda(100, 1, 1, 100), cantidad ));
+        Array < any > ( tipoUnidad, cantidad ));
 
     } else {
       console.log(' No se puede entrenar "Civiles con honda". La investigación no está realizada.');
