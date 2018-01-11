@@ -1,6 +1,6 @@
 class Recurso {
   private nombre;
-  constructor (protected id: number, nombre: string, private tipo: TipoRecurso) {
+  constructor (public id: number, nombre: string, private tipo: TipoRecurso) {
     this.nombre = nombre;
   }
 
@@ -25,7 +25,7 @@ class UnidadMilitar extends Recurso {
     UnidadMilitar.unidadesEnCuartel = maxUnidadesEnCuartel;
   }
 
-  getID() { return super.id; }
+  public getID() { return super.id; }
   getNombre() { return super.getNombre(); }
 }
 
@@ -35,6 +35,8 @@ class CivilConHonda extends UnidadMilitar {
   }
 
   static maxUnidadesEnEntrenamiento() { return 10; }
+
+  getID () { console.log(this.id); return this.id; }
 }
 
 class Arquero extends UnidadMilitar {

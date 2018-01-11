@@ -1,7 +1,12 @@
-import { Edificio } from './Edificio';
+import { Edificio, Unidades } from './Edificio';
 import { TipoEdificio} from './Edificio';
 import { Capital } from './Capital';
 import { Punto } from './Punto';
+import { Recurso } from './Recurso';
+
+import { ORO } from './Recurso';
+
+import { CivilConHonda} from './Recurso';
 
 import { Dispatcher } from './Dispatcher';
 
@@ -66,7 +71,7 @@ class TipoItemInvestigacion {
   private siendoInvestigada = false;
 
   constructor (private id: number, private nombre: string, private precio: number, private tiempo: number, private conseguido: boolean,
-    private subtipo: TipoSubInvestigacion) {
+    private subtipo: TipoSubInvestigacion, private edificio: TipoEdificio, private recurso: Recurso) {
 
   }
 
@@ -74,6 +79,8 @@ class TipoItemInvestigacion {
   getNombre() { return this.nombre; }
   getPrecio() { return this.precio; }
   getTiempo() { return this.tiempo; }
+  getEdificio() { return this.edificio; }
+  getRecurso() { return this.recurso; }
 
   getSubTipo() { return this.subtipo; }
 
@@ -103,43 +110,52 @@ class CentroDeInvestigacion extends Edificio {
 
     let investigacion = new TipoInvestigacion(1, 'RECURSOS NATURALES');
       let subinvestigacion = new TipoSubInvestigacion(1, 'AGRICULTURA', investigacion);
-        let itemInvestigacion = new TipoItemInvestigacion (1, 'Cultivar frutales', 10, 10, false, subinvestigacion);
+        let itemInvestigacion = new TipoItemInvestigacion (1, 'Cultivar frutales', 10, 10, false, subinvestigacion,
+          TipoEdificio.GRANJA, null );
         subinvestigacion.addIteminvestigacion(itemInvestigacion);
-        itemInvestigacion = new TipoItemInvestigacion (2, 'Cultivar algodon', 15, 15, false, subinvestigacion);
+        itemInvestigacion = new TipoItemInvestigacion (2, 'Cultivar algodon', 15, 15, false, subinvestigacion,
+          TipoEdificio.GRANJA, null);
         subinvestigacion.addIteminvestigacion(itemInvestigacion);
       investigacion.addSubinvestigacion(subinvestigacion);
 
       subinvestigacion = new TipoSubInvestigacion(2, 'GANADERIA', investigacion);
-        itemInvestigacion = new TipoItemInvestigacion (1, 'Criar cabras', 25, 5, false, subinvestigacion);
+        itemInvestigacion = new TipoItemInvestigacion (1, 'Criar cabras', 25, 5, false, subinvestigacion,
+          TipoEdificio.GRANJA, null);
         subinvestigacion.addIteminvestigacion(itemInvestigacion);
-        itemInvestigacion = new TipoItemInvestigacion (2, 'Criar gusanos de seda', 80, 8, false, subinvestigacion);
+        itemInvestigacion = new TipoItemInvestigacion (2, 'Criar gusanos de seda', 80, 8, false, subinvestigacion,
+          TipoEdificio.GRANJA, null);
         subinvestigacion.addIteminvestigacion(itemInvestigacion);
       investigacion.addSubinvestigacion(subinvestigacion);
 
       subinvestigacion = new TipoSubInvestigacion(3, 'MADERA', investigacion);
-        itemInvestigacion = new TipoItemInvestigacion (1, 'Mejorar producción un 5%', 30, 5, false, subinvestigacion);
+        itemInvestigacion = new TipoItemInvestigacion (1, 'Mejorar producción un 5%', 30, 5, false, subinvestigacion,
+          TipoEdificio.SERRERIA, null);
         subinvestigacion.addIteminvestigacion(itemInvestigacion);
       investigacion.addSubinvestigacion(subinvestigacion);
 
       subinvestigacion = new TipoSubInvestigacion(4, 'EXTRACCION DE ORO', investigacion);
-        itemInvestigacion = new TipoItemInvestigacion (1, 'Mejorar producción un 5%', 30, 5, false, subinvestigacion);
+        itemInvestigacion = new TipoItemInvestigacion (1, 'Mejorar producción un 5%', 30, 5, false, subinvestigacion,
+          TipoEdificio.MINA_DE_ORO, ORO );
         subinvestigacion.addIteminvestigacion(itemInvestigacion);
       investigacion.addSubinvestigacion(subinvestigacion);
 
       subinvestigacion = new TipoSubInvestigacion(5, 'EXTRACCION DE PIEDRA', investigacion);
-        itemInvestigacion = new TipoItemInvestigacion (1, 'Mejorar producción un 5%', 30, 5, false, subinvestigacion);
+        itemInvestigacion = new TipoItemInvestigacion (1, 'Mejorar producción un 5%', 30, 5, false, subinvestigacion,
+          TipoEdificio.CANTERA_DE_PIEDRA, null);
         subinvestigacion.addIteminvestigacion(itemInvestigacion);
       investigacion.addSubinvestigacion(subinvestigacion);
 
-      subinvestigacion = new TipoSubInvestigacion(6, 'EXTRACCION DE METALES', investigacion);
-        itemInvestigacion = new TipoItemInvestigacion (1, 'Obtener hierro', 50, 5, false, subinvestigacion);
+      subinvestigacion = new TipoSubInvestigacion(6, 'EXTRACCION DE HIERRO', investigacion);
+        itemInvestigacion = new TipoItemInvestigacion (1, 'Obtener hierro', 50, 5, false, subinvestigacion,
+          TipoEdificio.MINA_DE_HIERRO, null);
         subinvestigacion.addIteminvestigacion(itemInvestigacion);
       investigacion.addSubinvestigacion(subinvestigacion);
     this.listaInvestigaciones.push(investigacion);
 
     investigacion = new TipoInvestigacion(2, 'EJERCITO');
       subinvestigacion = new TipoSubInvestigacion(1, 'INFANTERIA', investigacion);
-        itemInvestigacion = new TipoItemInvestigacion (1, 'Civil con hondas', 10, 5, false, subinvestigacion);
+        itemInvestigacion = new TipoItemInvestigacion (1, 'Civil con hondas', 10, 5, false, subinvestigacion,
+        TipoEdificio.CUARTEL, new CivilConHonda (100, 1, 100, 100));
         subinvestigacion.addIteminvestigacion(itemInvestigacion);
       investigacion.addSubinvestigacion(subinvestigacion);
       subinvestigacion = new TipoSubInvestigacion(2, 'CABALLERIA', investigacion); investigacion.addSubinvestigacion(subinvestigacion);
@@ -195,6 +211,34 @@ class CentroDeInvestigacion extends Edificio {
       });
   }
 
+  getListaConseguidosPorEdificio(edificio: number) {
+    const listaElementos = Array < TipoItemInvestigacion > ();
+    this.listaInvestigaciones.forEach( function ( investigacion) {
+      investigacion.getLista().forEach( function (subinvestigacion) {
+        subinvestigacion.getLista().forEach( function (item) {
+          if ( (item.getEdificio() === edificio ) && ( item.getConseguido() === true ) ) { listaElementos.push( item ); }
+        });
+      });
+    });
+
+    return listaElementos;
+  }
+
+  getListaUnidadesMilitaresConseguidas() {
+    const listaElementos = Array < TipoItemInvestigacion > ();
+    this.listaInvestigaciones.forEach( function ( investigacion) {
+      investigacion.getLista().forEach( function (subinvestigacion) {
+        subinvestigacion.getLista().forEach( function (item) {
+          if ( (item.getEdificio() === TipoEdificio.CUARTEL ) && ( item.getConseguido() === true ) ) {
+            listaElementos.push( item );
+          }
+        });
+      });
+    });
+
+    return listaElementos;
+  }
+
   getListaJSON() { return JSON.stringify(this.listaInvestigaciones); }
 
   private getItem (idTipo, idSubtipo, idItem): TipoItemInvestigacion  {
@@ -240,5 +284,6 @@ class CentroDeInvestigacion extends Edificio {
 
 export { CentroDeInvestigacion };
 export { TipoInvestigacion };
+export { TipoSubInvestigacion };
 export { TipoItemInvestigacion };
 

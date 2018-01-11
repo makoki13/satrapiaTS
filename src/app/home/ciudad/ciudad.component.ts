@@ -27,6 +27,10 @@ export class CiudadComponent implements OnInit {
 
   title = 'Satrapía';
 
+  public verCI = 'inline-block';
+  public verSilos = 'none';
+  public verCuartel = 'none';
+
   constructor() {
     this.myCapital = HomeComponent.myCapital;
     this.myDispatcher = HomeComponent.myDispatcher;
@@ -63,4 +67,12 @@ export class CiudadComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  public muestraCI() { this.verCuartel = 'none'; this.verSilos = 'none'; this.verCI = 'inline-block'; }
+  public muestraSilos() { this.verCuartel = 'none'; this.verCI = 'none'; this.verSilos = 'inline-block'; }
+  public muestraCuartel() { this.verSilos = 'none'; this.verCI = 'none'; this.verCuartel = 'inline-block';  }
+
+  public activoCI() { return this.verCI; }
+  public activoSilos() { return this.verSilos; }
+  public activoCuartel() { return this.verCuartel; }
 }
