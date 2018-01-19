@@ -1,17 +1,42 @@
-<form class="example-form">
-  <mat-form-field class="example-full-width">
-    <input matInput placeholder="Nombre del país" value="{{ myImperio.getNombre() }}">
-  </mat-form-field>
-</form>
-<div>
-  <div>MINAS DE ORO</div>
-  <div id="listaCI" *ngFor="let mina of getMinasDeOro()">
-      <ul>
-          <li>
-            {{ mina.getNombre() }} tiene {{ mina.getOroActual() }} de una capacidad máxima de {{ mina.getMaxAlmacen() }}
-            [<div style="display:inline-block;" *ngIf="mina.estaActiva()"> Activa </div><div style="display:inline-block;" *ngIf="!mina.estaActiva()"> Agotada </div>]
-            <div>{{ mina.getStatus() }}</div>
-          </li>
-        </ul>
+<div style="width:100%;border:0px solid green;">
+  <div style="display:inline-block;border:1px solid red;width:20%">
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Nombre del país" value="{{ myImperio.getNombre() }}">
+      </mat-form-field>
+    </form>
+    <div class="edificio" style="display: inline-block;">MINAS DE ORO</div>
+    <div class="edificio" style="display: inline-block;">{{numeroMinasDeOro()}}</div>
+    <div><button mat-button (click)="setMinaDeOro();">Construir</button></div>
+    <div id="listaCI" *ngFor="let mina of getMinasDeOro()">
+        <ul>
+            <li>
+              {{ mina.getNombre() }} tiene {{ mina.getOroActual() }} de una capacidad máxima de {{ mina.getMaxAlmacen() }}
+              [<div style="display:inline-block;" *ngIf="mina.estaActiva()"> Activa </div><div style="display:inline-block;" *ngIf="!mina.estaActiva()"> Agotada </div>]
+              <div>{{ mina.getStatus() }}</div>
+            </li>
+          </ul>
+    </div>
   </div>
-<div>
+  <div id="mapa" style="display:inline-block;border:1px solid red;width:79%; height:100%; vertical-align:top;">
+    <app-mapa></app-mapa>
+    <!--
+    <table rules="all" align="center" style="border:1px solid black;">
+      <tr><td>01</td><td>02</td><td>03</td><td>04</td><td>05</td><td>06</td><td>07</td><td>08</td><td>09</td><td>10</td></tr>
+      <tr><td>01</td><td>02</td><td>03</td><td>04</td><td>05</td><td>06</td><td>07</td><td>08</td><td>09</td><td>10</td></tr>
+      <tr><td>01</td><td>02</td><td>03</td><td>04</td><td>05</td><td>06</td><td>07</td><td>08</td><td>09</td><td>10</td></tr>
+      <tr><td>01</td><td>02</td><td>03</td><td>04</td><td>05</td><td>06</td><td>07</td><td>08</td><td>09</td><td>10</td></tr>
+      <tr><td>01</td><td>02</td><td>03</td><td>04</td><td>05</td><td>06</td><td>07</td><td>08</td><td>09</td><td>10</td></tr>
+      <tr><td>01</td><td>02</td><td>03</td><td>04</td><td>05</td><td>06</td><td>07</td><td>08</td><td>09</td><td>10</td></tr>
+      <tr><td>01</td><td>02</td><td>03</td><td>04</td><td>05</td><td>06</td><td>07</td><td>08</td><td>09</td><td>10</td></tr>
+      <tr><td>01</td><td>02</td><td>03</td><td>04</td><td>05</td><td>06</td><td>07</td><td>08</td><td>09</td><td>10</td></tr>
+      <tr><td>01</td><td>02</td><td>03</td><td>04</td><td>05</td><td>06</td><td>07</td><td>08</td><td>09</td><td>10</td></tr>
+      <tr><td>01</td><td>02</td><td>03</td><td>04</td><td>05</td><td>06</td><td>07</td><td>08</td><td>09</td><td>10</td></tr>
+      <tr><td>01</td><td>02</td><td>03</td><td>04</td><td>05</td><td>06</td><td>07</td><td>08</td><td>09</td><td>10</td></tr>
+      <tr><td>01</td><td>02</td><td>03</td><td>04</td><td>05</td><td>06</td><td>07</td><td>08</td><td>09</td><td>10</td></tr>
+      <tr><td>01</td><td>02</td><td>03</td><td>04</td><td>05</td><td>06</td><td>07</td><td>08</td><td>09</td><td>10</td></tr>
+    </table>
+    -->
+
+  </div>
+</div>

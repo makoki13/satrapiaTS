@@ -1,0 +1,10 @@
+  <div class="example-container mat-elevation-z8">
+      <table rules="all" align="center">
+          <tbody>
+          <tr *ngFor="let x of elementos">
+            <td *ngFor="let y of x" data-x="y.getX()"  [ngStyle]="{ 'background-color' : getColorCelda(y.getX(),y.getY()) }"
+              (click)="infoCelda(y.getX(),y.getY());">&nbsp;</td>
+          </tr>
+        </tbody>
+      </table>
+  </div>

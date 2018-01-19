@@ -11,7 +11,7 @@ import { Punto } from '../clases/juego/Punto';
 import {Routes, RouterModule, Router} from '@angular/router';
 
 import {RoutingModule} from './home.routing';
-import { MinaDeOro, Cuartel, Silos } from '../clases/juego/Edificio';
+import { MinaDeOro, Cuartel, Silos, TipoEdificio } from '../clases/juego/Edificio';
 import { CentroDeInvestigacion } from '../clases/juego/CentroDeInvestigacion';
 import { Almacen } from '../clases/juego/Almacen';
 import { COMIDA } from '../clases/juego/Recurso';
@@ -28,6 +28,9 @@ export class HomeComponent implements OnInit {
   static myDispatcher: Dispatcher;
   static minaDeOro: MinaDeOro;
   static myJugador: Jugador;
+  static myProvincia: Provincia;
+
+  static edificioSeleccionado: TipoEdificio;
 
   router: Router;
 
@@ -47,9 +50,9 @@ export class HomeComponent implements OnInit {
 
     HomeComponent.myImperio = new Imperio (1, 'Valencia', HomeComponent.myJugador, false);
 
-    HomeComponent.myCapital = new Capital(1, 'Gandia',
-      new Provincia(1, 'Valencia', new Jugador(1, 1, 'Makoki', TipoJugador.EMPERADOR), false, false),
-      new Punto(0, 0));
+    HomeComponent.myProvincia = new Provincia(1, 'Valencia', new Jugador(1, 1, 'Makoki', TipoJugador.EMPERADOR), false, false);
+
+    HomeComponent.myCapital = new Capital(1, 'Gandia', HomeComponent.myProvincia, new Punto(20, 25));
 
     const myPalacio: Palacio = new Palacio (1, 'Palacio de Makoki', HomeComponent.myCapital, HomeComponent.myDispatcher);
 
@@ -61,7 +64,7 @@ export class HomeComponent implements OnInit {
     const almacenAlimentos: Almacen = new Almacen (1, 'Silo comida', [COMIDA], HomeComponent.myCapital.getPosicion(), 5000);
     mySilos.addAlmacen (almacenAlimentos);
 
-    HomeComponent.minaDeOro = new MinaDeOro (1, 'Mina de oro de la sierra', HomeComponent.myCapital, HomeComponent.myDispatcher);
+    // HomeComponent.minaDeOro = new MinaDeOro (1, 'Mina de oro de la sierra', HomeComponent.myCapital, HomeComponent.myDispatcher);
 
     this.runDispatcher();
   }
