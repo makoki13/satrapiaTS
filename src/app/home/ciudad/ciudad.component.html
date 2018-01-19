@@ -1,3 +1,5 @@
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
 <div style="width:100%;">
   <div style="display: inline-block;border:0px solid green;width:20%">
     <form class="example-form">
@@ -29,10 +31,10 @@
   <div id="detalleCI" [ngStyle]="{ 'display' : activoCI() }" style="border:0px solid red;width:79%; height:100%; vertical-align:top;">
     <div style="display: inline-block;border:0px solid red; vertical-align:top;height:100%;width:30%;" *ngFor="let investigacion of myCI.getLista()">
       <ul>
-        <li>
+        <li class="cabecera1">
           {{ investigacion.getNombre() }}
           <ul *ngFor="let subinvestigacion of investigacion.getLista()">
-            <li>{{ subinvestigacion.getNombre() }}
+            <li class="cabecera2">{{ subinvestigacion.getNombre() }}
               <ul *ngFor="let itemInvestigacion of subinvestigacion.getLista()">
                 <li #parentLI [ngStyle]="{ 'color': getColorInvestigacion( itemInvestigacion ) }" style="height:50px;vertical-align:bottom;">
                   {{ itemInvestigacion.getNombre() }} [ {{ itemInvestigacion.getPrecio() }} ]
@@ -57,8 +59,9 @@
     <div id="listaCuartel" *ngFor="let unidades of myCuartel.getTipoUnidadesPermitidas()">
       <ul>
           <li>
-            <b>{{ unidades.unidad.getNombre() }}</b> Coste: {{ unidades.investigacion.getPrecio() }} oro Unidades: {{ unidades.cantidad }}
-            <button mat-button (click)="myCuartel.entrena( unidades );">ENTRENAR</button>
+            <b>{{ unidades.unidad.getNombre() }}</b> Coste: {{ unidades.unidad.getCosteUnitario() }} oro Unidades: {{ unidades.cantidad }}
+            <button *ngIf="unidades.investigacion.getPrecio() <= myCapital.getPalacio().getOroActual()" mat-button 
+              (click)="myCuartel.entrena( unidades );">ENTRENAR {{ unidades.unidad.getMaxUnidadesEnEntrenamiento() }}</button>
           </li>
         </ul>
     </div>
