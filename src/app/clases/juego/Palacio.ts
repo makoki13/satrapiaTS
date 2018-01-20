@@ -20,19 +20,20 @@ class Palacio extends Edificio {
   protected poblacion: Almacen;
 
   constructor (id: number, nombre: string, private capital: Capital, private disp: Dispatcher) {
-    super (id, nombre, TipoEdificio.PALACIO, capital.getPosicion());
+    super (id, nombre, TipoEdificio.PALACIO, capital.getPosicion(), 0, 0);
 
     this.capital.setPalacio(this);
 
     let cantidadInicial = 2;
     this.impuestos = new Productor ( null, ORO, 10, 10, 0);
-    this.almacen = new Almacen ( 66, 'Deposito de oro', [ORO], capital.getPosicion(), Number.MAX_VALUE.valueOf());
+    this.almacen = new Almacen ( 66, 'Deposito de oro', ORO, capital.getPosicion(), Number.MAX_VALUE.valueOf());
+    this.almacen.addCantidad(2000);
     this.recaudador = new Extractor (this.impuestos, this.almacen, cantidadInicial);
     this.disp.addTareaRepetitiva(this, 'recaudaImpuestos', 1);
 
     cantidadInicial = 50; const cantidadMaxima = 1000;
     this.alojamientos = new Productor ( null, POBLACION, cantidadInicial, cantidadMaxima, 0);
-    this.poblacion = new Almacen ( 67, 'Población', [POBLACION], capital.getPosicion(), cantidadMaxima);
+    this.poblacion = new Almacen ( 67, 'Población', POBLACION, capital.getPosicion(), cantidadMaxima);
     this.crecimientoDemografico = new Extractor (this.alojamientos, this.poblacion, cantidadInicial);
     this.disp.addTareaRepetitiva(this, 'realizaCenso', 1);
   }

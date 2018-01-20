@@ -4,11 +4,14 @@
       <mat-form-field class="example-full-width">
         <input matInput placeholder="Nombre del país" value="{{ myImperio.getNombre() }}">
       </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Oro en palacio" value="{{ myCapital.palacio.getOroActual() }}">
+      </mat-form-field>
     </form>
     <div class="edificio" style="display: inline-block;">MINAS DE ORO</div>
     <div class="edificio" style="display: inline-block;">{{numeroMinasDeOro()}}</div>
-    <div><button mat-button (click)="setMinaDeOro();">Construir</button></div>
-    <div id="listaCI" *ngFor="let mina of getMinasDeOro()">
+    <div><button mat-button (click)="setMinaDeOro();">Construir [{{costeMinaDeOro()}} oro][{{tiempoMinaDeOro()}} s.]</button></div>
+    <div id="listaMO" *ngFor="let mina of getMinasDeOro()">
         <ul>
             <li>
               {{ mina.getNombre() }} tiene {{ mina.getOroActual() }} de una capacidad máxima de {{ mina.getMaxAlmacen() }}
@@ -17,26 +20,37 @@
             </li>
           </ul>
     </div>
+
+    <div class="edificio" style="display: inline-block;">GRANJA</div>
+    <div class="edificio" style="display: inline-block;">{{numeroGranjas()}}</div>
+    <div><button mat-button (click)="setGranja();">Construir [{{costeGranja()}} oro][{{tiempoGranja()}} s.]</button></div>
+    <div id="listaGR" *ngFor="let granja of getGranjas()">
+          <ul>
+              <li>
+                {{ granja.getNombre() }} tiene {{ granja.getComidaActual() }} de una capacidad máxima de {{ granja.getMaxAlmacen() }}
+                [<div style="display:inline-block;" *ngIf="granja.estaActiva()"> Activa </div><div style="display:inline-block;" *ngIf="!granja.estaActiva()"> Agotada </div>]
+                <div>{{ granja.getStatus() }}</div>
+              </li>
+            </ul>
+    </div>
+
+
+    <div class="edificio" style="display: inline-block;">SERRERIA</div>
+    <div class="edificio" style="display: inline-block;">{{numeroSerrerias()}}</div>
+    <div><button mat-button (click)="setSerreria();">Construir [{{costeSerreria()}} oro][{{tiempoSerreria()}} s.]</button></div>
+    <div id="listaSE" *ngFor="let serreria of getSerrerias()">
+      <ul>
+        <li>
+          {{ serreria.getNombre() }} tiene {{ serreria.getMaderaActual() }} de una capacidad máxima de {{ serreria.getMaxAlmacen() }}
+          [<div style="display:inline-block;" *ngIf="serreria.estaActiva()"> Activa </div><div style="display:inline-block;" *ngIf="!serreria.estaActiva()"> Agotada </div>]
+          <div>{{ serreria.getStatus() }}</div>
+        </li>
+      </ul>
+    </div>
   </div>
+
   <div id="mapa" style="display:inline-block;border:1px solid red;width:79%; height:100%; vertical-align:top;">
     <app-mapa></app-mapa>
-    <!--
-    <table rules="all" align="center" style="border:1px solid black;">
-      <tr><td>01</td><td>02</td><td>03</td><td>04</td><td>05</td><td>06</td><td>07</td><td>08</td><td>09</td><td>10</td></tr>
-      <tr><td>01</td><td>02</td><td>03</td><td>04</td><td>05</td><td>06</td><td>07</td><td>08</td><td>09</td><td>10</td></tr>
-      <tr><td>01</td><td>02</td><td>03</td><td>04</td><td>05</td><td>06</td><td>07</td><td>08</td><td>09</td><td>10</td></tr>
-      <tr><td>01</td><td>02</td><td>03</td><td>04</td><td>05</td><td>06</td><td>07</td><td>08</td><td>09</td><td>10</td></tr>
-      <tr><td>01</td><td>02</td><td>03</td><td>04</td><td>05</td><td>06</td><td>07</td><td>08</td><td>09</td><td>10</td></tr>
-      <tr><td>01</td><td>02</td><td>03</td><td>04</td><td>05</td><td>06</td><td>07</td><td>08</td><td>09</td><td>10</td></tr>
-      <tr><td>01</td><td>02</td><td>03</td><td>04</td><td>05</td><td>06</td><td>07</td><td>08</td><td>09</td><td>10</td></tr>
-      <tr><td>01</td><td>02</td><td>03</td><td>04</td><td>05</td><td>06</td><td>07</td><td>08</td><td>09</td><td>10</td></tr>
-      <tr><td>01</td><td>02</td><td>03</td><td>04</td><td>05</td><td>06</td><td>07</td><td>08</td><td>09</td><td>10</td></tr>
-      <tr><td>01</td><td>02</td><td>03</td><td>04</td><td>05</td><td>06</td><td>07</td><td>08</td><td>09</td><td>10</td></tr>
-      <tr><td>01</td><td>02</td><td>03</td><td>04</td><td>05</td><td>06</td><td>07</td><td>08</td><td>09</td><td>10</td></tr>
-      <tr><td>01</td><td>02</td><td>03</td><td>04</td><td>05</td><td>06</td><td>07</td><td>08</td><td>09</td><td>10</td></tr>
-      <tr><td>01</td><td>02</td><td>03</td><td>04</td><td>05</td><td>06</td><td>07</td><td>08</td><td>09</td><td>10</td></tr>
-    </table>
-    -->
-
   </div>
+
 </div>

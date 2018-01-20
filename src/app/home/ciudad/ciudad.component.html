@@ -11,21 +11,20 @@
       </mat-form-field>
     </form>
 
-    <div style="padding-bottom: 10px; border-bottom:1px solid gainsboro;">
+    <div style="padding-bottom: 10px; border:1px solid blue;">
       <button (click)="muestraCI();">CENTRO DE INVESTIGACIÓN</button>
       <br>
       {{  myCI.getStatus() }}
     </div>
-    <button (click)="muestraSilos();">SILOS</button>
-    <div id="listaCI" *ngFor="let almacen of mySilos.getLista()">
-          <ul>
-              <li>
-                {{ almacen.getCantidad() }} de un máximo de {{ almacen.getMaxCantidad() }}
-              </li>
-            </ul>
+
+    <div style="padding-bottom: 10px; border:1px solid blue;">
+      <button (click)="muestraSilos();">SILOS</button>
     </div>
-    <button (click)="muestraCuartel();">CUARTEL</button>
-    <div>{{ myCuartel.getStatus() }}</div>
+
+    <div style="padding-bottom: 10px; border:1px solid blue;">
+      <button (click)="muestraCuartel();">CUARTEL</button>
+      <div>{{ myCuartel.getStatus() }}</div>
+    </div>
   </div>
 
   <div id="detalleCI" [ngStyle]="{ 'display' : activoCI() }" style="border:0px solid red;width:79%; height:100%; vertical-align:top;">
@@ -49,9 +48,13 @@
   </div>
 
   <div id="detalleSilos"  [ngStyle]="{ 'display' : activoSilos() }" style="border:0px solid red;width:79%; height:100%; vertical-align:top;">
-      <div style="display: inline-block;border:0px solid red; vertical-align:top;height:100%;width:100%;">
-        <h3>Almacenamiento</h3>
-      </div>
+    <div style="display: inline-block;border:0px solid red; vertical-align:top;height:100%;width:30%;">
+      <ul>
+        <li class="cabecera1" *ngFor="let almacen of mySilos.getLista()">
+          {{ almacen.getTipoRecurso().getNombre() }} {{ almacen.getCantidad()}} [Max. {{ almacen.getMaxCantidad()}}]
+        </li>
+      </ul>
+    </div>
   </div>
 
   <div id="detalleCuartel"  [ngStyle]="{ 'display' : activoCuartel() }" style="border:0px solid red;width:79%; height:100%; vertical-align:top;">
@@ -60,7 +63,7 @@
       <ul>
           <li>
             <b>{{ unidades.unidad.getNombre() }}</b> Coste: {{ unidades.unidad.getCosteUnitario() }} oro Unidades: {{ unidades.cantidad }}
-            <button *ngIf="unidades.investigacion.getPrecio() <= myCapital.getPalacio().getOroActual()" mat-button 
+            <button *ngIf="unidades.investigacion.getPrecio() <= myCapital.getPalacio().getOroActual()" mat-button
               (click)="myCuartel.entrena( unidades );">ENTRENAR {{ unidades.unidad.getMaxUnidadesEnEntrenamiento() }}</button>
           </li>
         </ul>

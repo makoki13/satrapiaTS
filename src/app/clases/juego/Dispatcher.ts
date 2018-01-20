@@ -43,16 +43,16 @@ class Dispatcher {
     const horaActual = new Date;
     const numTareas = this.listaDeTareas.length;
 
-    console.log(horaActual +  ' Num Tareas: ' + numTareas);
+    // console.log(horaActual +  ' Num Tareas: ' + numTareas);
 
     if (numTareas === 0) {
-      console.log(' Sin tareas pendientes ');
+      // console.log(' Sin tareas pendientes ');
     } else {
       this.listaDeTareas.forEach((element, indice) => {
         if (element.getVencimiento() < horaActual ) {
           element.setVencimiento();
           const rt = element.execFuncion();
-          console.log('Tarea ' + element.getNombreFuncion() + ' con indice ' + indice + ' devolvió ' + rt);
+          // console.log('Tarea ' + element.getNombreFuncion() + ' con indice ' + indice + ' devolvió ' + rt);
           if ( rt === -1 ) {
             this.listaDeTareas.splice(indice, 1);
           }

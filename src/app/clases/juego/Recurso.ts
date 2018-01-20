@@ -12,6 +12,7 @@ enum TipoRecurso { NATURAL = 1, FABRICADO = 2, MILITAR = 3 }
 const ORO: Recurso = new Recurso (1, 'ORO', 1);
 const POBLACION: Recurso = new Recurso (2, 'POBLACION', 3);
 const COMIDA: Recurso = new Recurso (3, 'COMIDA', 1);
+const MADERA: Recurso = new Recurso (4, 'MADERA', 1);
 
 class UnidadMilitar extends Recurso {
   private dañoRecibido = 0;
@@ -32,20 +33,30 @@ class CivilConHonda extends UnidadMilitar {
     super ( 1001, 'Civil con honda', vidaInicial, dañoInflingido, fuerza, moral, 1, 10);
   }
 
-  getID () { console.log(this.id); return this.id; }
+  getID () { return this.id; }
+}
+
+class Soldado extends UnidadMilitar {
+  constructor (vidaInicial: number, dañoInflingido: number, fuerza: number, moral: number) {
+    super ( 1002, 'Soldado', vidaInicial, dañoInflingido, fuerza, moral, 10, 10);
+  }
+
+  getID () { return this.id; }
 }
 
 class Arquero extends UnidadMilitar {
   constructor (vidaInicial: number, dañoInflingido: number, fuerza: number, moral: number) {
-    super ( 1002, 'Arquero', vidaInicial, dañoInflingido, fuerza, moral, 5, 10);
+    super ( 1003, 'Arquero', vidaInicial, dañoInflingido, fuerza, moral, 5, 10);
   }
 }
 
 export { Recurso };
 export { ORO };
 export { COMIDA };
+export { MADERA };
 export { POBLACION };
 export { UnidadMilitar };
 
 export { CivilConHonda };
+export { Soldado };
 

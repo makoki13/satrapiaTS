@@ -16,6 +16,8 @@ import { Jugador, TipoJugador } from '../../clases/juego/Jugador';
 import { MinaDeOro, TipoEdificio, Edificio } from '../../clases/juego/Edificio';
 import { Capital } from '../../clases/juego/Capital';
 import { Palacio } from '../../clases/juego/Palacio';
+import { Granja } from '../../clases/juego/Granja';
+import { Serreria } from '../../clases/juego/Serreria';
 
 @Component({
   selector: 'app-pais',
@@ -31,8 +33,8 @@ export class PaisComponent implements OnInit {
   myDispatcher: Dispatcher;
   myPalacio: Palacio;
   myMinasDeOro: Array <MinaDeOro>;
-
-  // edificioActual: TipoEdificio;
+  myGranjas: Array <Granja>;
+  mySerrerias: Array <Serreria>;
 
   constructor() {
     this.myImperio = HomeComponent.myImperio;
@@ -41,6 +43,8 @@ export class PaisComponent implements OnInit {
     this.myDispatcher = HomeComponent.myDispatcher;
     this.myJugador = HomeComponent.myJugador;
     this.myMinasDeOro = this.myCapital.getMinasDeOro();
+    this.myGranjas = this.myCapital.getGranjas();
+    this.mySerrerias = this.myCapital.getSerrerias();
 
     HomeComponent.edificioSeleccionado = null;
   }
@@ -53,20 +57,20 @@ export class PaisComponent implements OnInit {
   }
 
   setMinaDeOro() { this.setTipoEleccion(TipoEdificio.MINA_DE_ORO); }
-
-  construye() {
-    switch (HomeComponent.edificioSeleccionado) {
-      case TipoEdificio.MINA_DE_ORO:
-        HomeComponent.edificioSeleccionado = null;
-        // this.addMinaDeOro();
-        break;
-    }
-  }
-
-  addMinaDeOro() {
-    const minaDeOro = new MinaDeOro (1, 'Mina de oro de la sierra', this.myCapital, this.myDispatcher);
-  }
-
   getMinasDeOro() { return this.myCapital.getMinasDeOro(); }
   numeroMinasDeOro() { return this.myCapital.getMinasDeOro().length; }
+  costeMinaDeOro() { return MinaDeOro.costeConstruccion; }
+  tiempoMinaDeOro() { return MinaDeOro.tiempoContruccion; }
+
+  setGranja() { this.setTipoEleccion(TipoEdificio.GRANJA); }
+  getGranjas() { return this.myCapital.getGranjas(); }
+  numeroGranjas() { return this.myCapital.getGranjas().length; }
+  costeGranja() { return Granja.costeConstruccion; }
+  tiempoGranja() { return Granja.tiempoContruccion; }
+
+  setSerreria() { this.setTipoEleccion(TipoEdificio.SERRERIA); }
+  getSerrerias() { return this.myCapital.getSerrerias(); }
+  numeroSerrerias() { return this.myCapital.getSerrerias().length; }
+  costeSerreria() { return Serreria.costeConstruccion; }
+  tiempoSerreria() { return Serreria.tiempoContruccion; }
 }

@@ -6,7 +6,7 @@ import { Recurso } from './Recurso';
 
 import { ORO } from './Recurso';
 
-import { CivilConHonda} from './Recurso';
+import { CivilConHonda, Soldado} from './Recurso';
 
 import { Dispatcher } from './Dispatcher';
 
@@ -91,7 +91,7 @@ class TipoItemInvestigacion {
   setconseguido() {
     this.conseguido = true;
     this.siendoInvestigada = false;
-    console.log ( ' Comprada la investigación: ' + this.nombre);
+    // console.log ( ' Comprada la investigación: ' + this.nombre);
   }
 
   getConseguido() { return this.conseguido; }
@@ -102,7 +102,7 @@ class CentroDeInvestigacion extends Edificio {
   private listaInvestigaciones: Array < TipoInvestigacion >;
 
   constructor (id: number, nombre: string, private capital: Capital, private disp: Dispatcher) {
-    super (id, nombre, TipoEdificio.CENTRO_DE_INVESTIGACION, capital.getPosicion());
+    super (id, nombre, TipoEdificio.CENTRO_DE_INVESTIGACION, capital.getPosicion(), 0, 0);
 
     this.capital.setCentroDeInvestigacion(this);
 
@@ -155,8 +155,11 @@ class CentroDeInvestigacion extends Edificio {
     investigacion = new TipoInvestigacion(2, 'EJERCITO');
       subinvestigacion = new TipoSubInvestigacion(1, 'INFANTERIA', investigacion);
         itemInvestigacion = new TipoItemInvestigacion (1, 'Civil con hondas', 10, 5, false, subinvestigacion,
-        TipoEdificio.CUARTEL, new CivilConHonda (100, 1, 100, 100));
-        subinvestigacion.addIteminvestigacion(itemInvestigacion);
+          TipoEdificio.CUARTEL, new CivilConHonda (100, 1, 100, 100));
+      subinvestigacion.addIteminvestigacion(itemInvestigacion);
+        itemInvestigacion = new TipoItemInvestigacion (2, 'Soldado', 50, 15, false, subinvestigacion,
+          TipoEdificio.CUARTEL, new Soldado (100, 1, 100, 100));
+      subinvestigacion.addIteminvestigacion(itemInvestigacion);
       investigacion.addSubinvestigacion(subinvestigacion);
       subinvestigacion = new TipoSubInvestigacion(2, 'CABALLERIA', investigacion); investigacion.addSubinvestigacion(subinvestigacion);
       subinvestigacion = new TipoSubInvestigacion(3, 'CARROS', investigacion); investigacion.addSubinvestigacion(subinvestigacion);

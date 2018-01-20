@@ -14,7 +14,7 @@ import {RoutingModule} from './home.routing';
 import { MinaDeOro, Cuartel, Silos, TipoEdificio } from '../clases/juego/Edificio';
 import { CentroDeInvestigacion } from '../clases/juego/CentroDeInvestigacion';
 import { Almacen } from '../clases/juego/Almacen';
-import { COMIDA } from '../clases/juego/Recurso';
+import { COMIDA, MADERA } from '../clases/juego/Recurso';
 
 @Component({
   selector: 'app-home',
@@ -61,8 +61,10 @@ export class HomeComponent implements OnInit {
     const myCuartel: Cuartel = new Cuartel (1, 'Centro de reclutamiento', HomeComponent.myCapital, HomeComponent.myDispatcher);
 
     const mySilos: Silos = new Silos(3, 'Silos de la ciudad', HomeComponent.myCapital, HomeComponent.myDispatcher);
-    const almacenAlimentos: Almacen = new Almacen (1, 'Silo comida', [COMIDA], HomeComponent.myCapital.getPosicion(), 5000);
+    const almacenAlimentos: Almacen = new Almacen (1, 'Silo comida', COMIDA, HomeComponent.myCapital.getPosicion(), 5000);
     mySilos.addAlmacen (almacenAlimentos);
+    const almacenMadera: Almacen = new Almacen (1, 'Silo madera', MADERA, HomeComponent.myCapital.getPosicion(), 5000);
+    mySilos.addAlmacen (almacenMadera);
 
     // HomeComponent.minaDeOro = new MinaDeOro (1, 'Mina de oro de la sierra', HomeComponent.myCapital, HomeComponent.myDispatcher);
 

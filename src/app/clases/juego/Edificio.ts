@@ -4,7 +4,7 @@ import { Extractor } from './Extractor';
 import { Productor } from './Productor';
 import { Almacen } from './Almacen';
 import { Punto } from './Punto';
-import { ORO, COMIDA } from './Recurso';
+import { Recurso, ORO, COMIDA, MADERA, Soldado } from './Recurso';
 import { POBLACION } from './Recurso';
 import { UnidadMilitar } from './Recurso';
 import { Transporte } from './Transporte';
@@ -30,9 +30,17 @@ class Edificio {
   public status = 'Sin actividad';
   public hayEnvioEnMarcha = false;
 
-  constructor ( private id: number, private nombre: string, private tipo: TipoEdificio, private posicion: Punto) {
+  // Los dos ultimos parametros del constructor hay que quitarlos.
+  constructor ( private id: number, private nombre: string, private tipo: TipoEdificio, private posicion: Punto,
+    private costeConstruccion: number, private tiempoConstruccion: number) {
 
   }
+
+  /* Es posible que no se usen */
+  public setCosteConstruccion(cantidad: number) { this.costeConstruccion = cantidad; }
+  public setTiempoConstruccion(cantidad: number) { this.tiempoConstruccion = cantidad; }
+  public getCosteConstruccion() { return this.costeConstruccion; }
+  public getTiempoConstruccion() { return this.tiempoConstruccion; }
 
   public getID() { return this.id; }
   public getTipo() { return this.tipo; }
@@ -48,19 +56,34 @@ class Silos extends Edificio {
   public almacenes: Array < Almacen >;
 
   constructor (id: number, nombre: string, private capital: Capital, private disp: Dispatcher) {
-    super (id, nombre, TipoEdificio.SILOS, capital.getPosicion());
+    super (id, nombre, TipoEdificio.SILOS, capital.getPosicion(), 0, 0);
     this.capital.setSilos(this);
 
     this.almacenes = new Array < Almacen > ();
   }
 
   public addAlmacen ( nuevoAlmacen: Almacen) {
-      const almacenTest = new Almacen (1, 'TTTT', [COMIDA], this.capital.getPosicion(), 1000);
-      this.almacenes.push ( almacenTest );
+      this.almacenes.push ( nuevoAlmacen );
   }
 
   public getLista() {
     return this.almacenes;
+  }
+
+  public getAlmacenComida() {
+    let indiceElemento = -1;
+    this.almacenes.forEach( (x, indice) => {
+      if (x.getTipoRecurso() === COMIDA) {indiceElemento = indice; }
+    });
+    if ( indiceElemento !== -1) { return this.almacenes[indiceElemento]; } else {return null; }
+  }
+
+  public getAlmacenMadera() {
+    let indiceElemento = -1;
+    this.almacenes.forEach( (x, indice) => {
+      if (x.getTipoRecurso() === MADERA) {indiceElemento = indice; }
+    });
+    if ( indiceElemento !== -1) { return this.almacenes[indiceElemento]; } else {return null; }
   }
 }
 
@@ -76,7 +99,7 @@ class Cuartel extends Edificio {
   private unidades: Array < Unidades >;
 
   constructor (id: number, nombre: string, private capital: Capital, private disp: Dispatcher) {
-    super (id, nombre, TipoEdificio.CUARTEL, capital.getPosicion());
+    super (id, nombre, TipoEdificio.CUARTEL, capital.getPosicion(), 0, 0);
 
     this.capital.setCuartel(this);
     this.unidades = new Array < Unidades > ();
@@ -103,7 +126,7 @@ class Cuartel extends Edificio {
       this.unidades[indiceElemento].cantidad += cantidad;
     }
 
-    console.log (this.getTropas());
+    // console.log (this.getTropas());
 
     this.setStatus ('Sin actividad');
 
@@ -120,13 +143,13 @@ class Cuartel extends Edificio {
     myCI.getListaUnidadesMilitaresConseguidas().forEach ( function ( item) {
       const indice = item.getID();
 
-      console.log (elCuartel.unidades);
+      // console.log (elCuartel.unidades);
+      let existe = false;
       switch (indice) {
         // case 1: unidadItem = new CivilConHonda ( 100, 1, 100, 100); // Obtenerlo del item de investigacion
         case 1:
-          let existe = false;
           elCuartel.unidades.forEach( (x) => {
-            console.log ('UNIDAD 2:::: ' + x.unidad.getID());
+            // console.log ('UNIDAD 2:::: ' + x.unidad.getID());
             if (x.unidad.getID() === 1001) {lista.push (x); existe = true; }
           });
           if (existe === false ) {
@@ -136,8 +159,19 @@ class Cuartel extends Edificio {
           }
           break;
 
-          default:
-          console.log ('UNIDAD 0:::: ' + indice);
+        case 2:
+          elCuartel.unidades.forEach( (x) => {
+            if (x.unidad.getID() === 1002) {lista.push (x); existe = true; }
+          });
+          if (existe === false ) {
+            const nuevaUnidad: Unidades = {unidad: new Soldado (100, 1, 100, 100) , cantidad: 0, investigacion: item}; // Ojo....
+            elCuartel.unidades.push (nuevaUnidad);
+            lista.push (nuevaUnidad);
+          }
+          break;
+
+        default:
+          // console.log ('UNIDAD 0:::: ' + indice);
       }
     });
 
@@ -151,7 +185,7 @@ class Cuartel extends Edificio {
     if (cantidad > maxUnidadesEnEntrenamiento) { cantidad = maxUnidadesEnEntrenamiento; }
     const myCI = this.capital.getCentroDeInvestigacion();
     if (myCI.estaComprada(2, 1, 1)) {
-      console.log(' Se inicia reclutamiento de unidades de infanteria: "Civiles con honda".');
+      // console.log(' Se inicia reclutamiento de unidades de infanteria: "Civiles con honda".');
       this.setStatus ('Entrenando ' + cantidad + ' civiles con honda');
 
       this.unidades.forEach( (x) => {
@@ -171,16 +205,51 @@ class Cuartel extends Edificio {
         Array < any > ( tipoUnidad, cantidad ));
 
     } else {
-      console.log(' No se puede entrenar "Civiles con honda". La investigación no está realizada.');
+      // console.log(' No se puede entrenar "Civiles con honda". La investigación no está realizada.');
+    }
+  }
+
+  entrenaSoldados(cantidad: number = 0) {
+    const tipoUnidad = new Soldado(100, 1, 100, 100);
+    const maxUnidadesEnEntrenamiento = tipoUnidad.getMaxUnidadesEnEntrenamiento();
+    if (cantidad === 0) { cantidad = maxUnidadesEnEntrenamiento; }
+    if (cantidad > maxUnidadesEnEntrenamiento) { cantidad = maxUnidadesEnEntrenamiento; }
+    const myCI = this.capital.getCentroDeInvestigacion();
+    if (myCI.estaComprada(2, 1, 2)) {
+      // console.log(' Se inicia reclutamiento de unidades de infanteria: "Civiles con honda".');
+      this.setStatus ('Entrenando ' + cantidad + ' soldados');
+
+      this.unidades.forEach( (x) => {
+        if (x.unidad.getID() === 1002) {
+          const precio = x.unidad.getCosteUnitario();
+          const importeTotal = precio * cantidad;
+          const cantidadObtenida = this.capital.getPalacio().gastaOro(importeTotal);
+          if (cantidadObtenida < importeTotal ) {
+            this.capital.getPalacio().entraOro(cantidadObtenida);
+            this.setStatus (' Se aborta el reclutamiento de ' + cantidad + x.unidad.getNombre() + ': Oro insuficiente');
+            return false;
+          }
+        }
+      });
+
+      this.disp.addTareaRepetitiva(this, 'addUnidades', 5,
+        Array < any > ( tipoUnidad, cantidad ));
+
+    } else {
+      // console.log(' No se puede entrenar "Soldados". La investigación no está realizada.');
     }
   }
 
   entrena( tipoUnidad: Unidades) {
-    console.log (tipoUnidad.unidad.getID());
+    // console.log (tipoUnidad.unidad.getID());
     switch (tipoUnidad.unidad.getID()) {
       case 1001:
-        console.log (tipoUnidad.unidad);
+        // console.log (tipoUnidad.unidad);
         this.entrenaCivilesConHonda();
+        break;
+      case 1002:
+        // console.log (tipoUnidad.unidad);
+        this.entrenaSoldados();
         break;
     }
   }
@@ -189,17 +258,20 @@ class Cuartel extends Edificio {
 /******************************************************************************************/
 /** CLASE MINA DE ORO */
 class MinaDeOro extends Edificio {
+  static costeConstruccion = 250;
+  static tiempoContruccion = 5;
+
   private mineros: Extractor;
   private filon: Productor;
   private almacen: Almacen;
 
   constructor (id: number, nombre: string, private capital: Capital, private disp: Dispatcher) {
-    super (id, nombre, TipoEdificio.MINA_DE_ORO, capital.getPosicion());
+    super (id, nombre, TipoEdificio.MINA_DE_ORO, capital.getPosicion(), 100, 10);
 
     this.capital.addMinaDeOro(this);
 
     this.filon = new Productor ( null, ORO, 30, 30, 0);
-    this.almacen = new Almacen ( 67, 'Filón de oro', [ORO], this.capital.getPosicion(), 5);
+    this.almacen = new Almacen ( 67, 'Filón de oro', ORO, this.capital.getPosicion(), 5);
     const cantidadInicial = 1;
     this.mineros = new Extractor (this.filon, this.almacen, cantidadInicial);
 
@@ -212,7 +284,7 @@ class MinaDeOro extends Edificio {
     const cantidad = this.mineros.getCantidad();
     // if (cantidad === 0) {this.setStatus ('Mina de oro agotada'); return -1; }
     this.almacen.addCantidad (cantidad);
-    console.log ( 'Almacen de la mina de oro tiene ' + this.getOroActual() + ' Capacidad máx: ' + this.almacen.getMaxCantidad() );
+    // console.log ( 'Almacen de la mina de oro tiene ' + this.getOroActual() + ' Capacidad máx: ' + this.almacen.getMaxCantidad() );
 
     /* Si el almacen alcanza el tope enviar un transporte de oro a palacio */
     if (this.almacen.getCantidad() >= this.almacen.getMaxCantidad()) {

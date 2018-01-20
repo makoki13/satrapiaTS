@@ -58,7 +58,8 @@ export class CiudadComponent implements OnInit {
 
     const indiceActual = item.getID();
     if (indiceActual > 1) {
-      if  (item.getSubTipo().estaInvestigada(indiceActual - 1) === false) { return 'gray'; }
+      // if (item.getID() === 2) {console.log(item.getNombre() + ':' + (indiceActual - 1).toString()); }
+      if  (item.getSubTipo().estaInvestigada(indiceActual - 2) === false) { return 'gray'; }
     }
 
     return 'green';
