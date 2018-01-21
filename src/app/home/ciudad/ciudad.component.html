@@ -1,7 +1,84 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
-<div style="width:100%;">
-  <div style="display: inline-block;border:0px solid green;width:20%">
+<div style="width:100%;height:100%;">
+  <div style="width:14%;height:100%;display:inline-block;">
+      <div class="card card-body" style="width:100%;height:100%;display: inline-block;background-color:gainsboro;">
+          <form class="example-form">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Nombre de la ciudad" value="{{ myCapital.getNombre() }}">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Oro en palacio" value="{{ myCapital.getPalacio().getOroActual() }}">
+            </mat-form-field>
+          </form>
+      
+          <div style="padding-bottom: 10px; border:0px solid blue;padding-left:5px;">
+            <input class="btn btn-primary btn-sm" type="button" value="CENTRO DE INVESTIGACIÓN" (click)="muestraCI();">  
+            <br>
+            <span class="badge badge-light" style="text-align:center;width:100%;">{{  myCI.getStatus() }}</span>
+          </div>
+      
+          <div style="padding-bottom: 10px; border:0px solid blue;padding-left:5px;">
+            <input class="btn btn-primary btn-sm" type="button" value="SILOS" (click)="muestraSilos();">
+          </div>
+      
+          <div style="padding-bottom: 10px; border:0px solid blue;padding-left:5px;">
+            <input class="btn btn-primary btn-sm" type="button" value="CUARTEL" (click)="muestraCuartel();">      
+            <span class="badge badge-light" style="text-align:center;width:100%;">{{ myCuartel.getStatus() }}</span>
+          </div>
+        </div>
+  </div>
+
+  <div style="width:85%;height:100%;display:inline-block;background-color:aqua;vertical-align:top;">
+      <div class="card card-body" style="width:100%;display: inline-block; background-color:antiquewhite;">
+        <div id="detalleCI" [ngStyle]="{ 'display' : activoCI() }" style="border:0px solid red;width:79%; height:100%; vertical-align:top;">
+          <div style="display: inline-block;border:0px solid red; vertical-align:top;height:100%;width:30%;" *ngFor="let investigacion of myCI.getLista()">
+              <ul class="list-group">
+              <li class="list-group-item cabecera1">
+                {{ investigacion.getNombre() }}
+                <ul class="list-group" *ngFor="let subinvestigacion of investigacion.getLista()">
+                  <li class="list-group-item cabecera2">{{ subinvestigacion.getNombre() }}
+                    <ul class="list-group" *ngFor="let itemInvestigacion of subinvestigacion.getLista()">
+                      <li class="list-group-item" #parentLI [ngStyle]="{ 'color': getColorInvestigacion( itemInvestigacion ) }" style="height:50px;vertical-align:bottom;">
+                        {{ itemInvestigacion.getNombre() }} [ {{ itemInvestigacion.getPrecio() }} ]
+                        <input *ngIf="parentLI.style.color=='green'" class="btn btn-outline-dark btn-sm" type="button" value="INVESTIGAR" (click)="investiga( itemInvestigacion );">
+                        <!--<button *ngIf="parentLI.style.color=='green'"  mat-button (click)="investiga( itemInvestigacion );">INVESTIGAR</button>-->
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+    
+        <div id="detalleSilos"  [ngStyle]="{ 'display' : activoSilos() }" style="border:0px solid red;width:79%; height:100%; vertical-align:top;">
+          <div style="display: inline-block;border:0px solid red; vertical-align:top;height:100%;width:30%;">
+            <ul>
+              <li class="cabecera1" *ngFor="let almacen of mySilos.getLista()">
+                {{ almacen.getTipoRecurso().getNombre() }} {{ almacen.getCantidad()}} [Max. {{ almacen.getMaxCantidad()}}]
+              </li>
+            </ul>
+          </div>
+        </div>
+    
+        <div id="detalleCuartel"  [ngStyle]="{ 'display' : activoCuartel() }" style="border:0px solid red;width:79%; height:100%; vertical-align:top;">
+          <h3>Tropas</h3>
+          <div id="listaCuartel" *ngFor="let unidades of myCuartel.getTipoUnidadesPermitidas()">
+            <ul class="list-group">
+                <li class="list-group-item">
+                  <b>{{ unidades.unidad.getNombre() }}</b> Coste: {{ unidades.unidad.getCosteUnitario() }} oro 
+                    <span class="badge badge-secondary badge-pill"> {{ unidades.cantidad }}</span> 
+                  <button *ngIf="unidades.investigacion.getPrecio() <= myCapital.getPalacio().getOroActual()" mat-button
+                    (click)="myCuartel.entrena( unidades );">ENTRENAR {{ unidades.unidad.getMaxUnidadesEnEntrenamiento() }}</button>
+                </li>
+              </ul>
+          </div>
+        </div>
+      </div>
+  </div>
+  <!--
+  <div class="card card-body" style="width:12%;display: inline-block;">
     <form class="example-form">
       <mat-form-field class="example-full-width">
         <input matInput placeholder="Nombre de la ciudad" value="{{ myCapital.getNombre() }}">
@@ -11,62 +88,66 @@
       </mat-form-field>
     </form>
 
-    <div style="padding-bottom: 10px; border:1px solid blue;">
-      <button (click)="muestraCI();">CENTRO DE INVESTIGACIÓN</button>
+    <div style="padding-bottom: 10px; border:0px solid blue;padding-left:5px;">
+      <input class="btn btn-primary btn-sm" type="button" value="CENTRO DE INVESTIGACIÓN" (click)="muestraCI();">  
       <br>
-      {{  myCI.getStatus() }}
+      <span class="badge badge-light" style="text-align:center;width:100%;">{{  myCI.getStatus() }}</span>
     </div>
 
-    <div style="padding-bottom: 10px; border:1px solid blue;">
-      <button (click)="muestraSilos();">SILOS</button>
+    <div style="padding-bottom: 10px; border:0px solid blue;padding-left:5px;">
+      <input class="btn btn-primary btn-sm" type="button" value="SILOS" (click)="muestraSilos();">
     </div>
 
-    <div style="padding-bottom: 10px; border:1px solid blue;">
-      <button (click)="muestraCuartel();">CUARTEL</button>
+    <div style="padding-bottom: 10px; border:0px solid blue;padding-left:5px;">
+      <input class="btn btn-primary btn-sm" type="button" value="CUARTEL" (click)="muestraCuartel();">      
       <div>{{ myCuartel.getStatus() }}</div>
     </div>
   </div>
 
-  <div id="detalleCI" [ngStyle]="{ 'display' : activoCI() }" style="border:0px solid red;width:79%; height:100%; vertical-align:top;">
-    <div style="display: inline-block;border:0px solid red; vertical-align:top;height:100%;width:30%;" *ngFor="let investigacion of myCI.getLista()">
-      <ul>
-        <li class="cabecera1">
-          {{ investigacion.getNombre() }}
-          <ul *ngFor="let subinvestigacion of investigacion.getLista()">
-            <li class="cabecera2">{{ subinvestigacion.getNombre() }}
-              <ul *ngFor="let itemInvestigacion of subinvestigacion.getLista()">
-                <li #parentLI [ngStyle]="{ 'color': getColorInvestigacion( itemInvestigacion ) }" style="height:50px;vertical-align:bottom;">
-                  {{ itemInvestigacion.getNombre() }} [ {{ itemInvestigacion.getPrecio() }} ]
-                  <button *ngIf="parentLI.style.color=='green'"  mat-button (click)="investiga( itemInvestigacion );">INVESTIGAR</button>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </div>
-
-  <div id="detalleSilos"  [ngStyle]="{ 'display' : activoSilos() }" style="border:0px solid red;width:79%; height:100%; vertical-align:top;">
-    <div style="display: inline-block;border:0px solid red; vertical-align:top;height:100%;width:30%;">
-      <ul>
-        <li class="cabecera1" *ngFor="let almacen of mySilos.getLista()">
-          {{ almacen.getTipoRecurso().getNombre() }} {{ almacen.getCantidad()}} [Max. {{ almacen.getMaxCantidad()}}]
-        </li>
-      </ul>
-    </div>
-  </div>
-
-  <div id="detalleCuartel"  [ngStyle]="{ 'display' : activoCuartel() }" style="border:0px solid red;width:79%; height:100%; vertical-align:top;">
-    <h3>Tropas</h3>
-    <div id="listaCuartel" *ngFor="let unidades of myCuartel.getTipoUnidadesPermitidas()">
-      <ul>
-          <li>
-            <b>{{ unidades.unidad.getNombre() }}</b> Coste: {{ unidades.unidad.getCosteUnitario() }} oro Unidades: {{ unidades.cantidad }}
-            <button *ngIf="unidades.investigacion.getPrecio() <= myCapital.getPalacio().getOroActual()" mat-button
-              (click)="myCuartel.entrena( unidades );">ENTRENAR {{ unidades.unidad.getMaxUnidadesEnEntrenamiento() }}</button>
+  <div class="card card-body" style="width:100%;display: inline-block; background-color:antiquewhite;">
+      <h4 class="card-title">Boot Polish</h4>
+    <div id="detalleCI" [ngStyle]="{ 'display' : activoCI() }" style="border:0px solid red;width:79%; height:100%; vertical-align:top;">
+      <div style="display: inline-block;border:0px solid red; vertical-align:top;height:100%;width:30%;" *ngFor="let investigacion of myCI.getLista()">
+        <ul>
+          <li class="cabecera1">
+            {{ investigacion.getNombre() }}
+            <ul *ngFor="let subinvestigacion of investigacion.getLista()">
+              <li class="cabecera2">{{ subinvestigacion.getNombre() }}
+                <ul *ngFor="let itemInvestigacion of subinvestigacion.getLista()">
+                  <li #parentLI [ngStyle]="{ 'color': getColorInvestigacion( itemInvestigacion ) }" style="height:50px;vertical-align:bottom;">
+                    {{ itemInvestigacion.getNombre() }} [ {{ itemInvestigacion.getPrecio() }} ]
+                    <button *ngIf="parentLI.style.color=='green'"  mat-button (click)="investiga( itemInvestigacion );">INVESTIGAR</button>
+                  </li>
+                </ul>
+              </li>
+            </ul>
           </li>
         </ul>
+      </div>
+    </div>
+
+    <div id="detalleSilos"  [ngStyle]="{ 'display' : activoSilos() }" style="border:0px solid red;width:79%; height:100%; vertical-align:top;">
+      <div style="display: inline-block;border:0px solid red; vertical-align:top;height:100%;width:30%;">
+        <ul>
+          <li class="cabecera1" *ngFor="let almacen of mySilos.getLista()">
+            {{ almacen.getTipoRecurso().getNombre() }} {{ almacen.getCantidad()}} [Max. {{ almacen.getMaxCantidad()}}]
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="detalleCuartel"  [ngStyle]="{ 'display' : activoCuartel() }" style="border:0px solid red;width:79%; height:100%; vertical-align:top;">
+      <h3>Tropas</h3>
+      <div id="listaCuartel" *ngFor="let unidades of myCuartel.getTipoUnidadesPermitidas()">
+        <ul>
+            <li>
+              <b>{{ unidades.unidad.getNombre() }}</b> Coste: {{ unidades.unidad.getCosteUnitario() }} oro Unidades: {{ unidades.cantidad }}
+              <button *ngIf="unidades.investigacion.getPrecio() <= myCapital.getPalacio().getOroActual()" mat-button
+                (click)="myCuartel.entrena( unidades );">ENTRENAR {{ unidades.unidad.getMaxUnidadesEnEntrenamiento() }}</button>
+            </li>
+          </ul>
+      </div>
     </div>
   </div>
+-->
 </div>

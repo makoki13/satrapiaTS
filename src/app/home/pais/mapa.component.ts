@@ -22,8 +22,8 @@ export class MapaComponent {
   myProvincia: Provincia;
   myDispatcher: Dispatcher;
 
-  filas = 40;
-  columnas = 50;
+  filas = 60;
+  columnas = 100;
 
   elementos: Punto[][];
 
