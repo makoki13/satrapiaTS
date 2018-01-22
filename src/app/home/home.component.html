@@ -9,6 +9,14 @@
     <button id=btnAjustes mat-button [routerLink]="['/home', {outlets: {palacio: ['tuning']}}]"><mat-icon>extension</mat-icon> AJUSTES</button>
   </mat-toolbar-row>
 </mat-toolbar>
+<nav class="navbar navbar-expand-sm bg-light">
+  <ul class="navbar-nav">
+    <li class="nav-item"><h4>{{ getNombreImperio() }}</h4></li>
+    <li class="nav-item"><h4>{{ getNombrePais() }}</h4></li>
+    <li class="nav-item"><h4>{{ getNombreCiudad() }}</h4></li>
+  </ul>
+  <span class="navbar-text"><h6 style="padding-left:30px;">Oro: {{ getOro() }}</h6></span>
+</nav>
 
 <div [hidden]="!r1"><router-outlet name="palacio"></router-outlet></div>
 <div [hidden]="!r2"><router-outlet name="ciudad"></router-outlet></div>

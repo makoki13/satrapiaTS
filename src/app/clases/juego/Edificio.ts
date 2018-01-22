@@ -186,7 +186,7 @@ class Cuartel extends Edificio {
     const myCI = this.capital.getCentroDeInvestigacion();
     if (myCI.estaComprada(2, 1, 1)) {
       // console.log(' Se inicia reclutamiento de unidades de infanteria: "Civiles con honda".');
-      this.setStatus ('Entrenando ' + cantidad + ' civiles con honda');
+      this.setStatus ('Entrenando');
 
       this.unidades.forEach( (x) => {
         if (x.unidad.getID() === 1001) {
@@ -195,7 +195,7 @@ class Cuartel extends Edificio {
           const cantidadObtenida = this.capital.getPalacio().gastaOro(importeTotal);
           if (cantidadObtenida < importeTotal ) {
             this.capital.getPalacio().entraOro(cantidadObtenida);
-            this.setStatus (' Se aborta el reclutamiento de ' + cantidad + x.unidad.getNombre() + ': Oro insuficiente');
+            alert (' Se aborta el reclutamiento de ' + cantidad + x.unidad.getNombre() + ': Oro insuficiente');
             return false;
           }
         }
@@ -217,7 +217,7 @@ class Cuartel extends Edificio {
     const myCI = this.capital.getCentroDeInvestigacion();
     if (myCI.estaComprada(2, 1, 2)) {
       // console.log(' Se inicia reclutamiento de unidades de infanteria: "Civiles con honda".');
-      this.setStatus ('Entrenando ' + cantidad + ' soldados');
+      this.setStatus ('Entrenando');
 
       this.unidades.forEach( (x) => {
         if (x.unidad.getID() === 1002) {
@@ -226,7 +226,7 @@ class Cuartel extends Edificio {
           const cantidadObtenida = this.capital.getPalacio().gastaOro(importeTotal);
           if (cantidadObtenida < importeTotal ) {
             this.capital.getPalacio().entraOro(cantidadObtenida);
-            this.setStatus (' Se aborta el reclutamiento de ' + cantidad + x.unidad.getNombre() + ': Oro insuficiente');
+            alert (' Se aborta el reclutamiento de ' + cantidad + x.unidad.getNombre() + ': Oro insuficiente');
             return false;
           }
         }

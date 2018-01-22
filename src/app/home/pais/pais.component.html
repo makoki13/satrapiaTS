@@ -1,17 +1,11 @@
 <div style="width:100%;border:0px solid green;">
   <div style="display:inline-block;border:1px solid red;width:20%">
-    <form class="example-form">
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Nombre del país" value="{{ myImperio.getNombre() }}">
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Oro en palacio" value="{{ myCapital.palacio.getOroActual() }}">
-      </mat-form-field>
-    </form>
     <div class="edificio" style="display: inline-block;padding-left:3px;">MINAS DE ORO</div>
-    <div class="edificio" style="display: inline-block;">{{numeroMinasDeOro()}}</div>
+    <div class="edificio" style="display: inline-block;"> <span class="badge badge-secondary badge-pill">{{numeroMinasDeOro()}}</span></div>
     <div style="padding-left:8px;">
-      <input class="btn btn-primary btn-sm" type="button" value="Construir [{{costeMinaDeOro()}} oro][{{tiempoMinaDeOro()}} s.]" (click)="setMinaDeOro();">  
+      <button class="btn btn-primary btn-sm" (click)="setMinaDeOro();">
+        Construir {{costeMinaDeOro()}} <i class="fa fa-money"></i> {{tiempoMinaDeOro()}} <i class="fa fa-clock-o" aria-hidden="true"></i>
+      </button>
     </div>
     <div id="listaMO" *ngFor="let mina of getMinasDeOro()">
         <ul>
@@ -24,8 +18,12 @@
     </div>
 
     <div class="edificio" style="display: inline-block;padding-left:3px;">GRANJA</div>
-    <div class="edificio" style="display: inline-block;">{{numeroGranjas()}}</div>
-    <div style="padding-left:8px;"><input class="btn btn-primary btn-sm" type="button" value="Construir [{{costeGranja()}} oro][{{tiempoGranja()}} s.]"  (click)="setGranja();"></div>
+    <div class="edificio" style="display: inline-block;"><span class="badge badge-secondary badge-pill">{{numeroGranjas()}}</span></div>
+    <div style="padding-left:8px;">
+      <button class="btn btn-primary btn-sm" (click)="setGranja();">
+        Construir {{costeGranja()}} <i class="fa fa-money"></i> {{tiempoGranja()}} <i class="fa fa-clock-o" aria-hidden="true"></i>
+      </button>
+    </div>
     <div id="listaGR" *ngFor="let granja of getGranjas()">
           <ul>
               <li>
@@ -38,8 +36,12 @@
 
 
     <div class="edificio" style="display: inline-block;padding-left:3px;">SERRERIA</div>
-    <div class="edificio" style="display: inline-block;">{{numeroSerrerias()}}</div>
-    <div style="padding-left:8px;"><input class="btn btn-primary btn-sm" type="button" value="Construir [{{costeSerreria()}} oro][{{tiempoSerreria()}} s.]" (click)="setSerreria();"></div>
+    <div class="edificio" style="display: inline-block;"><span class="badge badge-secondary badge-pill">{{numeroSerrerias()}}</span></div>
+    <div style="padding-left:8px;">
+      <button class="btn btn-primary btn-sm" (click)="setSerreria();">
+        Construir {{costeSerreria()}} <i class="fa fa-money"></i> {{tiempoSerreria()}} <i class="fa fa-clock-o" aria-hidden="true"></i>
+      </button>
+    </div>
     <div id="listaSE" *ngFor="let serreria of getSerrerias()">
       <ul>
         <li>

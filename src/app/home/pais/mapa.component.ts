@@ -66,7 +66,6 @@ export class MapaComponent {
   infoCelda(x: number, y: number) {
     if (HomeComponent.edificioSeleccionado != null) {
       const edificio = HomeComponent.edificioSeleccionado;
-      this.elementos[x][y].setEdificio(edificio);
       let precio = 0; let importeTotal = 0; let cantidadObtenida = 0;
       switch (edificio) {
         case TipoEdificio.MINA_DE_ORO:
@@ -112,6 +111,7 @@ export class MapaComponent {
           alert('NOPE');
           break;
       }
+      this.elementos[x][y].setEdificio(edificio);
     }
   }
 

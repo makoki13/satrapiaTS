@@ -9,6 +9,7 @@ import { ORO } from './Recurso';
 import { CivilConHonda, Soldado} from './Recurso';
 
 import { Dispatcher } from './Dispatcher';
+import { Mercado } from './Mercado';
 
 class TipoInvestigacion {
   public listaDeSubinvestigaciones: Array < TipoSubInvestigacion >;
@@ -168,10 +169,15 @@ class CentroDeInvestigacion extends Edificio {
     this.listaInvestigaciones.push(investigacion);
 
     investigacion = new TipoInvestigacion(3, 'COMERCIO');
-    subinvestigacion = new TipoSubInvestigacion(1, 'ELEMENTOS DE TRANSPORTE', investigacion);
+      subinvestigacion = new TipoSubInvestigacion(1, 'MERCADO', investigacion);
       investigacion.addSubinvestigacion(subinvestigacion);
-    subinvestigacion = new TipoSubInvestigacion(2, 'CARRETERAS', investigacion);
-      investigacion.addSubinvestigacion(subinvestigacion);
+        itemInvestigacion = new TipoItemInvestigacion (1, 'Construir mercado', 10, 5, false, subinvestigacion,
+          TipoEdificio.MERCADO, null);
+      subinvestigacion.addIteminvestigacion(itemInvestigacion);
+      subinvestigacion = new TipoSubInvestigacion(2, 'ELEMENTOS DE TRANSPORTE', investigacion);
+        investigacion.addSubinvestigacion(subinvestigacion);
+      subinvestigacion = new TipoSubInvestigacion(3, 'CARRETERAS', investigacion);
+        investigacion.addSubinvestigacion(subinvestigacion);
     this.listaInvestigaciones.push(investigacion);
 
     investigacion = new TipoInvestigacion(4, 'DIPLOMACIA');
@@ -251,7 +257,7 @@ class CentroDeInvestigacion extends Edificio {
     return item[0];
   }
 
-  iniciaInvestigacion(idTipo, idSubtipo, idItem) {
+  iniciaInvestigacion(idTipo, idSubtipo, idItem, ciudad?: Capital) {
     const item = this.getItem (idTipo, idSubtipo, idItem);
 
     const precio = item.getPrecio();
@@ -263,15 +269,21 @@ class CentroDeInvestigacion extends Edificio {
     }
 
     item.setInvestigada (true);
-    this.disp.addTareaRepetitiva(this, 'compraInvestigacion', item.getTiempo(), Array < any > (idTipo, idSubtipo, idItem));
-    this.setStatus (' Investigando ' + item.getNombre());
+    this.disp.addTareaRepetitiva(this, 'compraInvestigacion', item.getTiempo(), Array < any > (idTipo, idSubtipo, idItem, ciudad));
+    this.setStatus ('Investigando');
   }
 
   compraInvestigacion(v: Array < any >) {
-    const idTipo = v[0]; const idSubtipo = v[1]; const idItem = v[2];
+    let ciudad: Capital;
+    const idTipo = v[0]; const idSubtipo = v[1]; const idItem = v[2]; if (v.length === 4) { ciudad = v[3]; }
+
     const item = this.getItem (idTipo, idSubtipo, idItem);
     item.setconseguido();
-    this.setStatus (' Se terminó de investigar ' + item.getNombre());
+    this.setStatus ('Sin actividad');
+    if (item.getNombre() === 'Construir mercado') {
+      const mercado = new Mercado(1, 'Mercado Central', ciudad, this.disp);
+      ciudad.setMercado(mercado);
+    }
     return -1; // Finalizar tarea
   }
 

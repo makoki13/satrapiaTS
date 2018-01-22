@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit {
 
     HomeComponent.myJugador = new Jugador (1, 1, 'Makoki', TipoJugador.EMPERADOR);
 
-    HomeComponent.myImperio = new Imperio (1, 'Valencia', HomeComponent.myJugador, false);
+    HomeComponent.myImperio = new Imperio (1, 'Hispania', HomeComponent.myJugador, false);
 
     HomeComponent.myProvincia = new Provincia(1, 'Valencia', new Jugador(1, 1, 'Makoki', TipoJugador.EMPERADOR), false, false);
 
@@ -94,6 +94,7 @@ export class HomeComponent implements OnInit {
   private anula () {
     this.r1 = this.r2 = this.r3 = this.r4 = this.r5 = false;
   }
+
   public activa(ordinal) {
     this.anula();
     switch (ordinal) {
@@ -104,4 +105,9 @@ export class HomeComponent implements OnInit {
       case 5: this.r5 = true; break;
     }
   }
+
+  public getNombreImperio() { return HomeComponent.myImperio.getNombre(); }
+  public getNombrePais() { return HomeComponent.myProvincia.getNombre(); }
+  public getNombreCiudad() { return HomeComponent.myCapital.getNombre(); }
+  public getOro() {return HomeComponent.myCapital.getPalacio().getOroActual();}
 }

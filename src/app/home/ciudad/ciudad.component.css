@@ -9,12 +9,18 @@
   width: 100%;
 }
 
-#detalle li { font-family: Roboto; font-size: 11px; text-shadow: 1px 1px 1px gainsboro; color: black}
+#detalle li { font-family: Roboto; font-size: 11px; text-shadow: 1px 1px 1px gainsboro; color: black; cursor: pointer;}
 .cabecera1 {font-family: Roboto; color:blueviolet; font-weight: bolder; font-size: 11px; text-shadow: 1px 1px 1px yellow;}
 .cabecera2 {font-family: Roboto; color:black; font-weight: bolder; font-size: 11px; text-shadow: 1px 1px 1px gainsboro;}
 
 #detalleSilos {font-family: Roboto; color:black; font-weight: bolder; font-size: 16px; text-shadow: 1px 1px 1px gainsboro;}
 
-input[type=button] {width:80px;font-family: Roboto; color:black; font-weight: bolder; font-size: 11px; text-shadow: 1px 1px 1px gainsboro;}
+input[type=button] {width:80px;font-family: Roboto;}
 
-ul  {font-family: Roboto; font-size: 11px;}
+.botonEdificio {width:100%;color:white;text-shadow:1px 1px 1px black;}
+
+ul  {font-family: Roboto; font-size: 11px; cursor:pointer;}
+
+span {font-family: Roboto; color:black; font-weight: bolder; font-size: 16px; text-shadow: 1px 1px 1px gainsboro;}
+
+.investigar {font-family: Roboto; background-color:green; font-weight: bolder; font-size: 11px; text-shadow: 1px 1px 1px black; color:white;}
