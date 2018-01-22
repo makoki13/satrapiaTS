@@ -17,6 +17,7 @@ import { PalacioComponent } from './palacio/palacio.component';
 import { CiudadComponent } from './ciudad/ciudad.component';
 import { PaisComponent } from './pais/pais.component';
 import { MapaComponent } from './pais/mapa.component';
+import { AjustesComponent } from './ajustes/ajustes.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { MapaComponent } from './pais/mapa.component';
     CiudadComponent,
     PaisComponent,
     MapaComponent,
-    MatTable, MatTableModule, MatTableDataSource
+    MatTable, MatTableModule, MatTableDataSource, AjustesComponent
   ],
   imports: [
     FormsModule,
@@ -42,6 +43,7 @@ import { MapaComponent } from './pais/mapa.component';
     MatTabsModule,
     RoutingModule,
     MapaComponent,
+    AjustesComponent,
     MatTable, MatTableModule, MatTableDataSource
   ],
   providers: [],

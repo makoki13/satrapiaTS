@@ -6,6 +6,7 @@ import { PalacioComponent} from './home/palacio/palacio.component';
 import { CiudadComponent} from './home/ciudad/ciudad.component';
 import { PaisComponent } from './home/pais/pais.component';
 import { LoginComponent } from './login/login.component';
+import { AjustesComponent } from './home/ajustes/ajustes.component';
 
 const routes: Routes = [
     {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -13,7 +14,8 @@ const routes: Routes = [
     {path: 'home', component: HomeComponent, children: [
         {path: 'palacio', component: PalacioComponent, outlet: 'palacio'},
         {path: 'ciudad', component: CiudadComponent, outlet: 'ciudad'},
-        {path: 'pais', component: PaisComponent, outlet: 'pais'}
+        {path: 'pais', component: PaisComponent, outlet: 'pais'},
+        {path: 'ajustes', component: AjustesComponent, outlet: 'ajustes'}
     ]},
 ];
 

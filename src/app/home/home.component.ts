@@ -39,6 +39,7 @@ export class HomeComponent implements OnInit {
   public r3 = false;
   public r4 = false;
   public r5 = false;
+  public r6 = false;
 
   constructor(private _router: Router) {
     this.router = _router;
@@ -92,7 +93,7 @@ export class HomeComponent implements OnInit {
   }
 
   private anula () {
-    this.r1 = this.r2 = this.r3 = this.r4 = this.r5 = false;
+    this.r1 = this.r2 = this.r3 = this.r4 = this.r5 = this.r6 =false;
   }
 
   public activa(ordinal) {
@@ -103,6 +104,7 @@ export class HomeComponent implements OnInit {
       case 3: this.r3 = true; break;
       case 4: this.r4 = true; break;
       case 5: this.r5 = true; break;
+      case 6: this.r6 = true; break;
     }
   }
 

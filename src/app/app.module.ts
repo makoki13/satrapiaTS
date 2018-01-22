@@ -18,6 +18,7 @@ import { CiudadComponent } from './home/ciudad/ciudad.component';
 import { PaisComponent } from './home/pais/pais.component';
 
 import { MatTableModule, MatTableDataSource } from '@angular/material';
+import { AjustesComponent } from './home/ajustes/ajustes.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { MatTableModule, MatTableDataSource } from '@angular/material';
     PalacioComponent,
     CiudadComponent,
     PaisComponent,
-    MapaComponent
+    MapaComponent,
+    AjustesComponent
   ],
   imports: [
     FormsModule,
@@ -50,7 +52,8 @@ import { MatTableModule, MatTableDataSource } from '@angular/material';
     HomeComponent,
     PalacioComponent,
     CiudadComponent,
-    PaisComponent
+    PaisComponent,
+    AjustesComponent
   ],
   bootstrap: [AppComponent]
 })

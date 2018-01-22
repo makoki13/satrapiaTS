@@ -6,6 +6,7 @@ import { PalacioComponent } from './palacio/palacio.component';
 import { CiudadComponent } from './ciudad/ciudad.component';
 import { PaisComponent } from './pais/pais.component';
 import { LoginComponent } from '../login/login.component';
+import { AjustesComponent } from './ajustes/ajustes.component';
 
 const routes: Routes = [
     {path: '', redirectTo: 'home', pathMatch: 'full'},

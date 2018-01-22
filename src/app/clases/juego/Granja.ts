@@ -6,17 +6,18 @@ import { Capital } from './Capital';
 import { Dispatcher } from './Dispatcher';
 import { COMIDA } from './Recurso';
 import { Transporte } from './Transporte';
+import {Parametros} from './Parametros';
 
 class Granja extends Edificio {
-  static costeConstruccion = 1000;
-  static tiempoContruccion = 10;
+  public static costeConstruccion = Parametros.Granja_costeContruccionGranja;
+  static tiempoContruccion = Parametros.Granja_tiempoContruccion;
 
   private granjeros: Extractor;
   private filon: Productor;
   private almacen: Almacen;
 
   constructor (id: number, nombre: string, private capital: Capital, private disp: Dispatcher) {
-    super (id, nombre, TipoEdificio.GRANJA, capital.getPosicion(), 1000, 10);
+    super (id, nombre, TipoEdificio.GRANJA, capital.getPosicion(), Granja.costeConstruccion, Granja.tiempoContruccion);
 
     this.capital.addGranja(this);
 
@@ -33,7 +34,6 @@ class Granja extends Edificio {
   extrae() {
     const cantidad = this.granjeros.getCantidad();
     this.almacen.addCantidad (cantidad);
-    // console.log ( 'Silo de la granja tiene ' + this.getComidaActual() + ' Capacidad máx: ' + this.almacen.getMaxCantidad() );
 
     /* Si el almacen alcanza el tope enviar un transporte de comida a palacio */
     if (this.almacen.getCantidad() >= this.almacen.getMaxCantidad()) {
