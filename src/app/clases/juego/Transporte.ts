@@ -3,11 +3,15 @@ import { Recurso } from './Recurso';
 import { Punto } from './Punto';
 import { TomTom } from './TomTom';
 import { Edificio } from './Edificio';
+import {Parametros} from './Parametros';
 
 class Transporte {
-    private posicionActual: Punto;
-    private posicionFinal: Punto;
-    private ruta: Array < Punto >;
+  public static tiempoRecalculo = Parametros.Transporte_Tiempo_Recalculo_Ruta;
+  public static velocidad = Parametros.Transporte_Velocidad;
+
+  private posicionActual: Punto;
+  private posicionFinal: Punto;
+  private ruta: Array < Punto >;
 
     constructor (almacenOrigen: Almacen, private almacenDestino: Almacen, recurso: Recurso, private cantidad: number,
       private origen: Edificio) {

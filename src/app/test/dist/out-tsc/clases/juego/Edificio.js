@@ -35,7 +35,7 @@ class Palacio extends Edificio {
     constructor(id, nombre, disp, posicion) {
         super(id, nombre, TipoEdificio.PALACIO, posicion, null);
         this.disp = disp;
-        this.impuestos = new Productor(null, ORO, 10, 10, 0);
+        this.impuestos = new Productor(null, ORO, 10, 10, 1);
         this.almacen = new Almacen(66, 'Deposito de oro', [ORO], posicion, Number.MAX_VALUE.valueOf());
         const cantidadInicial = 2;
         this.recaudador = new Extractor(this.impuestos, this.almacen, cantidadInicial);
@@ -101,7 +101,7 @@ class MinaDeOro extends Edificio {
         super(id, nombre, TipoEdificio.MINA_DE_ORO, posicion, palacio);
         this.disp = disp;
         this.hayEnvioEnMarcha = false;
-        this.filon = new Productor(null, ORO, 30, 30, 0);
+        this.filon = new Productor(null, ORO, 30, 30, 1);
         this.almacen = new Almacen(67, 'Filón de oro', [ORO], posicion, 5);
         const cantidadInicial = 1;
         this.mineros = new Extractor(this.filon, this.almacen, cantidadInicial);

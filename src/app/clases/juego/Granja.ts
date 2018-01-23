@@ -9,8 +9,10 @@ import { Transporte } from './Transporte';
 import {Parametros} from './Parametros';
 
 class Granja extends Edificio {
-  public static costeConstruccion = Parametros.Granja_costeContruccionGranja;
-  static tiempoContruccion = Parametros.Granja_tiempoContruccion;
+  public static costeConstruccion = Parametros.Granja_Construccion_Coste;
+  public static tiempoContruccion = Parametros.Granja_Construccion_Tiempo;
+  public static cantidadInicial = Parametros.Granja_Productor_CantidadInicial;
+  public static cantidadMaxima = Parametros.Granja_Productor_CantidadMaxima;
 
   private granjeros: Extractor;
   private filon: Productor;
@@ -21,12 +23,12 @@ class Granja extends Edificio {
 
     this.capital.addGranja(this);
 
-    this.filon = new Productor ( null, COMIDA, 30, 30, 0);
-    this.almacen = new Almacen ( 67, 'Silo de comida', COMIDA, this.capital.getPosicion(), 5);
-    const cantidadInicial = 1;
-    this.granjeros = new Extractor (this.filon, this.almacen, cantidadInicial);
+    this.filon = new Productor ( null, COMIDA, Parametros.Granja_Productor_CantidadInicial,
+      Parametros.Granja_Productor_CantidadMaxima, Parametros.Granja_Productor_Ratio);
+    this.almacen = new Almacen ( 67, 'Silo de comida', COMIDA, this.capital.getPosicion(), Parametros.Granja_Almacen_Capacidad);
+    this.granjeros = new Extractor (this.filon, this.almacen, Parametros.Granja_Cosecha_Tamanyo);
 
-    this.disp.addTareaRepetitiva(this, 'extrae', 1);
+    this.disp.addTareaRepetitiva(this, 'extrae', Parametros.Granja_Cosecha_Frecuencia);
 
     this.setStatus ('Sin envios actuales');
   }
@@ -50,7 +52,7 @@ class Granja extends Edificio {
 
     transporteDeComida.calculaViaje();
     this.setStatus ('Enviando comida...');
-    this.disp.addTareaRepetitiva(transporteDeComida, 'envia', 1);
+    this.disp.addTareaRepetitiva(transporteDeComida, 'envia', Parametros.Transporte_Tiempo_Recalculo_Ruta);
   }
 
   public getComidaActual() { return this.almacen.getCantidad(); }
@@ -59,7 +61,7 @@ class Granja extends Edificio {
   public getStatus() { return this.status; }
   public setStatus( mensaje: string ) { super.setStatus(mensaje); }
 
-  public estaActiva() { return (this.filon.getStock() > 0); }
+  public estaActiva() { return (this.filon.getStock() > Parametros.Filon_Vacio); }
 }
 
 export { Granja };

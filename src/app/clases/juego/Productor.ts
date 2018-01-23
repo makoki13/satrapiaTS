@@ -8,6 +8,11 @@ class Productor {
   }
 
   extrae ( cantidad: number )  {
+    // Los productores con cantidadMaxima = 0 son inagotables.
+
+    cantidad *= this.ratioProduccion; // Para penalizaciones y bonus
+
+    if (this.cantidadMaxima === 0) { return cantidad; }
     if (cantidad > this.cantidadInicial ) {
       cantidad = this.cantidadInicial;
       this.cantidadInicial = 0;

@@ -25,14 +25,14 @@ class Palacio extends Edificio {
     this.capital.setPalacio(this);
 
     let cantidadInicial = 2;
-    this.impuestos = new Productor ( null, ORO, 10, 10, 0);
+    this.impuestos = new Productor ( null, ORO, 10, 10, 1);
     this.almacen = new Almacen ( 66, 'Deposito de oro', ORO, capital.getPosicion(), Number.MAX_VALUE.valueOf());
     this.almacen.addCantidad(2000);
     this.recaudador = new Extractor (this.impuestos, this.almacen, cantidadInicial);
     this.disp.addTareaRepetitiva(this, 'recaudaImpuestos', 1);
 
     cantidadInicial = 50; const cantidadMaxima = 1000;
-    this.alojamientos = new Productor ( null, POBLACION, cantidadInicial, cantidadMaxima, 0);
+    this.alojamientos = new Productor ( null, POBLACION, cantidadInicial, cantidadMaxima, 1);
     this.poblacion = new Almacen ( 67, 'Población', POBLACION, capital.getPosicion(), cantidadMaxima);
     this.crecimientoDemografico = new Extractor (this.alojamientos, this.poblacion, cantidadInicial);
     this.disp.addTareaRepetitiva(this, 'realizaCenso', 1);
@@ -49,7 +49,7 @@ class Palacio extends Edificio {
    public realizaCenso ( ) {
     const cantidad = this.crecimientoDemografico.getCantidad();
     this.poblacion.addCantidad (cantidad);
-    // console.log ( 'Almacen del palacio tiene ' + this.getOroActual() );
+    // console.log ( 'Poblacion ' + this.poblacion.getCantidad() );
    }
 
   public getOroActual() { return this.almacen.getCantidad(); }

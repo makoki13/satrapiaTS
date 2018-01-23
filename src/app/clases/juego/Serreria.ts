@@ -6,26 +6,29 @@ import { Capital } from './Capital';
 import { Dispatcher } from './Dispatcher';
 import { MADERA } from './Recurso';
 import { Transporte } from './Transporte';
+import {Parametros} from './Parametros';
 
 class Serreria extends Edificio {
-  static costeConstruccion = 500;
-  static tiempoContruccion = 7;
+  public static costeConstruccion = Parametros.Serreria_Construccion_Coste;
+  public static tiempoContruccion = Parametros.Serreria_Construccion_Tiempo;
+  public static cantidadInicial = Parametros.Serreria_Productor_CantidadInicial;
+  public static cantidadMaxima = Parametros.Serreria_Productor_CantidadMaxima;
 
   private leñadores: Extractor;
   private filon: Productor;
   private almacen: Almacen;
 
   constructor (id: number, nombre: string, private capital: Capital, private disp: Dispatcher) {
-    super (id, nombre, TipoEdificio.SERRERIA, capital.getPosicion(), 500, 10);
+    super (id, nombre, TipoEdificio.SERRERIA, capital.getPosicion(), Serreria.costeConstruccion, Serreria.tiempoContruccion);
 
     this.capital.addSerreria(this);
 
-    this.filon = new Productor ( null, MADERA, 30, 30, 0);
-    this.almacen = new Almacen ( 67, 'Silo de madera', MADERA, this.capital.getPosicion(), 5);
+    this.filon = new Productor ( null, MADERA, Serreria.cantidadInicial, Serreria.cantidadMaxima, Parametros.Serreria_Productor_Ratio);
+    this.almacen = new Almacen ( 67, 'Silo de madera', MADERA, this.capital.getPosicion(), Parametros.Serreria_Almacen_Capacidad);
     const cantidadInicial = 1;
-    this.leñadores = new Extractor (this.filon, this.almacen, cantidadInicial);
+    this.leñadores = new Extractor (this.filon, this.almacen, Parametros.Serreria_Cosecha_Tamanyo);
 
-    this.disp.addTareaRepetitiva(this, 'extrae', 1);
+    this.disp.addTareaRepetitiva(this, 'extrae', Parametros.Serreria_Cosecha_Tamanyo);
 
     this.setStatus ('Sin envios actuales');
   }
@@ -49,7 +52,7 @@ class Serreria extends Edificio {
 
     transporteDeMadera.calculaViaje();
     this.setStatus ('Enviando madera...');
-    this.disp.addTareaRepetitiva(transporteDeMadera, 'envia', 1);
+    this.disp.addTareaRepetitiva(transporteDeMadera, 'envia', Parametros.Transporte_Tiempo_Recalculo_Ruta);
   }
 
   public getMaderaActual() { return this.almacen.getCantidad(); }
@@ -58,7 +61,7 @@ class Serreria extends Edificio {
   public getStatus() { return this.status; }
   public setStatus( mensaje: string ) { super.setStatus(mensaje); }
 
-  public estaActiva() { return (this.filon.getStock() > 0); }
+  public estaActiva() { return (this.filon.getStock() > Parametros.Filon_Vacio); }
 }
 
 export { Serreria };

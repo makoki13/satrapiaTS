@@ -1,4 +1,107 @@
-<p>
-  <input #granjaCosteConstruccion type="number" value="{{ getGranjaCosteContruccion() }}" (change)="setGranjaCosteContruccion()">
-  <input #granjaTiempoConstruccion type="number" value="{{ getGranjaTiempoContruccion() }}" (change)="setGranjaTiempoContruccion()">
-</p>
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<div id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="card">
+    <div class="card-header" role="tab" id="headingOne" style="height: 1.5rem;padding:0rem;">
+      <h5 class="mb-0">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <h6 class="card-title" data-toggle="collapse">Granja</h6>
+        </a>
+      </h5>
+    </div>
+    <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+      <div class="card-block">
+        <p class="card-text">
+          <label class="titulo">Coste de Construcción</label>
+          <input #granjaCosteConstruccion type="number" value="{{ getGranjaCosteContruccion() }}" (change)="setGranjaCosteContruccion()">
+            Valor por defecto: {{ getGranjaCosteContruccion() }} oro
+        </p>
+      </div>
+      <div class="card-block">
+        <p class="card-text">
+          <label class="titulo">Tiempo de Construcción</label>
+          <input #granjaTiempoConstruccion type="number" value="{{ getGranjaTiempoContruccion() }}" (change)="setGranjaTiempoContruccion()">
+          Valor por defecto: {{ getGranjaTiempoContruccion() }} dias
+        </p>
+      </div>
+      <div class="card-block">
+        <p class="card-text">
+          <label class="titulo">Stock inicial</label>
+          <input #granjaCantidadInicial type="number" value="{{ getGranjaCantidadInicial() }}" (change)="setGranjaCantidadInicial()">
+          Valor por defecto: {{ getGranjaCantidadInicial() }} unidades
+        </p>
+      </div>
+      <div class="card-block">
+        <p class="card-text">
+            <label class="titulo">Cantidad máxima</label>
+            <input #granjaCantidadMaxima type="number" value="{{ getGranjaCantidadMaxima() }}" (change)="setGranjaCantidadMaxima()">
+            Valor por defecto: {{ getGranjaCantidadMaxima() }} unidades
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" role="tab" id="headingTwo" style="height: 1.5rem;padding:0rem;">
+      <h5 class="mb-0">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          <h6 class="card-title" data-toggle="collapse">Serreria</h6>
+        </a>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="card-block">
+        <p class="card-text">
+          <label class="titulo">Coste de Construcción</label>
+          <input #serreriaCosteConstruccion type="number" value="{{ getSerreriaCosteContruccion() }}" (change)="setSerreriaCosteContruccion()">
+            Valor por defecto: {{ getSerreriaCosteContruccion() }} oro
+        </p>
+      </div>
+      <div class="card-block">
+        <p class="card-text">
+          <label class="titulo">Tiempo de Construcción</label>
+          <input #serreriaTiempoConstruccion type="number" value="{{ getSerreriaTiempoContruccion() }}" (change)="setSerreriaTiempoContruccion()">
+            Valor por defecto: {{ getSerreriaTiempoContruccion() }} dias
+        </p>
+      </div>
+      <div class="card-block">
+        <p class="card-text">
+          <label class="titulo">Stock inicial</label>
+          <input #serreriaCantidadInicial type="number" value="{{ getSerreriaCantidadInicial() }}" (change)="setSerreriaCantidadInicial()">
+            Valor por defecto: {{ getSerreriaCantidadInicial() }} unidades
+        </p>
+      </div>
+      <div class="card-block">
+        <p class="card-text">
+          <label class="titulo">Cantidad máxima</label>
+          <input #serreriaCantidadMaxima type="number" value="{{ getSerreriaCantidadMaxima() }}" (change)="setSerreriaCantidadMaxima()">
+            Valor por defecto: {{ getSerreriaCantidadMaxima() }} unidades
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" role="tab" id="headingThree" style="height: 1.5rem;padding:0rem;">
+      <h5 class="mb-0">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          <h6 class="card-title" data-toggle="collapse">Transportes</h6>
+        </a>
+      </h5>
+    </div>
+    <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="card-block">
+        <p class="card-text">
+          <label class="titulo">Tiempo Recalculo Ruta</label>
+          <input #transporteTiempoRecalculo type="number" value="{{ getTransporteTiempoRecalculo() }}" (change)="setTransporteTiempoRecalculo()">
+            Valor por defecto: {{ getTransporteTiempoRecalculo() }} s. (real)
+        </p>
+      </div>
+      <div class="card-block">
+        <p class="card-text">
+          <label class="titulo">Velocidad</label>
+          <input #transporteVelocidad type="number" value="{{ getTransporteVelocidad() }}" (change)="setTransporteVelocidad()">
+            Valor por defecto: {{ getTransporteVelocidad() }} m/s
+        </p>
+      </div>
+  </div>
+</div>

@@ -270,7 +270,7 @@ class MinaDeOro extends Edificio {
 
     this.capital.addMinaDeOro(this);
 
-    this.filon = new Productor ( null, ORO, 30, 30, 0);
+    this.filon = new Productor ( null, ORO, 30, 30, 1);
     this.almacen = new Almacen ( 67, 'Filón de oro', ORO, this.capital.getPosicion(), 5);
     const cantidadInicial = 1;
     this.mineros = new Extractor (this.filon, this.almacen, cantidadInicial);

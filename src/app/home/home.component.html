@@ -6,7 +6,7 @@
     <button mat-button (click)="activa(3);" [routerLink]="['/home', {outlets: {pais:    ['pais']}}]" routerLinkActive="active"><mat-icon>call_split</mat-icon> PAIS</button>
     <button mat-button (click)="activa(4);" [routerLink]="['/home', {outlets: {palacio: ['mundo']}}]"><mat-icon>language</mat-icon> MUNDO</button>
     <button mat-button [routerLink]="['/home', {outlets: {palacio: ['config']}}]"><mat-icon>extension</mat-icon> CONFIGURACIÓN</button>
-    <button mat-button (click)="activa(6);" [routerLink]="['/home', {outlets: {ajustes: ['ajustes']}}]"><mat-icon>extension</mat-icon> AJUSTES</button>
+    <button mat-button (click)="activa(6);" [routerLink]="['/home', {outlets: {ajustes: ['ajustes']}}]" style="color:red;"><mat-icon>extension</mat-icon> AJUSTES</button>
   </mat-toolbar-row>
 </mat-toolbar>
 <nav class="navbar navbar-expand-sm bg-light">
