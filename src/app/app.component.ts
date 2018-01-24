@@ -11,6 +11,7 @@ export class AppComponent {
   router: Router;
   constructor(private _router: Router) {
     this.router = _router;
+
     // this.moveToLogin();
     this.moveToHome();
   }

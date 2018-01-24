@@ -29,7 +29,7 @@ export class AjustesComponent implements OnInit {
   myGranja: Granja;
 
   constructor() {
-
+    Parametros.inicializa();
   }
 
   // GRANJA
