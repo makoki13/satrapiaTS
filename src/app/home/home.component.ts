@@ -15,6 +15,9 @@ import { MinaDeOro, Cuartel, Silos, TipoEdificio } from '../clases/juego/Edifici
 import { CentroDeInvestigacion } from '../clases/juego/CentroDeInvestigacion';
 import { Almacen } from '../clases/juego/Almacen';
 import { COMIDA, MADERA } from '../clases/juego/Recurso';
+import { DBlocal } from '../clases/tools/Persistencia';
+import { Parametros } from '../clases/juego/Parametros';
+import { Granja } from '../clases/juego/Granja';
 
 @Component({
   selector: 'app-home',
@@ -69,7 +72,27 @@ export class HomeComponent implements OnInit {
 
     // HomeComponent.minaDeOro = new MinaDeOro (1, 'Mina de oro de la sierra', HomeComponent.myCapital, HomeComponent.myDispatcher);
 
-    this.runDispatcher();
+    this.run();
+  }
+
+  async run() {
+    console.log('home.component run 1');
+    const myself = this;
+    try {
+      await DBlocal.inicializa();
+      await Parametros.inicializa('parametros').then (function() {
+        Granja.costeConstruccion = Parametros.Granja_Construccion_Coste;
+      }).then( function() {
+        console.log('home.component constructor', Granja.costeConstruccion);
+        myself.runDispatcher();
+        console.log('runDispatcher');
+      });
+    } catch (err) {
+      console.log('err', err);
+    }
+    console.log('home.component run 2');
+
+    // this.moveToLogin();
   }
 
   sleep(ms) {
@@ -83,7 +106,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   public moveToHome() {
   }

@@ -29,15 +29,17 @@ export class AjustesComponent implements OnInit {
   myGranja: Granja;
 
   constructor() {
-    Parametros.inicializa();
+
   }
 
   // GRANJA
   getGranjaCosteContruccion() {
+    Granja.costeConstruccion = Parametros.Granja_Construccion_Coste;
     return Granja.costeConstruccion;
   }
   setGranjaCosteContruccion() {
     Parametros.Granja_Construccion_Coste = this.granjaCosteConstruccion.nativeElement.value;
+    Parametros.setGranjaConstruccionCoste(this.granjaCosteConstruccion.nativeElement.value);
     Granja.costeConstruccion = this.granjaCosteConstruccion.nativeElement.value;
   }
 

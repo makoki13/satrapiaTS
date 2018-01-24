@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 
 import {Routes, RouterModule, Router} from '@angular/router';
+import { DBlocal } from './clases/tools/Persistencia';
+import { Parametros } from './clases/juego/Parametros';
+import { Granja } from './clases/juego/Granja';
 
 @Component({
   selector: 'app-root',
@@ -12,8 +15,26 @@ export class AppComponent {
   constructor(private _router: Router) {
     this.router = _router;
 
+    this.run();
+  }
+
+  async run() {
+    console.log('app.component 1');
+    const myself = this;
+    try {
+      await DBlocal.inicializa();
+      await Parametros.inicializa('juego').then (function() {
+        // Granja.costeConstruccion = Parametros.Granja_Construccion_Coste;
+      }).then( function() {
+        // console.log('home.component constructor', Granja.costeConstruccion);
+        myself.moveToHome();
+      });
+    } catch (err) {
+      console.log('err', err);
+    }
+    console.log('app.component run 2');
+
     // this.moveToLogin();
-    this.moveToHome();
   }
 
   public moveToLogin() {
@@ -21,6 +42,7 @@ export class AppComponent {
   }
 
   public moveToHome() {
+    console.log('moveToHome');
     this.router.navigate(['home']);
   }
 

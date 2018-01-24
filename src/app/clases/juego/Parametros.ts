@@ -1,4 +1,5 @@
 import { DBlocal } from './../tools/Persistencia';
+import { Granja } from './Granja';
 
 class Parametros {
     // public static Granja_Construccion_Coste = DBlocal.getGranjaConstruccionCoste();
@@ -31,19 +32,34 @@ class Parametros {
       // DBlocal.inicializa();
     }
 
-    static async inicializa() {
-      let datos: any;
+    static async inicializa(objeto) {
+        // DBlocal.inicializa();
 
-      console.log('inicializa parametros 1');
+        await DBlocal.db.get(objeto).then(function (doc) {
+            Parametros.Granja_Construccion_Coste = doc.Granja_Construccion_Coste;
+            console.log('init:', Parametros.Granja_Construccion_Coste);
+        });
+        console.log('inicializa fin');
+    }
 
-      await DBlocal.inicializa();
+    static getGranjaConstruccionCoste() {
+        DBlocal.db.get('parametros').then(function (doc) {
+            return Parametros.Granja_Construccion_Coste = doc.Granja_Construccion_Coste;
+        });
+    }
 
-      DBlocal.db.get('parametros').then(function (doc) {
-        datos = JSON.stringify(doc);
-        console.log('inicializa parametros fin');
-        Parametros.Granja_Construccion_Coste = datos.Granja_Construccion_Coste;
-        console.log('Parametros.Granja_Construccion_Coste', Parametros.Granja_Construccion_Coste);
-      });
+    static setGranjaConstruccionCoste(valor: number) {
+        Parametros.Granja_Construccion_Coste = valor;
+        DBlocal.db.get('parametros').then(function (doc) {
+            doc.Granja_Construccion_Coste = valor;
+            // put them back
+            return DBlocal.db.put(doc);
+          }).then(function () {
+            // fetch mittens again
+            return DBlocal.db.get('parametros');
+          }).then(function (doc) {
+            console.log(doc);
+          });
     }
 }
 

@@ -3,8 +3,8 @@ import PouchDB from 'pouchdb';
 export class DBlocal {
   static db = null;
 
-  static async inicializa () { DBlocal.db = new PouchDB('satrapia'); }
-
+  static async inicializa () {
+    DBlocal.db = new PouchDB('satrapia');
     /*
     const doc = {
       '_id': 'parametros',
@@ -34,22 +34,11 @@ export class DBlocal {
 
     DBlocal.db.put(doc);
     */
+  }
 
   static getRegistro(registro) {
     DBlocal.db.get(registro).then(function (doc) {
       return (doc);
-    });
-  }
-
-  static setGranjaConstruccionCoste(valor) {
-    DBlocal.db.get('parametros').then(function (datos) {
-      datos.Granja_Construccion_Coste = valor ;
-      return DBlocal.db.put(datos);
-    }).then(function () {
-      // fetch mittens again
-      return DBlocal.db.get('parametros');
-    }).then(function (datos) {
-      console.log(datos.name);
     });
   }
 }
