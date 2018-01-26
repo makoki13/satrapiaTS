@@ -27,6 +27,8 @@ class Parametros {
 
     public static Filon_Vacio = 0;
 
+    public static IDpartida = null;
+
     constructor() {
       // Parametros.Granja_Construccion_Coste = DBlocal.getGranjaConstruccionCoste();
       // DBlocal.inicializa();
@@ -36,8 +38,13 @@ class Parametros {
         // DBlocal.inicializa();
 
         await DBlocal.db.get(objeto).then(function (doc) {
-            Parametros.Granja_Construccion_Coste = doc.Granja_Construccion_Coste;
-            console.log('init:', Parametros.Granja_Construccion_Coste);
+            if (objeto === 'partida') {
+              Parametros.IDpartida = doc.id;
+              console.log('doc partida: ', Parametros.IDpartida);
+            } else {
+              Parametros.Granja_Construccion_Coste = doc.Granja_Construccion_Coste;
+              // console.log('init:', Parametros.Granja_Construccion_Coste);
+            }
         });
         console.log('inicializa fin');
     }

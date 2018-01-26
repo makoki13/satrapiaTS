@@ -19,20 +19,18 @@ export class AppComponent {
   }
 
   async run() {
-    console.log('app.component 1');
     const myself = this;
     try {
       await DBlocal.inicializa();
-      await Parametros.inicializa('juego').then (function() {
+      await Parametros.inicializa('partida').then (function() {
         // Granja.costeConstruccion = Parametros.Granja_Construccion_Coste;
       }).then( function() {
-        // console.log('home.component constructor', Granja.costeConstruccion);
-        myself.moveToHome();
+        console.log('app.component run', Parametros.IDpartida);
+        myself.moveToHome(Parametros.IDpartida);
       });
     } catch (err) {
       console.log('err', err);
     }
-    console.log('app.component run 2');
 
     // this.moveToLogin();
   }
@@ -41,7 +39,7 @@ export class AppComponent {
     this.router.navigate(['login']);
   }
 
-  public moveToHome() {
+  public moveToHome(partida: number) {
     console.log('moveToHome');
     this.router.navigate(['home']);
   }

@@ -7,6 +7,13 @@ export class DBlocal {
     DBlocal.db = new PouchDB('satrapia');
     /*
     const doc = {
+      '_id': 'partida',
+      'identificador': '00001'
+    };
+    DBlocal.db.put(doc);
+    */
+    /*
+    const doc = {
       '_id': 'parametros',
       'Granja_Construccion_Coste': 110,
       'Granja_Construccion_Tiempo': 10,
