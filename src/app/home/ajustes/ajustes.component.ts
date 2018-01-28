@@ -1,3 +1,4 @@
+import { PalacioComponent } from './../palacio/palacio.component';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 import { Parametros } from '../../clases/juego/Parametros';
@@ -25,6 +26,8 @@ export class AjustesComponent implements OnInit {
 
   @ViewChild('transporteTiempoRecalculo') transporteTiempoRecalculo: ElementRef;
   @ViewChild('transporteVelocidad') transporteVelocidad: ElementRef;
+
+  @ViewChild('oroInicial') oroInicial: ElementRef;
 
   myGranja: Granja;
 
@@ -115,6 +118,13 @@ export class AjustesComponent implements OnInit {
   setTransporteVelocidad() {
     Parametros.Transporte_Velocidad = this.transporteVelocidad.nativeElement.value;
     Transporte.velocidad = this.transporteVelocidad.nativeElement.value;
+  }
+
+  getOroInicial() {
+    return Parametros.oroInicial;
+  }
+  setOroInicial() {
+    Parametros.setOroInicial(this.oroInicial.nativeElement.value);
   }
 
   ngOnInit() {

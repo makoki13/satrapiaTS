@@ -104,4 +104,22 @@
         </p>
       </div>
   </div>
+
+  <div class="card">
+    <div class="card-header" role="tab" id="headingFour" style="height: 1.5rem;padding:0rem;">
+      <h5 class="mb-0">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+          <h6 class="card-title" data-toggle="collapse">Varios</h6>
+        </a>
+      </h5>
+    </div>
+    <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour">
+      <div class="card-block">
+        <p class="card-text">
+          <label class="titulo">Oro inicial</label>
+          <input #oroInicial type="number" value="{{ getOroInicial() }}" (change)="setOroInicial()">
+            Valor por defecto: {{ getOroInicial() }} s. (real)
+        </p>
+      </div>      
+  </div>
 </div>

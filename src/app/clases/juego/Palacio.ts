@@ -8,6 +8,7 @@ import { Dispatcher } from './Dispatcher';
 import { Punto } from './Punto';
 import { ORO } from './Recurso';
 import { POBLACION } from './Recurso';
+import { Parametros } from './Parametros';
 
 class Palacio extends Edificio {
   private recaudador: Extractor;
@@ -27,7 +28,8 @@ class Palacio extends Edificio {
     let cantidadInicial = 2;
     this.impuestos = new Productor ( null, ORO, 10, 10, 1);
     this.almacen = new Almacen ( 66, 'Deposito de oro', ORO, capital.getPosicion(), Number.MAX_VALUE.valueOf());
-    this.almacen.addCantidad(2000);
+    console.log('constructor palacio', Parametros.oroInicial);
+    this.almacen.addCantidad(Parametros.oroInicial);
     this.recaudador = new Extractor (this.impuestos, this.almacen, cantidadInicial);
     this.disp.addTareaRepetitiva(this, 'recaudaImpuestos', 1);
 

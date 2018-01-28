@@ -50,35 +50,6 @@ export class HomeComponent implements OnInit {
     this.router = _router;
 
     this.run();
-
-    /*
-    HomeComponent.IDpartida = Parametros.IDpartida;
-    console.log('home.component constructor', HomeComponent.IDpartida);
-
-    HomeComponent.myDispatcher = new Dispatcher ();
-
-    HomeComponent.myJugador = new Jugador (1, 1, 'Makoki', TipoJugador.EMPERADOR);
-
-    HomeComponent.myImperio = new Imperio (1, 'Hispania', HomeComponent.myJugador, false);
-
-    HomeComponent.myProvincia = new Provincia(1, 'Valencia', new Jugador(1, 1, 'Makoki', TipoJugador.EMPERADOR), false, false);
-
-    HomeComponent.myCapital = new Capital(1, 'Gandia', HomeComponent.myProvincia, new Punto(20, 25));
-
-    const myPalacio: Palacio = new Palacio (1, 'Palacio de Makoki', HomeComponent.myCapital, HomeComponent.myDispatcher);
-
-    const myCI: CentroDeInvestigacion = new CentroDeInvestigacion (1, 'DSIC', HomeComponent.myCapital, HomeComponent.myDispatcher);
-
-    const myCuartel: Cuartel = new Cuartel (1, 'Centro de reclutamiento', HomeComponent.myCapital, HomeComponent.myDispatcher);
-
-    const mySilos: Silos = new Silos(3, 'Silos de la ciudad', HomeComponent.myCapital, HomeComponent.myDispatcher);
-    const almacenAlimentos: Almacen = new Almacen (1, 'Silo comida', COMIDA, HomeComponent.myCapital.getPosicion(), 5000);
-    mySilos.addAlmacen (almacenAlimentos);
-    const almacenMadera: Almacen = new Almacen (1, 'Silo madera', MADERA, HomeComponent.myCapital.getPosicion(), 5000);
-    mySilos.addAlmacen (almacenMadera);
-    */
-
-    // HomeComponent.minaDeOro = new MinaDeOro (1, 'Mina de oro de la sierra', HomeComponent.myCapital, HomeComponent.myDispatcher);
   }
 
   private cargaClases() {
@@ -109,22 +80,24 @@ export class HomeComponent implements OnInit {
     console.log('home.component run 1');
     const myself = this;
     try {
-      await DBlocal.inicializa();
+      // await DBlocal.inicializa();
+      console.log('home.component run 2');
       await Parametros.inicializa('parametros').then (function() {
+        console.log('home.component run 3');
         Granja.costeConstruccion = Parametros.Granja_Construccion_Coste;
 
         HomeComponent.IDpartida = Parametros.IDpartida;
-        console.log('home.component constructor', HomeComponent.IDpartida);
+        console.log('home.component constructor', Parametros.oroInicial);
 
       }).then( function() {
-        console.log('home.component constructor', Granja.costeConstruccion);
+        // console.log('home.component constructor', Granja.costeConstruccion);
         myself.runDispatcher();
-        console.log('runDispatcher');
+        // console.log('runDispatcher');
       });
     } catch (err) {
       console.log('err', err);
     }
-    console.log('home.component run 2');
+    // console.log('home.component run 2');
 
     // this.moveToLogin();
   }
@@ -168,7 +141,7 @@ export class HomeComponent implements OnInit {
   public getNombreImperio() { return HomeComponent.myImperio.getNombre(); }
   public getNombrePais() { return HomeComponent.myProvincia.getNombre(); }
   public getNombreCiudad() { return HomeComponent.myCapital.getNombre(); }
-  public getOro() {return HomeComponent.myCapital.getPalacio().getOroActual();}
+  public getOro() {return HomeComponent.myCapital.getPalacio().getOroActual(); }
 
   public setIDpartida(partida: number) { HomeComponent.IDpartida = partida; }
   public getIDpartida() { return HomeComponent.IDpartida; }

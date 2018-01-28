@@ -25,7 +25,7 @@ export class AppComponent {
       await Parametros.inicializa('partida').then (function() {
         // Granja.costeConstruccion = Parametros.Granja_Construccion_Coste;
       }).then( function() {
-        console.log('app.component run', Parametros.IDpartida);
+        // console.log('app.component run', Parametros.IDpartida);
         myself.moveToHome(Parametros.IDpartida);
       });
     } catch (err) {
@@ -40,7 +40,7 @@ export class AppComponent {
   }
 
   public moveToHome(partida: number) {
-    console.log('moveToHome');
+    // console.log('moveToHome');
     this.router.navigate(['home']);
   }
 

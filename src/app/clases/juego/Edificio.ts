@@ -270,9 +270,11 @@ class MinaDeOro extends Edificio {
 
     this.capital.addMinaDeOro(this);
 
-    this.filon = new Productor ( null, ORO, 30, 30, 1);
-    this.almacen = new Almacen ( 67, 'Filón de oro', ORO, this.capital.getPosicion(), 5);
-    const cantidadInicial = 1;
+    this.filon = new Productor ( null, ORO, 20000, 20, 1);
+    // Productor ( null, ORO, oro total por explotar, ni idea, 1)
+    this.almacen = new Almacen ( 67, 'Filón de oro', ORO, this.capital.getPosicion(), 100);
+    const cantidadInicial = 20;
+    // cantidadInicial = oro que se recoge cada x tiempo
     this.mineros = new Extractor (this.filon, this.almacen, cantidadInicial);
 
     this.disp.addTareaRepetitiva(this, 'extrae', 1);
@@ -284,8 +286,8 @@ class MinaDeOro extends Edificio {
     const cantidad = this.mineros.getCantidad();
     // if (cantidad === 0) {this.setStatus ('Mina de oro agotada'); return -1; }
     this.almacen.addCantidad (cantidad);
-    // console.log ( 'Almacen de la mina de oro tiene ' + this.getOroActual() + ' Capacidad máx: ' + this.almacen.getMaxCantidad() );
-
+    console.log ( 'Almacen de la mina de oro tiene ' + this.getOroActual() + ' Capacidad máx: ' + this.almacen.getMaxCantidad() );
+    console.log ( 'GetCantidad = ' , cantidad);
     /* Si el almacen alcanza el tope enviar un transporte de oro a palacio */
     if (this.almacen.getCantidad() >= this.almacen.getMaxCantidad()) {
       if (this.hayEnvioEnMarcha === false) {
