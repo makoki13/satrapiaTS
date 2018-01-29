@@ -18,6 +18,7 @@ import { COMIDA, MADERA } from '../clases/juego/Recurso';
 import { DBlocal } from '../clases/tools/Persistencia';
 import { Parametros } from '../clases/juego/Parametros';
 import { Granja } from '../clases/juego/Granja';
+import { Taberna } from '../clases/juego/Taberna';
 
 @Component({
   selector: 'app-home',

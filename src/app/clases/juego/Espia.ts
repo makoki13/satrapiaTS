@@ -1,0 +1,5 @@
+class Espia {
+
+}
+
+export { Espia };

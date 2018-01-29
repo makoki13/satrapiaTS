@@ -6,6 +6,8 @@ import { Punto } from './Punto';
 import { Granja } from './Granja';
 import { Serreria } from './Serreria';
 import { Mercado } from './Mercado';
+import { Embajada } from './Embajada';
+import { Taberna } from './Taberna';
 
 class Capital extends Localidad {
   protected palacio: Palacio;
@@ -13,6 +15,8 @@ class Capital extends Localidad {
   protected silos: Silos;
   protected cuartel: Cuartel;
   protected mercado: Mercado;
+  protected embajada: Embajada;
+  protected taberna: Taberna;
 
   protected minasDeOro: Array<MinaDeOro>;
   protected granjas: Array<Granja>;
@@ -40,6 +44,12 @@ class Capital extends Localidad {
 
   public setMercado (m: Mercado) { this.mercado = m; }
   public getMercado () { return this.mercado; }
+
+  public setEmbajada (e: Embajada) { this.embajada = e; }
+  public getEmbajada () { return this.embajada; }
+
+  public setTaberna (t: Taberna) { this.taberna = t; }
+  public getTaberna () { return this.taberna; }
 
   public addMinaDeOro(m: MinaDeOro) { this.minasDeOro.push(m); }
   public getMinasDeOro() { return this.minasDeOro; }

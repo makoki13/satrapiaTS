@@ -10,6 +10,8 @@ import { CivilConHonda, Soldado} from './Recurso';
 
 import { Dispatcher } from './Dispatcher';
 import { Mercado } from './Mercado';
+import { Taberna } from './Taberna';
+import { Embajada } from './Embajada';
 
 class TipoInvestigacion {
   public listaDeSubinvestigaciones: Array < TipoSubInvestigacion >;
@@ -181,7 +183,16 @@ class CentroDeInvestigacion extends Edificio {
     this.listaInvestigaciones.push(investigacion);
 
     investigacion = new TipoInvestigacion(4, 'DIPLOMACIA');
-    subinvestigacion = new TipoSubInvestigacion(1, 'EMBAJADAS', investigacion); investigacion.addSubinvestigacion(subinvestigacion);
+      subinvestigacion = new TipoSubInvestigacion(1, 'EMBAJADAS', investigacion); investigacion.addSubinvestigacion(subinvestigacion);
+        itemInvestigacion = new TipoItemInvestigacion (1, 'Construir taberna', 10, 5, false, subinvestigacion,
+          TipoEdificio.TABERNA, null);
+      subinvestigacion.addIteminvestigacion(itemInvestigacion);
+        itemInvestigacion = new TipoItemInvestigacion (2, 'Construir embajada', 10, 5, false, subinvestigacion,
+          TipoEdificio.EMBAJADA, null);
+      subinvestigacion.addIteminvestigacion(itemInvestigacion);
+        itemInvestigacion = new TipoItemInvestigacion (3, 'Abrir embajada', 10, 5, false, subinvestigacion,
+          TipoEdificio.EMBAJADA, null);
+      subinvestigacion.addIteminvestigacion(itemInvestigacion);
     subinvestigacion = new TipoSubInvestigacion(2, 'ESPIAS', investigacion); investigacion.addSubinvestigacion(subinvestigacion);
     this.listaInvestigaciones.push(investigacion);
 
@@ -283,6 +294,14 @@ class CentroDeInvestigacion extends Edificio {
     if (item.getNombre() === 'Construir mercado') {
       const mercado = new Mercado(1, 'Mercado Central', ciudad, this.disp);
       ciudad.setMercado(mercado);
+    }
+    if (item.getNombre() === 'Construir taberna') {
+      const taberna = new Taberna(1, 'Taberna', ciudad, this.disp);
+      ciudad.setTaberna(taberna);
+    }
+    if (item.getNombre() === 'Construir embajada') {
+      const embajada = new Embajada(1, 'Palacio de embajadores', ciudad, this.disp);
+      ciudad.setEmbajada(embajada);
     }
     return -1; // Finalizar tarea
   }

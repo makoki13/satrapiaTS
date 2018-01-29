@@ -16,6 +16,9 @@ import { CivilConHonda } from '../../clases/juego/Recurso';
 
 import {MatListModule} from '@angular/material/list';
 import { Mercado } from '../../clases/juego/Mercado';
+import { Embajada } from '../../clases/juego/Embajada';
+import { Taberna } from '../../clases/juego/Taberna';
+import { ElementRef } from '@angular/core/src/linker/element_ref';
 
 @Component({
   selector: 'app-ciudad',
@@ -29,13 +32,20 @@ export class CiudadComponent implements OnInit {
   myCuartel: Cuartel;
   mySilos: Silos;
   myMercado: Mercado;
+  myEmbajada: Embajada;
+  myTaberna: Taberna;
 
   title = 'Satrapía';
+
+  investigationSeleccionada: any = null;
+  subinvestigationSeleccionada: any = null;
 
   public verCI = 'inline-block';
   public verSilos = 'none';
   public verCuartel = 'none';
   public verMercado = 'none';
+  public verEmbajada = 'none';
+  public verTaberna = 'none';
 
   public investigacionActual: TipoInvestigacion = null;
   public subInvestigacionActual: TipoSubInvestigacion = null;
@@ -48,11 +58,11 @@ export class CiudadComponent implements OnInit {
     this.myCI = this.myCapital.getCentroDeInvestigacion();
     this.investigacionActual = this.myCI.getLista()[0];
     this.subInvestigacionActual = this.investigacionActual.getLista()[0];
-    // this.myCI.compraInvestigacion([2, 1, 1]); // Test solamente
 
     this.myCuartel = this.myCapital.getCuartel();
-    // this.myMercado = this.myCapital.getMercado();
-    // this.myCuartel.entrenaCivilesConHonda(); // Test solamente
+    this.myMercado = this.myCapital.getMercado();
+    this.myEmbajada = this.myCapital.getEmbajada();
+    this.myTaberna = this.myCapital.getTaberna();
   }
 
   getAlmacenes() { return this.mySilos.getLista(); }
@@ -81,23 +91,41 @@ export class CiudadComponent implements OnInit {
   ngOnInit() {
   }
 
-  public muestraCI() { this.verCuartel = 'none'; this.verSilos = 'none'; this.verMercado = 'none'; this.verCI = 'inline-block'; }
-  public muestraSilos() { this.verCuartel = 'none'; this.verCI = 'none'; this.verMercado = 'none'; this.verSilos = 'inline-block'; }
-  public muestraCuartel() { this.verSilos = 'none'; this.verCI = 'none'; this.verMercado = 'none'; this.verCuartel = 'inline-block';  }
-  public muestraMercado() { this.verSilos = 'none'; this.verCI = 'none'; this.verCuartel = 'none'; this.verMercado = 'inline-block';  }
+  public muestraCI() { this.verCuartel = 'none'; this.verSilos = 'none'; this.verMercado = 'none'; this.verCI = 'inline-block';
+    this.verEmbajada = 'none'; this.verTaberna = 'none'; }
+  public muestraSilos() { this.verCuartel = 'none'; this.verCI = 'none'; this.verMercado = 'none'; this.verSilos = 'inline-block';
+    this.verEmbajada = 'none'; this.verTaberna = 'none'; }
+  public muestraCuartel() { this.verSilos = 'none'; this.verCI = 'none'; this.verMercado = 'none'; this.verCuartel = 'inline-block';
+    this.verEmbajada = 'none'; this.verTaberna = 'none'; }
+  public muestraMercado() { this.verSilos = 'none'; this.verCI = 'none'; this.verCuartel = 'none'; this.verMercado = 'inline-block';
+    this.verEmbajada = 'none'; this.verTaberna = 'none'; }
+  public muestraEmbajada() { this.verSilos = 'none'; this.verCI = 'none'; this.verCuartel = 'none'; this.verMercado = 'none';
+    this.verEmbajada = 'inline-block'; this.verTaberna = 'none';  }
+  public muestraTaberna() { this.verSilos = 'none'; this.verCI = 'none'; this.verCuartel = 'none'; this.verMercado = 'none';
+    this.verEmbajada = 'none'; this.verTaberna = 'inline-block';  }
 
   public activoCI() { return this.verCI; }
   public activoSilos() { return this.verSilos; }
   public activoCuartel() { return this.verCuartel; }
   public activoMercado() { return this.verMercado; }
+  public activoEmbajada() { return this.verEmbajada; }
+  public activoTaberna() { return this.verTaberna; }
 
-  public setInvestigacionActual(investigacion: TipoInvestigacion) {
+  public setInvestigacionActual(o: any, investigacion: TipoInvestigacion) {
+    if (this.investigationSeleccionada !== null) { this.investigationSeleccionada.style = 'background-color: white'; }
+    this.investigationSeleccionada = o.currentTarget;
+    o.currentTarget.style = 'background-color:pink;';
     this.investigacionActual = investigacion;
     this.subInvestigacionActual = this.investigacionActual.getLista()[0];
   }
-  public setSubinvestigacionActual(subinvestigacion: TipoSubInvestigacion) {
+  public setSubinvestigacionActual(o: any, subinvestigacion: TipoSubInvestigacion) {
+    if (this.subinvestigationSeleccionada !== null) { this.subinvestigationSeleccionada.style = 'background-color: white'; }
+    this.subinvestigationSeleccionada = o.currentTarget;
+    o.currentTarget.style = 'background-color:pink;';
     this.subInvestigacionActual = subinvestigacion;
   }
 
   public getStatusMercado() { return this.myCapital.getMercado().getStatus(); }
+  public getStatusTaberna() { return this.myCapital.getTaberna().getStatus(); }
+  public getStatusEmbajada() { return this.myCapital.getEmbajada().getStatus(); }
 }
