@@ -13,6 +13,7 @@ const ORO: Recurso = new Recurso (1, 'ORO', 1);
 const POBLACION: Recurso = new Recurso (2, 'POBLACION', 3);
 const COMIDA: Recurso = new Recurso (3, 'COMIDA', 1);
 const MADERA: Recurso = new Recurso (4, 'MADERA', 1);
+export const PIEDRA: Recurso = new Recurso (4, 'PIEDRA', 1);
 
 class UnidadMilitar extends Recurso {
   private dañoRecibido = 0;
@@ -50,6 +51,14 @@ class Arquero extends UnidadMilitar {
   }
 }
 
+export class Lancero extends UnidadMilitar {
+  constructor (vidaInicial: number, dañoInflingido: number, fuerza: number, moral: number) {
+    super ( 1002, 'Soldado', vidaInicial, dañoInflingido, fuerza, moral, 10, 10);
+  }
+
+  getID () { return this.id; }
+}
+
 export { Recurso };
 export { ORO };
 export { COMIDA };
@@ -59,4 +68,5 @@ export { UnidadMilitar };
 
 export { CivilConHonda };
 export { Soldado };
+export { Arquero };
 

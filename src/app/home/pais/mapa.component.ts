@@ -10,6 +10,7 @@ import { Provincia } from '../../clases/juego/Imperio';
 import { Dispatcher } from '../../clases/juego/Dispatcher';
 import { Granja } from '../../clases/juego/Granja';
 import { Serreria } from '../../clases/juego/Serreria';
+import { Cantera } from '../../clases/juego/Cantera';
 
 @Component({
   selector: 'app-mapa',
@@ -63,6 +64,11 @@ export class MapaComponent {
     return -1;
   }
 
+  construyeCantera() {
+    const cantera = new Cantera (1, 'Cantera', this.myCapital, this.myDispatcher);
+    return -1;
+  }
+
   infoCelda(x: number, y: number) {
     if (HomeComponent.edificioSeleccionado != null) {
       const edificio = HomeComponent.edificioSeleccionado;
@@ -107,6 +113,18 @@ export class MapaComponent {
           this.myDispatcher.addTareaRepetitiva(this, 'construyeSerreria', Serreria.tiempoContruccion);
           break;
 
+        case TipoEdificio.CANTERA_DE_PIEDRA:
+          precio = Cantera.costeConstruccion;
+          importeTotal = precio * 1;
+          cantidadObtenida = this.myCapital.getPalacio().gastaOro(importeTotal);
+          if (cantidadObtenida < importeTotal ) {
+            this.myCapital.getPalacio().entraOro(cantidadObtenida);
+            alert (' Se aborta la construcción de la cantera: Oro insuficiente');
+            return false;
+          }
+          this.myDispatcher.addTareaRepetitiva(this, 'construyeCantera', Cantera.tiempoContruccion);
+          break;
+
         default:
           alert('NOPE');
           break;
@@ -131,6 +149,9 @@ export class MapaComponent {
           break;
         case TipoEdificio.SERRERIA:
           color = 'brown';
+          break;
+        case TipoEdificio.CANTERA_DE_PIEDRA:
+          color = 'silver';
           break;
       }
     }

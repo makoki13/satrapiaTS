@@ -2,7 +2,7 @@ import { Edificio, Unidades } from './Edificio';
 import { TipoEdificio} from './Edificio';
 import { Capital } from './Capital';
 import { Punto } from './Punto';
-import { Recurso } from './Recurso';
+import { Recurso, Lancero, Arquero } from './Recurso';
 
 import { ORO } from './Recurso';
 
@@ -111,15 +111,17 @@ class CentroDeInvestigacion extends Edificio {
 
     this.listaInvestigaciones = new Array < TipoInvestigacion > ();
 
+    // **************** RECURSOS NATURALES *********************/
     let investigacion = new TipoInvestigacion(1, 'RECURSOS NATURALES');
       let subinvestigacion = new TipoSubInvestigacion(1, 'AGRICULTURA', investigacion);
         let itemInvestigacion = new TipoItemInvestigacion (1, 'Cultivar frutales', 10, 10, false, subinvestigacion,
           TipoEdificio.GRANJA, null );
         subinvestigacion.addIteminvestigacion(itemInvestigacion);
+
         itemInvestigacion = new TipoItemInvestigacion (2, 'Cultivar algodon', 15, 15, false, subinvestigacion,
           TipoEdificio.GRANJA, null);
         subinvestigacion.addIteminvestigacion(itemInvestigacion);
-      investigacion.addSubinvestigacion(subinvestigacion);
+        investigacion.addSubinvestigacion(subinvestigacion);
 
       subinvestigacion = new TipoSubInvestigacion(2, 'GANADERIA', investigacion);
         itemInvestigacion = new TipoItemInvestigacion (1, 'Criar cabras', 25, 5, false, subinvestigacion,
@@ -128,33 +130,58 @@ class CentroDeInvestigacion extends Edificio {
         itemInvestigacion = new TipoItemInvestigacion (2, 'Criar gusanos de seda', 80, 8, false, subinvestigacion,
           TipoEdificio.GRANJA, null);
         subinvestigacion.addIteminvestigacion(itemInvestigacion);
-      investigacion.addSubinvestigacion(subinvestigacion);
+        investigacion.addSubinvestigacion(subinvestigacion);
 
       subinvestigacion = new TipoSubInvestigacion(3, 'MADERA', investigacion);
         itemInvestigacion = new TipoItemInvestigacion (1, 'Mejorar producción un 5%', 30, 5, false, subinvestigacion,
           TipoEdificio.SERRERIA, null);
         subinvestigacion.addIteminvestigacion(itemInvestigacion);
-      investigacion.addSubinvestigacion(subinvestigacion);
+        investigacion.addSubinvestigacion(subinvestigacion);
 
       subinvestigacion = new TipoSubInvestigacion(4, 'EXTRACCION DE ORO', investigacion);
         itemInvestigacion = new TipoItemInvestigacion (1, 'Mejorar producción un 5%', 30, 5, false, subinvestigacion,
           TipoEdificio.MINA_DE_ORO, ORO );
         subinvestigacion.addIteminvestigacion(itemInvestigacion);
-      investigacion.addSubinvestigacion(subinvestigacion);
+        investigacion.addSubinvestigacion(subinvestigacion);
 
       subinvestigacion = new TipoSubInvestigacion(5, 'EXTRACCION DE PIEDRA', investigacion);
         itemInvestigacion = new TipoItemInvestigacion (1, 'Mejorar producción un 5%', 30, 5, false, subinvestigacion,
           TipoEdificio.CANTERA_DE_PIEDRA, null);
         subinvestigacion.addIteminvestigacion(itemInvestigacion);
-      investigacion.addSubinvestigacion(subinvestigacion);
+        investigacion.addSubinvestigacion(subinvestigacion);
 
       subinvestigacion = new TipoSubInvestigacion(6, 'EXTRACCION DE HIERRO', investigacion);
         itemInvestigacion = new TipoItemInvestigacion (1, 'Obtener hierro', 50, 5, false, subinvestigacion,
           TipoEdificio.MINA_DE_HIERRO, null);
         subinvestigacion.addIteminvestigacion(itemInvestigacion);
-      investigacion.addSubinvestigacion(subinvestigacion);
-    this.listaInvestigaciones.push(investigacion);
+        investigacion.addSubinvestigacion(subinvestigacion);
 
+      subinvestigacion = new TipoSubInvestigacion(7, 'FARMACIA', investigacion);
+        itemInvestigacion = new TipoItemInvestigacion (1, 'Antibioticos', 25, 5, false, subinvestigacion,
+          null, null);
+        subinvestigacion.addIteminvestigacion(itemInvestigacion);
+        itemInvestigacion = new TipoItemInvestigacion (2, 'Revitalizantes', 80, 8, false, subinvestigacion,
+          null, null);
+        subinvestigacion.addIteminvestigacion(itemInvestigacion);
+        itemInvestigacion = new TipoItemInvestigacion (3, 'Narcóticos', 80, 8, false, subinvestigacion,
+          null, null);
+        subinvestigacion.addIteminvestigacion(itemInvestigacion);
+        itemInvestigacion = new TipoItemInvestigacion (4, 'Analgésicos', 80, 8, false, subinvestigacion,
+          null, null);
+        subinvestigacion.addIteminvestigacion(itemInvestigacion);
+        itemInvestigacion = new TipoItemInvestigacion (5, 'Conservantes', 80, 8, false, subinvestigacion,
+          null, null);
+        subinvestigacion.addIteminvestigacion(itemInvestigacion);
+        itemInvestigacion = new TipoItemInvestigacion (6, 'Lubricantes', 80, 8, false, subinvestigacion,
+          null, null);
+        subinvestigacion.addIteminvestigacion(itemInvestigacion);
+        itemInvestigacion = new TipoItemInvestigacion (7, 'Colorantes', 80, 8, false, subinvestigacion,
+          null, null);
+        subinvestigacion.addIteminvestigacion(itemInvestigacion);
+        investigacion.addSubinvestigacion(subinvestigacion);
+        this.listaInvestigaciones.push(investigacion);
+
+    // **************** EJERCITO ******************************/
     investigacion = new TipoInvestigacion(2, 'EJERCITO');
       subinvestigacion = new TipoSubInvestigacion(1, 'INFANTERIA', investigacion);
         itemInvestigacion = new TipoItemInvestigacion (1, 'Civil con hondas', 10, 5, false, subinvestigacion,
@@ -163,27 +190,64 @@ class CentroDeInvestigacion extends Edificio {
         itemInvestigacion = new TipoItemInvestigacion (2, 'Soldado', 50, 15, false, subinvestigacion,
           TipoEdificio.CUARTEL, new Soldado (100, 1, 100, 100));
       subinvestigacion.addIteminvestigacion(itemInvestigacion);
+        itemInvestigacion = new TipoItemInvestigacion (3, 'Arquero', 50, 15, false, subinvestigacion,
+          TipoEdificio.CUARTEL, new Arquero (100, 1, 100, 100));
+      subinvestigacion.addIteminvestigacion(itemInvestigacion);
+        itemInvestigacion = new TipoItemInvestigacion (4, 'Lancero', 50, 15, false, subinvestigacion,
+          TipoEdificio.CUARTEL, new Lancero (100, 1, 100, 100));
+      subinvestigacion.addIteminvestigacion(itemInvestigacion);
       investigacion.addSubinvestigacion(subinvestigacion);
-      subinvestigacion = new TipoSubInvestigacion(2, 'CABALLERIA', investigacion); investigacion.addSubinvestigacion(subinvestigacion);
-      subinvestigacion = new TipoSubInvestigacion(3, 'CARROS', investigacion); investigacion.addSubinvestigacion(subinvestigacion);
-      subinvestigacion = new TipoSubInvestigacion(4, 'ASALTO', investigacion); investigacion.addSubinvestigacion(subinvestigacion);
-      subinvestigacion = new TipoSubInvestigacion(5, 'OFICIALES', investigacion); investigacion.addSubinvestigacion(subinvestigacion);
-    this.listaInvestigaciones.push(investigacion);
 
-    investigacion = new TipoInvestigacion(3, 'COMERCIO');
-      subinvestigacion = new TipoSubInvestigacion(1, 'MERCADO', investigacion);
+      subinvestigacion = new TipoSubInvestigacion(2, 'CABALLERIA', investigacion);
       investigacion.addSubinvestigacion(subinvestigacion);
+      subinvestigacion = new TipoSubInvestigacion(3, 'CARROS', investigacion);
+      investigacion.addSubinvestigacion(subinvestigacion);
+      subinvestigacion = new TipoSubInvestigacion(4, 'ASALTO', investigacion);
+      investigacion.addSubinvestigacion(subinvestigacion);
+      subinvestigacion = new TipoSubInvestigacion(5, 'OFICIALES', investigacion);
+      investigacion.addSubinvestigacion(subinvestigacion);
+      subinvestigacion = new TipoSubInvestigacion(6, 'ESPECIALES', investigacion);
+      investigacion.addSubinvestigacion(subinvestigacion);
+      subinvestigacion = new TipoSubInvestigacion(7, 'DEFENSA', investigacion);
+        itemInvestigacion = new TipoItemInvestigacion (1, 'Puesto de vigilancia básico', 10, 5, false, subinvestigacion,
+          null, null);
+      subinvestigacion.addIteminvestigacion(itemInvestigacion);
+        itemInvestigacion = new TipoItemInvestigacion (2, 'Puesto de vigilancia medio', 10, 5, false, subinvestigacion,
+          null, null);
+      subinvestigacion.addIteminvestigacion(itemInvestigacion);
+        itemInvestigacion = new TipoItemInvestigacion (3, 'Puesto de vigilancia avanzado', 10, 5, false, subinvestigacion,
+          null, null);
+      subinvestigacion.addIteminvestigacion(itemInvestigacion);
+      investigacion.addSubinvestigacion(subinvestigacion);
+      this.listaInvestigaciones.push(investigacion);
+
+    // **************** TÁCTICAS ******************************/
+    investigacion = new TipoInvestigacion(3, 'TÁCTICAS MILITARES');
+      subinvestigacion = new TipoSubInvestigacion(1, 'ORDENACIÓN', investigacion);
+        itemInvestigacion = new TipoItemInvestigacion (1, 'Unidades en filas', 10, 5, false, subinvestigacion,
+          null, null);
+      subinvestigacion.addIteminvestigacion(itemInvestigacion);
+      investigacion.addSubinvestigacion(subinvestigacion);
+      this.listaInvestigaciones.push(investigacion);
+
+    // **************** COMERCIO ******************************/
+    investigacion = new TipoInvestigacion(4, 'COMERCIO');
+      subinvestigacion = new TipoSubInvestigacion(1, 'MERCADO', investigacion);
         itemInvestigacion = new TipoItemInvestigacion (1, 'Construir mercado', 10, 5, false, subinvestigacion,
           TipoEdificio.MERCADO, null);
       subinvestigacion.addIteminvestigacion(itemInvestigacion);
+      investigacion.addSubinvestigacion(subinvestigacion);
       subinvestigacion = new TipoSubInvestigacion(2, 'ELEMENTOS DE TRANSPORTE', investigacion);
-        investigacion.addSubinvestigacion(subinvestigacion);
+      investigacion.addSubinvestigacion(subinvestigacion);
       subinvestigacion = new TipoSubInvestigacion(3, 'CARRETERAS', investigacion);
-        investigacion.addSubinvestigacion(subinvestigacion);
-    this.listaInvestigaciones.push(investigacion);
+      investigacion.addSubinvestigacion(subinvestigacion);
+      subinvestigacion = new TipoSubInvestigacion(4, 'ARANCELES', investigacion);
+      investigacion.addSubinvestigacion(subinvestigacion);
+      this.listaInvestigaciones.push(investigacion);
 
-    investigacion = new TipoInvestigacion(4, 'DIPLOMACIA');
-      subinvestigacion = new TipoSubInvestigacion(1, 'EMBAJADAS', investigacion); investigacion.addSubinvestigacion(subinvestigacion);
+    // **************** DIPLOMACIA ******************************/
+    investigacion = new TipoInvestigacion(5, 'DIPLOMACIA');
+      subinvestigacion = new TipoSubInvestigacion(1, 'EMBAJADAS', investigacion);
         itemInvestigacion = new TipoItemInvestigacion (1, 'Construir taberna', 10, 5, false, subinvestigacion,
           TipoEdificio.TABERNA, null);
       subinvestigacion.addIteminvestigacion(itemInvestigacion);
@@ -193,15 +257,28 @@ class CentroDeInvestigacion extends Edificio {
         itemInvestigacion = new TipoItemInvestigacion (3, 'Abrir embajada', 10, 5, false, subinvestigacion,
           TipoEdificio.EMBAJADA, null);
       subinvestigacion.addIteminvestigacion(itemInvestigacion);
-    subinvestigacion = new TipoSubInvestigacion(2, 'ESPIAS', investigacion); investigacion.addSubinvestigacion(subinvestigacion);
-    this.listaInvestigaciones.push(investigacion);
+      investigacion.addSubinvestigacion(subinvestigacion);
+      subinvestigacion = new TipoSubInvestigacion(2, 'ESPIAS', investigacion);
+      investigacion.addSubinvestigacion(subinvestigacion);
+      this.listaInvestigaciones.push(investigacion);
 
-    investigacion = new TipoInvestigacion(5, 'INDUSTRIA');
-    subinvestigacion = new TipoSubInvestigacion(1, 'ARMAS', investigacion); investigacion.addSubinvestigacion(subinvestigacion);
-    subinvestigacion = new TipoSubInvestigacion(2, 'INVESTIGACION', investigacion); investigacion.addSubinvestigacion(subinvestigacion);
-    subinvestigacion = new TipoSubInvestigacion(3, 'CONSTRUCCIÓN', investigacion); investigacion.addSubinvestigacion(subinvestigacion);
-    subinvestigacion = new TipoSubInvestigacion(4, 'OCIO', investigacion); investigacion.addSubinvestigacion(subinvestigacion);
-    this.listaInvestigaciones.push(investigacion);
+    // **************** INDUSTRIA ******************************/
+    investigacion = new TipoInvestigacion(6, 'INDUSTRIA');
+      subinvestigacion = new TipoSubInvestigacion(1, 'ARMAS', investigacion);
+      investigacion.addSubinvestigacion(subinvestigacion);
+      subinvestigacion = new TipoSubInvestigacion(2, 'INVESTIGACION', investigacion);
+      investigacion.addSubinvestigacion(subinvestigacion);
+      subinvestigacion = new TipoSubInvestigacion(3, 'CONSTRUCCIÓN', investigacion);
+      investigacion.addSubinvestigacion(subinvestigacion);
+      subinvestigacion = new TipoSubInvestigacion(4, 'OCIO', investigacion);
+      investigacion.addSubinvestigacion(subinvestigacion);
+      this.listaInvestigaciones.push(investigacion);
+
+    // **************** CULTURA ******************************/
+    investigacion = new TipoInvestigacion(7, 'CULTURA');
+      subinvestigacion = new TipoSubInvestigacion(1, 'RELIGIÓN', investigacion);
+      investigacion.addSubinvestigacion(subinvestigacion);
+      this.listaInvestigaciones.push(investigacion);
   }
 
   getLista() { return this.listaInvestigaciones; }

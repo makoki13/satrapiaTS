@@ -51,6 +51,23 @@
         </li>
       </ul>
     </div>
+
+    <div class="edificio" style="display: inline-block;padding-left:3px;">CANTERA</div>
+    <div class="edificio" style="display: inline-block;"><span class="badge badge-secondary badge-pill">{{numeroCanteras()}}</span></div>
+    <div style="padding-left:8px;">
+      <button class="btn btn-primary btn-sm" (click)="setCantera();">
+        Construir {{costeCantera()}} <i class="fa fa-money"></i> {{tiempoCantera()}} <i class="fa fa-clock-o" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div id="listaCA" *ngFor="let cantera of getCanteras()">
+      <ul>
+        <li>
+          {{ cantera.getNombre() }} tiene {{ cantera.getPiedraActual() }} de una capacidad máxima de {{ cantera.getMaxAlmacen() }}
+          [<div style="display:inline-block;" *ngIf="cantera.estaActiva()"> Activa </div><div style="display:inline-block;" *ngIf="!cantera.estaActiva()"> Agotada </div>]
+          <div>{{ cantera.getStatus() }}</div>
+        </li>
+      </ul>
+    </div>
   </div>
 
   <div id="mapa" style="display:inline-block;border:1px solid red;width:79%; height:100%; vertical-align:top;">

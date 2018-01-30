@@ -20,17 +20,17 @@
           <span class="badge badge-light" style="text-align:center;width:100%;">{{ myCuartel.getStatus() }}</span>
         </div>
 
-        <div style="padding-bottom: 10px; border:0px solid blue;padding-left:5px;" *ngIf="myCI.estaComprada(3,1,1)">
+        <div style="padding-bottom: 10px; border:0px solid blue;padding-left:5px;" *ngIf="myCI.estaComprada(4,1,1)">
           <input class="btn btn-primary btn-sm" style="width:100%;color:white;text-shadow:1px 1px 1px black;" type="button" value="MERCADO" (click)="muestraMercado();">
           <span class="badge badge-light" style="text-align:center;width:100%;">{{ getStatusMercado() }}</span>
         </div>
 
-        <div style="padding-bottom: 10px; border:0px solid blue;padding-left:5px;" *ngIf="myCI.estaComprada(4,1,1)">
+        <div style="padding-bottom: 10px; border:0px solid blue;padding-left:5px;" *ngIf="myCI.estaComprada(5,1,1)">
           <input class="btn btn-primary btn-sm" style="width:100%;color:white;text-shadow:1px 1px 1px black;" type="button" value="TABERNA" (click)="muestraTaberna();">
           <span class="badge badge-light" style="text-align:center;width:100%;">{{ getStatusTaberna() }}</span>
         </div>
 
-        <div style="padding-bottom: 10px; border:0px solid blue;padding-left:5px;" *ngIf="myCI.estaComprada(4,1,2)">
+        <div style="padding-bottom: 10px; border:0px solid blue;padding-left:5px;" *ngIf="myCI.estaComprada(5,1,2)">
           <input class="btn btn-primary btn-sm" style="width:100%;color:white;text-shadow:1px 1px 1px black;" type="button" value="EMBAJADA" (click)="muestraEmbajada();">
           <span class="badge badge-light" style="text-align:center;width:100%;">{{ getStatusEmbajada() }}</span>
         </div>

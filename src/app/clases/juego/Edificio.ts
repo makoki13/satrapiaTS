@@ -4,7 +4,7 @@ import { Extractor } from './Extractor';
 import { Productor } from './Productor';
 import { Almacen } from './Almacen';
 import { Punto } from './Punto';
-import { Recurso, ORO, COMIDA, MADERA, Soldado } from './Recurso';
+import { Recurso, ORO, COMIDA, MADERA, Soldado, PIEDRA } from './Recurso';
 import { POBLACION } from './Recurso';
 import { UnidadMilitar } from './Recurso';
 import { Transporte } from './Transporte';
@@ -84,6 +84,20 @@ class Silos extends Edificio {
       if (x.getTipoRecurso() === MADERA) {indiceElemento = indice; }
     });
     if ( indiceElemento !== -1) { return this.almacenes[indiceElemento]; } else {return null; }
+  }
+
+  public getAlmacenPiedra() {
+    let indiceElemento = -1;
+    this.almacenes.forEach( (x, indice) => {
+      if (x.getTipoRecurso() === PIEDRA) {indiceElemento = indice; }
+    });
+    if ( indiceElemento !== -1) {
+      console.log('se obtiene elem de almacen de piedra');
+      return this.almacenes[indiceElemento];
+    } else {
+      console.log('Fail en elem de almacen de piedra');
+      return null;
+    }
   }
 }
 

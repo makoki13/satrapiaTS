@@ -14,7 +14,7 @@ import {RoutingModule} from './home.routing';
 import { MinaDeOro, Cuartel, Silos, TipoEdificio } from '../clases/juego/Edificio';
 import { CentroDeInvestigacion } from '../clases/juego/CentroDeInvestigacion';
 import { Almacen } from '../clases/juego/Almacen';
-import { COMIDA, MADERA } from '../clases/juego/Recurso';
+import { COMIDA, MADERA, PIEDRA } from '../clases/juego/Recurso';
 import { DBlocal } from '../clases/tools/Persistencia';
 import { Parametros } from '../clases/juego/Parametros';
 import { Granja } from '../clases/juego/Granja';
@@ -75,6 +75,8 @@ export class HomeComponent implements OnInit {
     mySilos.addAlmacen (almacenAlimentos);
     const almacenMadera: Almacen = new Almacen (1, 'Silo madera', MADERA, HomeComponent.myCapital.getPosicion(), 5000);
     mySilos.addAlmacen (almacenMadera);
+    const almacenPiedra: Almacen = new Almacen (1, 'Silo piedra', PIEDRA, HomeComponent.myCapital.getPosicion(), 5000);
+    mySilos.addAlmacen (almacenPiedra);
   }
 
   async run() {

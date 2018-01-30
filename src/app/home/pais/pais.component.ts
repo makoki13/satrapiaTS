@@ -4,7 +4,6 @@ import { Component, OnInit } from '@angular/core';
 import {MatTableModule} from '@angular/material/table';
 
 import {ViewChild} from '@angular/core';
-// import {MatTableDataSource, MatTable} from '@angular/material';
 
 import { HomeComponent } from './../home.component';
 
@@ -18,6 +17,7 @@ import { Capital } from '../../clases/juego/Capital';
 import { Palacio } from '../../clases/juego/Palacio';
 import { Granja } from '../../clases/juego/Granja';
 import { Serreria } from '../../clases/juego/Serreria';
+import { Cantera } from '../../clases/juego/Cantera';
 
 @Component({
   selector: 'app-pais',
@@ -35,6 +35,7 @@ export class PaisComponent implements OnInit {
   myMinasDeOro: Array <MinaDeOro>;
   myGranjas: Array <Granja>;
   mySerrerias: Array <Serreria>;
+  myCanteras: Array<Cantera>;
 
   constructor() {
     this.myImperio = HomeComponent.myImperio;
@@ -45,6 +46,7 @@ export class PaisComponent implements OnInit {
     this.myMinasDeOro = this.myCapital.getMinasDeOro();
     this.myGranjas = this.myCapital.getGranjas();
     this.mySerrerias = this.myCapital.getSerrerias();
+    this.myCanteras = this.myCapital.getCanteras();
 
     HomeComponent.edificioSeleccionado = null;
   }
@@ -73,4 +75,10 @@ export class PaisComponent implements OnInit {
   numeroSerrerias() { return this.myCapital.getSerrerias().length; }
   costeSerreria() { return Serreria.costeConstruccion; }
   tiempoSerreria() { return Serreria.tiempoContruccion; }
+
+  setCantera() { this.setTipoEleccion(TipoEdificio.CANTERA_DE_PIEDRA); }
+  getCanteras() { return this.myCapital.getCanteras(); }
+  numeroCanteras() { return this.myCapital.getCanteras().length; }
+  costeCantera() { return Cantera.costeConstruccion; }
+  tiempoCantera() { return Cantera.tiempoContruccion; }
 }

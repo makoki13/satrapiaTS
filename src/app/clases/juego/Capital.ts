@@ -1,3 +1,4 @@
+import { Cantera } from './Cantera';
 import { Localidad, Provincia } from './Imperio';
 import { Palacio } from './Palacio';
 import { CentroDeInvestigacion } from './CentroDeInvestigacion';
@@ -21,6 +22,7 @@ class Capital extends Localidad {
   protected minasDeOro: Array<MinaDeOro>;
   protected granjas: Array<Granja>;
   protected serrerias: Array<Serreria>;
+  protected canteras: Array<Cantera>;
 
   constructor(id: number, nombre: string, provincia: Provincia, posicion: Punto ) {
     super(id, nombre, true, provincia, 50, posicion);
@@ -28,6 +30,7 @@ class Capital extends Localidad {
     this.minasDeOro = Array();
     this.granjas = Array();
     this.serrerias = Array();
+    this.canteras = Array();
   }
 
   public setPalacio (p: Palacio) { this.palacio = p; }
@@ -59,6 +62,9 @@ class Capital extends Localidad {
 
   public addSerreria(s: Serreria) { this.serrerias.push(s); }
   public getSerrerias() { return this.serrerias; }
+
+  public addCantera(c: Cantera) { this.canteras.push(c); }
+  public getCanteras() { return this.canteras; }
 }
 
 export { Capital };
