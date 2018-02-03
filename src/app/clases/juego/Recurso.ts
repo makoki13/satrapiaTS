@@ -14,6 +14,7 @@ const POBLACION: Recurso = new Recurso (2, 'POBLACION', 3);
 const COMIDA: Recurso = new Recurso (3, 'COMIDA', 1);
 const MADERA: Recurso = new Recurso (4, 'MADERA', 1);
 export const PIEDRA: Recurso = new Recurso (4, 'PIEDRA', 1);
+export const HIERRO: Recurso = new Recurso (5, 'HIERRO', 1);
 
 class UnidadMilitar extends Recurso {
   private dañoRecibido = 0;

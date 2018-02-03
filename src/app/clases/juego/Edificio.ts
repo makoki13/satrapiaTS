@@ -4,7 +4,7 @@ import { Extractor } from './Extractor';
 import { Productor } from './Productor';
 import { Almacen } from './Almacen';
 import { Punto } from './Punto';
-import { Recurso, ORO, COMIDA, MADERA, Soldado, PIEDRA } from './Recurso';
+import { Recurso, ORO, COMIDA, MADERA, Soldado, PIEDRA, HIERRO } from './Recurso';
 import { POBLACION } from './Recurso';
 import { UnidadMilitar } from './Recurso';
 import { Transporte } from './Transporte';
@@ -96,6 +96,20 @@ class Silos extends Edificio {
       return this.almacenes[indiceElemento];
     } else {
       console.log('Fail en elem de almacen de piedra');
+      return null;
+    }
+  }
+
+  public getAlmacenHierro() {
+    let indiceElemento = -1;
+    this.almacenes.forEach( (x, indice) => {
+      if (x.getTipoRecurso() === HIERRO) {indiceElemento = indice; }
+    });
+    if ( indiceElemento !== -1) {
+      console.log('se obtiene elem de almacen de hierro');
+      return this.almacenes[indiceElemento];
+    } else {
+      console.log('Fail en elem de almacen de hierro');
       return null;
     }
   }
@@ -269,69 +283,9 @@ class Cuartel extends Edificio {
   }
 }
 
-/******************************************************************************************/
-/** CLASE MINA DE ORO */
-class MinaDeOro extends Edificio {
-  static costeConstruccion = 250;
-  static tiempoContruccion = 5;
-
-  private mineros: Extractor;
-  private filon: Productor;
-  private almacen: Almacen;
-
-  constructor (id: number, nombre: string, private capital: Capital, private disp: Dispatcher) {
-    super (id, nombre, TipoEdificio.MINA_DE_ORO, capital.getPosicion(), 100, 10);
-
-    this.capital.addMinaDeOro(this);
-
-    this.filon = new Productor ( null, ORO, 20000, 20, 1);
-    // Productor ( null, ORO, oro total por explotar, ni idea, 1)
-    this.almacen = new Almacen ( 67, 'Filón de oro', ORO, this.capital.getPosicion(), 100);
-    const cantidadInicial = 20;
-    // cantidadInicial = oro que se recoge cada x tiempo
-    this.mineros = new Extractor (this.filon, this.almacen, cantidadInicial);
-
-    this.disp.addTareaRepetitiva(this, 'extrae', 1);
-
-    this.setStatus ('Sin envios actuales');
-  }
-
-  extrae() {
-    const cantidad = this.mineros.getCantidad();
-    // if (cantidad === 0) {this.setStatus ('Mina de oro agotada'); return -1; }
-    this.almacen.addCantidad (cantidad);
-    console.log ( 'Almacen de la mina de oro tiene ' + this.getOroActual() + ' Capacidad máx: ' + this.almacen.getMaxCantidad() );
-    console.log ( 'GetCantidad = ' , cantidad);
-    /* Si el almacen alcanza el tope enviar un transporte de oro a palacio */
-    if (this.almacen.getCantidad() >= this.almacen.getMaxCantidad()) {
-      if (this.hayEnvioEnMarcha === false) {
-        this.hayEnvioEnMarcha = true;
-        this.enviaOroHaciaPalacio();
-      }
-    }
-  }
-
-  enviaOroHaciaPalacio() {
-    const cantidad = this.almacen.restaCantidad(this.almacen.getCantidad());
-    const transporteDeOro = new Transporte (this.almacen, this.capital.getPalacio().getAlmacen(), ORO, cantidad, this );
-
-    transporteDeOro.calculaViaje();
-    this.setStatus ('Enviando oro...');
-    this.disp.addTareaRepetitiva(transporteDeOro, 'envia', 1);
-  }
-
-  public getOroActual() { return this.almacen.getCantidad(); }
-  public getMaxAlmacen() { return this.almacen.getMaxCantidad(); }
-
-  public getStatus() { return this.status; }
-  public setStatus( mensaje: string ) { super.setStatus(mensaje); }
-
-  public estaActiva() { return (this.filon.getStock() > 0); }
-}
 
 export { Cuartel };
 export { Unidades };
-export { MinaDeOro };
 export { Edificio };
 export { TipoEdificio };
 export { Silos };

@@ -39,7 +39,9 @@ export class Cantera extends Edificio {
 
     /* Si el almacen alcanza el tope enviar un transporte de piedra a palacio */
     if (this.almacen.getCantidad() >= this.almacen.getMaxCantidad()) {
+      console.log ('Cantera: ' + cantidad + ' para enviar');
       if (this.hayEnvioEnMarcha === false) {
+        console.log ('Cantera: enviando');
         this.hayEnvioEnMarcha = true;
         this.enviaPiedraHaciaCiudad();
       }

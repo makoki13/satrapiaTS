@@ -2,13 +2,14 @@ import { Cantera } from './Cantera';
 import { Localidad, Provincia } from './Imperio';
 import { Palacio } from './Palacio';
 import { CentroDeInvestigacion } from './CentroDeInvestigacion';
-import { Silos, Cuartel, MinaDeOro } from './Edificio';
+import { Silos, Cuartel } from './Edificio';
 import { Punto } from './Punto';
 import { Granja } from './Granja';
 import { Serreria } from './Serreria';
 import { Mercado } from './Mercado';
 import { Embajada } from './Embajada';
 import { Taberna } from './Taberna';
+import { MinaDeOro, MinaDeHierro } from './Mina';
 
 class Capital extends Localidad {
   protected palacio: Palacio;
@@ -23,6 +24,7 @@ class Capital extends Localidad {
   protected granjas: Array<Granja>;
   protected serrerias: Array<Serreria>;
   protected canteras: Array<Cantera>;
+  protected minasDeHierro: Array<MinaDeHierro>;
 
   constructor(id: number, nombre: string, provincia: Provincia, posicion: Punto ) {
     super(id, nombre, true, provincia, 50, posicion);
@@ -31,6 +33,7 @@ class Capital extends Localidad {
     this.granjas = Array();
     this.serrerias = Array();
     this.canteras = Array();
+    this.minasDeHierro = Array();
   }
 
   public setPalacio (p: Palacio) { this.palacio = p; }
@@ -65,6 +68,9 @@ class Capital extends Localidad {
 
   public addCantera(c: Cantera) { this.canteras.push(c); }
   public getCanteras() { return this.canteras; }
+
+  public addMinaDeHierro(m: MinaDeHierro) { this.minasDeHierro.push(m); }
+  public getMinasDeHierro() { return this.minasDeHierro; }
 }
 
 export { Capital };

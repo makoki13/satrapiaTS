@@ -1,7 +1,7 @@
 import { PaisComponent } from './pais.component';
 import {Component} from '@angular/core';
 import { Punto } from '../../clases/juego/Punto';
-import { MinaDeOro, TipoEdificio } from '../../clases/juego/Edificio';
+import { TipoEdificio } from '../../clases/juego/Edificio';
 
 import { HomeComponent } from './../home.component';
 
@@ -11,6 +11,7 @@ import { Dispatcher } from '../../clases/juego/Dispatcher';
 import { Granja } from '../../clases/juego/Granja';
 import { Serreria } from '../../clases/juego/Serreria';
 import { Cantera } from '../../clases/juego/Cantera';
+import { MinaDeOro, MinaDeHierro } from '../../clases/juego/Mina';
 
 @Component({
   selector: 'app-mapa',
@@ -66,6 +67,11 @@ export class MapaComponent {
 
   construyeCantera() {
     const cantera = new Cantera (1, 'Cantera', this.myCapital, this.myDispatcher);
+    return -1;
+  }
+
+  construyeMinaDeHierro() {
+    const minaDeHierro = new MinaDeHierro (1, 'Mina de hierro de la sierra', this.myCapital, this.myDispatcher);
     return -1;
   }
 
@@ -125,6 +131,19 @@ export class MapaComponent {
           this.myDispatcher.addTareaRepetitiva(this, 'construyeCantera', Cantera.tiempoContruccion);
           break;
 
+        case TipoEdificio.MINA_DE_HIERRO:
+          // this.setStatus ('Construendo mina de hierro...');
+          precio = MinaDeHierro.costeConstruccion;
+          importeTotal = precio * 1;
+          cantidadObtenida = this.myCapital.getPalacio().gastaOro(importeTotal);
+          if (cantidadObtenida < importeTotal ) {
+            this.myCapital.getPalacio().entraOro(cantidadObtenida);
+            alert (' Se aborta la construcción de la mina de hierro: Oro insuficiente');
+            return false;
+          }
+          this.myDispatcher.addTareaRepetitiva(this, 'construyeMinaDeHierro', MinaDeHierro.tiempoContruccion);
+          break;
+
         default:
           alert('NOPE');
           break;
@@ -152,6 +171,9 @@ export class MapaComponent {
           break;
         case TipoEdificio.CANTERA_DE_PIEDRA:
           color = 'silver';
+          break;
+          case TipoEdificio.MINA_DE_HIERRO:
+          color = 'gray';
           break;
       }
     }

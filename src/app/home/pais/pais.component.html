@@ -68,6 +68,23 @@
         </li>
       </ul>
     </div>
+
+  <div class="edificio" style="display: inline-block;padding-left:3px;">MINAS DE HIERRO</div>
+    <div class="edificio" style="display: inline-block;"><span class="badge badge-secondary badge-pill">{{numeroMinasDeHierro()}}</span></div>
+    <div style="padding-left:8px;">
+      <button class="btn btn-primary btn-sm" (click)="setMinaDeHierro();">
+        Construir {{costeMinaDeHierro()}} <i class="fa fa-money"></i> {{tiempoMinaDeHierro()}} <i class="fa fa-clock-o" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div id="listaMH" *ngFor="let minaDeHierro of getMinasDeHierro()">
+      <ul>
+        <li>
+          {{ minaDeHierro.getNombre() }} tiene {{ minaDeHierro.getHierroActual() }} de una capacidad máxima de {{ minaDeHierro.getMaxAlmacen() }}
+          [<div style="display:inline-block;" *ngIf="minaDeHierro.estaActiva()"> Activa </div><div style="display:inline-block;" *ngIf="!minaDeHierro.estaActiva()"> Agotada </div>]
+          <div>{{ minaDeHierro.getStatus() }}</div>
+        </li>
+      </ul>
+    </div>
   </div>
 
   <div id="mapa" style="display:inline-block;border:1px solid red;width:79%; height:100%; vertical-align:top;">

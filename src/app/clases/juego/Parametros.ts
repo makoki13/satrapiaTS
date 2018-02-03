@@ -24,7 +24,7 @@ class Parametros {
 
     public static Cantera_Construccion_Coste = 110;
     public static Cantera_Construccion_Tiempo = 10;
-    public static Cantera_Productor_CantidadInicial = 0;
+    public static Cantera_Productor_CantidadInicial = 10000;
     public static Cantera_Productor_CantidadMaxima = 10000;
     public static Cantera_Productor_Ratio = 1;
     public static Cantera_Almacen_Capacidad = 5;

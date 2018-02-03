@@ -11,14 +11,15 @@ import { Punto } from '../clases/juego/Punto';
 import {Routes, RouterModule, Router} from '@angular/router';
 
 import {RoutingModule} from './home.routing';
-import { MinaDeOro, Cuartel, Silos, TipoEdificio } from '../clases/juego/Edificio';
+import { Cuartel, Silos, TipoEdificio } from '../clases/juego/Edificio';
 import { CentroDeInvestigacion } from '../clases/juego/CentroDeInvestigacion';
 import { Almacen } from '../clases/juego/Almacen';
-import { COMIDA, MADERA, PIEDRA } from '../clases/juego/Recurso';
+import { COMIDA, MADERA, PIEDRA, HIERRO } from '../clases/juego/Recurso';
 import { DBlocal } from '../clases/tools/Persistencia';
 import { Parametros } from '../clases/juego/Parametros';
 import { Granja } from '../clases/juego/Granja';
 import { Taberna } from '../clases/juego/Taberna';
+import { MinaDeOro } from '../clases/juego/Mina';
 
 @Component({
   selector: 'app-home',
@@ -77,6 +78,8 @@ export class HomeComponent implements OnInit {
     mySilos.addAlmacen (almacenMadera);
     const almacenPiedra: Almacen = new Almacen (1, 'Silo piedra', PIEDRA, HomeComponent.myCapital.getPosicion(), 5000);
     mySilos.addAlmacen (almacenPiedra);
+    const almacenHierro: Almacen = new Almacen (1, 'Silo hierro', HIERRO, HomeComponent.myCapital.getPosicion(), 5000);
+    mySilos.addAlmacen (almacenHierro);
   }
 
   async run() {
