@@ -1,3 +1,4 @@
+import { InformeComponent } from './pais/informe.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -26,6 +27,7 @@ import { AjustesComponent } from './ajustes/ajustes.component';
     CiudadComponent,
     PaisComponent,
     MapaComponent,
+    InformeComponent,
     MatTable, MatTableModule, MatTableDataSource, AjustesComponent
   ],
   imports: [
@@ -43,6 +45,7 @@ import { AjustesComponent } from './ajustes/ajustes.component';
     MatTabsModule,
     RoutingModule,
     MapaComponent,
+    InformeComponent,
     AjustesComponent,
     MatTable, MatTableModule, MatTableDataSource
   ],

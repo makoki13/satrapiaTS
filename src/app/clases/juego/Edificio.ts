@@ -92,10 +92,10 @@ class Silos extends Edificio {
       if (x.getTipoRecurso() === PIEDRA) {indiceElemento = indice; }
     });
     if ( indiceElemento !== -1) {
-      console.log('se obtiene elem de almacen de piedra');
+      // console.log('se obtiene elem de almacen de piedra');
       return this.almacenes[indiceElemento];
     } else {
-      console.log('Fail en elem de almacen de piedra');
+      // console.log('Fail en elem de almacen de piedra');
       return null;
     }
   }
@@ -106,10 +106,10 @@ class Silos extends Edificio {
       if (x.getTipoRecurso() === HIERRO) {indiceElemento = indice; }
     });
     if ( indiceElemento !== -1) {
-      console.log('se obtiene elem de almacen de hierro');
+      // console.log('se obtiene elem de almacen de hierro');
       return this.almacenes[indiceElemento];
     } else {
-      console.log('Fail en elem de almacen de hierro');
+      // console.log('Fail en elem de almacen de hierro');
       return null;
     }
   }

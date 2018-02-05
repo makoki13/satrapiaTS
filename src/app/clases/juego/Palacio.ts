@@ -28,7 +28,7 @@ class Palacio extends Edificio {
     let cantidadInicial = 2;
     this.impuestos = new Productor ( null, ORO, 10, 10, 1);
     this.almacen = new Almacen ( 66, 'Deposito de oro', ORO, capital.getPosicion(), Number.MAX_VALUE.valueOf());
-    console.log('constructor palacio', Parametros.oroInicial);
+    // console.log('constructor palacio', Parametros.oroInicial);
     this.almacen.addCantidad(Parametros.oroInicial);
     this.recaudador = new Extractor (this.impuestos, this.almacen, cantidadInicial);
     this.disp.addTareaRepetitiva(this, 'recaudaImpuestos', 1);

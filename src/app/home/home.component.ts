@@ -129,7 +129,7 @@ export class HomeComponent implements OnInit {
   }
 
   private anula () {
-    this.r1 = this.r2 = this.r3 = this.r4 = this.r5 = this.r6 =false;
+    this.r1 = this.r2 = this.r3 = this.r4 = this.r5 = this.r6 = false;
   }
 
   public activa(ordinal) {

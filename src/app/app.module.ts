@@ -1,3 +1,4 @@
+import { InformeComponent } from './home/pais/informe.component';
 import { MapaComponent } from './home/pais/mapa.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -29,6 +30,7 @@ import { AjustesComponent } from './home/ajustes/ajustes.component';
     CiudadComponent,
     PaisComponent,
     MapaComponent,
+    InformeComponent,
     AjustesComponent
   ],
   imports: [

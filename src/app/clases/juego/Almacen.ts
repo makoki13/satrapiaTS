@@ -9,7 +9,7 @@ class Almacen {
   }
 
   public addCantidad (cantidad: number) {
-    console.log ('Recepcion de ' + cantidad + ' en ' + this.nombre);
+    // console.log ('Recepcion de ' + cantidad + ' en ' + this.nombre);
     this.cantidad = this.cantidad + Number(cantidad).valueOf();
   }
 

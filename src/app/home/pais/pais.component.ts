@@ -1,5 +1,6 @@
-import { MinaDeHierro } from './../../clases/juego/Mina';
+import { InformeComponent } from './informe.component';
 import { MapaComponent } from './mapa.component';
+
 import { Component, OnInit } from '@angular/core';
 
 import {MatTableModule} from '@angular/material/table';
@@ -20,6 +21,8 @@ import { Granja } from '../../clases/juego/Granja';
 import { Serreria } from '../../clases/juego/Serreria';
 import { Cantera } from '../../clases/juego/Cantera';
 import { MinaDeOro } from '../../clases/juego/Mina';
+import { MinaDeHierro } from './../../clases/juego/Mina';
+import { Parametros } from '../../clases/juego/Parametros';
 
 @Component({
   selector: 'app-pais',
@@ -28,6 +31,8 @@ import { MinaDeOro } from '../../clases/juego/Mina';
 })
 
 export class PaisComponent implements OnInit {
+  static statusMinasDeOro = 'Construir';
+
   myImperio: Imperio;
   myJugador: Jugador;
   myProvincia: Provincia;
@@ -39,6 +44,12 @@ export class PaisComponent implements OnInit {
   mySerrerias: Array <Serreria>;
   myCanteras: Array<Cantera>;
   myMinasDeHierro: Array<MinaDeHierro>;
+
+  myInforme: InformeComponent;
+
+  displayInforme = false;
+
+  public static setStatusMinaDeOro(texto: string = 'Construir') { PaisComponent.statusMinasDeOro = texto; }
 
   constructor() {
     this.myImperio = HomeComponent.myImperio;
@@ -52,6 +63,8 @@ export class PaisComponent implements OnInit {
     this.myCanteras = this.myCapital.getCanteras();
     this.myMinasDeHierro = this.myCapital.getMinasDeHierro();
 
+    this.myInforme = new InformeComponent();
+
     HomeComponent.edificioSeleccionado = null;
   }
 
@@ -62,11 +75,20 @@ export class PaisComponent implements OnInit {
     HomeComponent.edificioSeleccionado = edificio;
   }
 
-  setMinaDeOro() { this.setTipoEleccion(TipoEdificio.MINA_DE_ORO); }
+  getDisplayInforme() {
+    console.log ('getDisplayInforme', this.displayInforme);
+    return this.displayInforme;
+  }
+
+  setMinaDeOro() { this.setTipoEleccion(TipoEdificio.MINA_DE_ORO); this.displayInforme = !this.displayInforme; }
   getMinasDeOro() { return this.myCapital.getMinasDeOro(); }
   numeroMinasDeOro() { return this.myCapital.getMinasDeOro().length; }
+  numeroTotalDeMinasDeOro() { return Parametros.MinaDeOro_Num_Total; }
   costeMinaDeOro() { return MinaDeOro.costeConstruccion; }
   tiempoMinaDeOro() { return MinaDeOro.tiempoContruccion; }
+  statusMinaDeOro() {
+    return PaisComponent.statusMinasDeOro;
+  }
 
   setGranja() { this.setTipoEleccion(TipoEdificio.GRANJA); }
   getGranjas() { return this.myCapital.getGranjas(); }

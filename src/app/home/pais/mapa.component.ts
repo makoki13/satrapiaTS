@@ -52,6 +52,7 @@ export class MapaComponent {
 
   construyeMinaDeOro() {
     const minaDeOro = new MinaDeOro (1, 'Mina de oro de la sierra', this.myCapital, this.myDispatcher);
+    PaisComponent.setStatusMinaDeOro();
     return -1;
   }
 
@@ -76,6 +77,10 @@ export class MapaComponent {
   }
 
   infoCelda(x: number, y: number) {
+    if (this.elementos[x][y].getEdificio() !== null) {
+      alert(this.elementos[x][y].getEdificio());
+      return;
+    }
     if (HomeComponent.edificioSeleccionado != null) {
       const edificio = HomeComponent.edificioSeleccionado;
       let precio = 0; let importeTotal = 0; let cantidadObtenida = 0;
@@ -90,6 +95,7 @@ export class MapaComponent {
             alert (' Se aborta la construcción de la mina de oro: Oro insuficiente');
             return false;
           }
+          PaisComponent.setStatusMinaDeOro('Construyendo');
           this.myDispatcher.addTareaRepetitiva(this, 'construyeMinaDeOro', MinaDeOro.tiempoContruccion);
           break;
 

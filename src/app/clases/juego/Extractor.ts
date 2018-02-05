@@ -8,7 +8,7 @@ class Extractor {
 
   getCantidad( ) {
     const cantidadExtraida = this.productor.extrae ( this.cantidad );
-    console.log ('Se extrae de ' + this.almacen.getTipoRecurso().getNombre() + ' ' + cantidadExtraida + ' de recurso ');
+    // console.log ('Se extrae de ' + this.almacen.getTipoRecurso().getNombre() + ' ' + cantidadExtraida + ' de recurso ');
     return cantidadExtraida;
   }
 }

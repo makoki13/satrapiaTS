@@ -11,7 +11,7 @@ class Punto {
   }
 
   constructor(private x: number, private y: number, private z?: number) {
-
+    this.edificio = null;
   }
 
   setAltura (z: number) { this.z = z; }

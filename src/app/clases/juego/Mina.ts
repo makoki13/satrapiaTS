@@ -31,9 +31,9 @@ class Mina extends Edificio {
   extrae(almacenDestino) {
     const cantidad = this.mineros.getCantidad();
     this.almacen.addCantidad (cantidad);
-    console.log ( 'Almacen de ' + super.getNombre() + ' tiene ' + this.getCantidadAlmacenActual() +
-    ' Capacidad máx: ' + this.almacen.getMaxCantidad() );
-    console.log ( 'GetCantidad = ' , cantidad);
+    // console.log ( 'Almacen de ' + super.getNombre() + ' tiene ' + this.getCantidadAlmacenActual() +
+    // ' Capacidad máx: ' + this.almacen.getMaxCantidad() );
+    // console.log ( 'GetCantidad = ' , cantidad);
     /* Si el almacen alcanza el tope enviar un transporte de recursos a palacio */
     if (this.almacen.getCantidad() >= this.almacen.getMaxCantidad()) {
       if (this.hayEnvioEnMarcha === false) {
