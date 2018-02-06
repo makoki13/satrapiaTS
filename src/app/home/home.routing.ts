@@ -9,7 +9,7 @@ import { LoginComponent } from '../login/login.component';
 import { AjustesComponent } from './ajustes/ajustes.component';
 
 const routes: Routes = [
-    {path: '', redirectTo: 'home', pathMatch: 'full'},
+    {path: 'home', component: HomeComponent, pathMatch: 'full'},
     {path: 'login', component: LoginComponent, pathMatch: 'full'}
 ];
 

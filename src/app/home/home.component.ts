@@ -80,8 +80,31 @@ export class HomeComponent implements OnInit {
     mySilos.addAlmacen (almacenPiedra);
     const almacenHierro: Almacen = new Almacen (1, 'Silo hierro', HIERRO, HomeComponent.myCapital.getPosicion(), 5000);
     mySilos.addAlmacen (almacenHierro);
+
+    // console.log('this.setIDpartida', Parametros.IDpartida);
+    this.setIDpartida( Parametros.IDpartida);
   }
 
+  // Parametros.inicializa('parametros');
+  run(): Promise<void> {
+    console.log ('home run fase 1');
+    return new Promise<void>(resolve => {
+      console.log ('home run fase 2');
+      Parametros.inicializa('parametros');
+      console.log ('home run fase 3');
+      this.cargaClases();
+      console.log ('home run fase 4');
+      this.runDispatcher();
+      console.log ('home run fase 5');
+    }).then ( function ()  {
+      console.log ('run fase 6a');
+      // this.cargaClases();
+      console.log ('run fase 6b');
+      // this.runDispatcher();
+    });
+  }
+
+  /*
   async run() {
     console.log('home.component run 1');
     const myself = this;
@@ -107,6 +130,7 @@ export class HomeComponent implements OnInit {
 
     // this.moveToLogin();
   }
+  */
 
   sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));

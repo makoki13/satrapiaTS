@@ -52,23 +52,27 @@ class Parametros {
         console.log('TEST');
     }
 
-    static async inicializa(objeto) {
+    static inicializa(objeto): Promise<any> {
         // DBlocal.inicializa();
-        console.log('antes de');
-        await DBlocal.db.get(objeto).then(async function (doc) {
-            await Parametros.__test();
-            console.log('despues de');
+        console.log('inicializa inicio', objeto);
+        const p1 = DBlocal.db.get(objeto).then(function (doc) {
+            Parametros.__test();
+            // console.log('despues de');
             if (objeto === 'partida') {
-                console.log(doc);
-                Parametros.IDpartida = doc.identificador;
-                // console.log('doc partida: ', Parametros.IDpartida);
+                console.log('doc de partida', doc);
+                Parametros.IDpartida = doc.id;
+                console.log('doc partida: ', Parametros.IDpartida);
             } else {
               Parametros.Granja_Construccion_Coste = doc.Granja_Construccion_Coste;
+              console.log('init granja-construccion-coste:', Parametros.Granja_Construccion_Coste);
               Parametros.oroInicial = doc.Oro_Inicial;
-              console.log('init:', Parametros.oroInicial);
+              // console.log('init:', Parametros.oroInicial);
             }
+            console.log('inicializa fin', objeto);
         });
-        // console.log('inicializa fin');
+        return Promise.all([p1]).then(values => {
+          console.log('Promise.all parametros');
+        });
     }
 
     static getGranjaConstruccionCoste() {
@@ -93,7 +97,7 @@ class Parametros {
 
     static getOroInicial() {
         DBlocal.db.get('parametros').then(function (doc) {
-            console.log('getOroInicial', doc);
+            // console.log('getOroInicial', doc);
             return Parametros.oroInicial = doc.Oro_Inicial;
         });
     }
@@ -103,7 +107,7 @@ class Parametros {
         DBlocal.db.get('parametros').then(function (doc) {
             doc.Oro_Inicial = valor;
             // put them back
-            console.log('setOroInicial', doc);
+            // console.log('setOroInicial', doc);
             return DBlocal.db.put(doc);
           }).then(function () {
             // fetch mittens again

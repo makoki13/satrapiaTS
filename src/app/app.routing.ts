@@ -9,7 +9,6 @@ import { LoginComponent } from './login/login.component';
 import { AjustesComponent } from './home/ajustes/ajustes.component';
 
 const routes: Routes = [
-    {path: '', redirectTo: 'home', pathMatch: 'full'},
     {path: 'login', component: LoginComponent, pathMatch: 'full'},
     {path: 'home', component: HomeComponent, children: [
         {path: 'palacio', component: PalacioComponent, outlet: 'palacio'},

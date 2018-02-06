@@ -18,6 +18,28 @@ export class AppComponent {
     this.run();
   }
 
+  run() {
+    const myself = this;
+    console.log ('app run fase 1');
+    const p1 = new Promise((resolve, reject) => {
+      console.log ('app run fase 2');
+      DBlocal.inicializa();
+      console.log ('app run fase 3');
+    });
+
+    console.log ('app run fase 4');
+    const p2 = Parametros.inicializa('partida').then( function () {
+      console.log ('app run fase 5');
+      const p3 = new Promise((resolve, reject) => {
+        console.log ('app run fase 6');
+        myself.moveToHome(Parametros.IDpartida);
+        // myself.moveToLogin();
+        console.log ('app run fase 7');
+      });
+    });
+  }
+
+  /*
   async run() {
     const myself = this;
     try {
@@ -34,13 +56,14 @@ export class AppComponent {
 
     // this.moveToLogin();
   }
+  */
 
   public moveToLogin() {
     this.router.navigate(['login']);
   }
 
   public moveToHome(partida: number) {
-    // console.log('moveToHome');
+    console.log('moveToHome', partida);
     this.router.navigate(['home']);
   }
 
