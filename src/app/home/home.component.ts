@@ -86,21 +86,15 @@ export class HomeComponent implements OnInit {
   }
 
   // Parametros.inicializa('parametros');
-  run(): Promise<void> {
+  run() {
+    const myself = this;
     console.log ('home run fase 1');
-    return new Promise<void>(resolve => {
+    const p1 = Parametros.inicializa('parametros').then( function () {
       console.log ('home run fase 2');
-      Parametros.inicializa('parametros');
+      myself.cargaClases();
       console.log ('home run fase 3');
-      this.cargaClases();
+      myself.runDispatcher();
       console.log ('home run fase 4');
-      this.runDispatcher();
-      console.log ('home run fase 5');
-    }).then ( function ()  {
-      console.log ('run fase 6a');
-      // this.cargaClases();
-      console.log ('run fase 6b');
-      // this.runDispatcher();
     });
   }
 

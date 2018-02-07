@@ -10,3 +10,7 @@ td {width:20px;height:20px;border:1px solid gainsboro;}
   background-color:gainsboro;
 }
 
+button { width:200px;}
+
+span {cursor: pointer;}
+

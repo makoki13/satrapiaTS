@@ -13,6 +13,7 @@ class Serreria extends Edificio {
   public static tiempoContruccion = Parametros.Serreria_Construccion_Tiempo;
   public static cantidadInicial = Parametros.Serreria_Productor_CantidadInicial;
   public static cantidadMaxima = Parametros.Serreria_Productor_CantidadMaxima;
+  public static maximoItems = Parametros.Serreria_Num_Total;
 
   private leñadores: Extractor;
   private filon: Productor;

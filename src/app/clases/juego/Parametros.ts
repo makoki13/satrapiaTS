@@ -1,7 +1,7 @@
 import { DBlocal } from './../tools/Persistencia';
 import { Granja } from './Granja';
 
-class Parametros {
+export class Parametros {
     public static MinaDeOro_Num_Total = 10;
 
     public static Granja_Construccion_Coste = 50;
@@ -59,12 +59,21 @@ class Parametros {
             Parametros.__test();
             // console.log('despues de');
             if (objeto === 'partida') {
-                console.log('doc de partida', doc);
-                Parametros.IDpartida = doc.id;
-                console.log('doc partida: ', Parametros.IDpartida);
+              Parametros.IDpartida = doc.id;
             } else {
+              console.log('doc parametros: ', doc);
               Parametros.Granja_Construccion_Coste = doc.Granja_Construccion_Coste;
-              console.log('init granja-construccion-coste:', Parametros.Granja_Construccion_Coste);
+              Parametros.Granja_Construccion_Tiempo = doc.Granja_Construccion_Tiempo;
+              Parametros.Granja_Productor_CantidadInicial = doc.Granja_Productor_CantidadInicial;
+              Parametros.Granja_Productor_CantidadMaxima = doc.Granja_Productor_CantidadMaxima;
+              Parametros.Granja_Productor_Ratio = doc.Granja_Productor_Ratio;
+              Parametros.Granja_Almacen_Capacidad = doc.Granja_Almacen_Capacidad;
+              Parametros.Granja_Cosecha_Tamanyo = doc.Granja_Cosecha_Tamanyo;
+              Parametros.Granja_Cosecha_Frecuencia = doc.Granja_Cosecha_Frecuencia;
+              Parametros.Granja_Num_Total = doc.Granja_Num_Total;
+
+              Parametros.Serreria_Num_Total = doc.Serreria_Num_Total;
+
               Parametros.oroInicial = doc.Oro_Inicial;
               // console.log('init:', Parametros.oroInicial);
             }
@@ -80,6 +89,46 @@ class Parametros {
             return Parametros.Granja_Construccion_Coste = doc.Granja_Construccion_Coste;
         });
     }
+    static getGranjaConstruccionTiempo() {
+      DBlocal.db.get('parametros').then(function (doc) {
+          return Parametros.Granja_Construccion_Tiempo = doc.Granja_Construccion_Tiempo;
+      });
+    }
+    static getGranjaProductorCantidadInicial() {
+      DBlocal.db.get('parametros').then(function (doc) {
+        return Parametros.Granja_Productor_CantidadInicial = doc.Granja_Productor_CantidadInicial;
+      });
+    }
+    static getGranjaProductorCantidadMaxima() {
+      DBlocal.db.get('parametros').then(function (doc) {
+        return Parametros.Granja_Productor_CantidadMaxima = doc.Granja_Productor_CantidadMaxima;
+      });
+    }
+    static getGranjaProductorRatio() {
+      DBlocal.db.get('parametros').then(function (doc) {
+        return Parametros.Granja_Productor_Ratio = doc.Granja_Productor_Ratio;
+      });
+    }
+    static getGranjaAlmacenCapacidad() {
+      DBlocal.db.get('parametros').then(function (doc) {
+        return Parametros.Granja_Almacen_Capacidad = doc.Granja_Almacen_Capacidad;
+      });
+    }
+    static getGranjaCosechaTamanyo() {
+      DBlocal.db.get('parametros').then(function (doc) {
+        return Parametros.Granja_Cosecha_Tamanyo = doc.Granja_Cosecha_Tamanyo;
+      });
+    }
+    static getGranjaCosechaFrecuencia() {
+      DBlocal.db.get('parametros').then(function (doc) {
+        return Parametros.Granja_Cosecha_Frecuencia = doc.Granja_Cosecha_Frecuencia;
+      });
+    }
+    static getGranjaNumTotal() {
+      DBlocal.db.get('parametros').then(function (doc) {
+        return Parametros.Granja_Num_Total = doc.Granja_Num_Total;
+      });
+    }
 
     static setGranjaConstruccionCoste(valor: number) {
         Parametros.Granja_Construccion_Coste = valor;
@@ -92,12 +141,105 @@ class Parametros {
             return DBlocal.db.get('parametros');
           }).then(function (doc) {
             // console.log(doc);
+
           });
+    }
+
+    static setGranjaConstruccionTiempo(valor: number) {
+        Parametros.Granja_Construccion_Tiempo = valor;
+        DBlocal.db.get('parametros').then(function (doc) {
+          doc.Granja_Construccion_Tiempo = valor;
+          return DBlocal.db.put(doc);
+        }).then(function () {
+          return DBlocal.db.get('parametros');
+        });
+    }
+
+    static setGranjaProductorCantidadInicial(valor: number) {
+      Parametros.Granja_Productor_CantidadInicial = valor;
+        DBlocal.db.get('parametros').then(function (doc) {
+          doc.Granja_Productor_CantidadInicial = valor;
+          return DBlocal.db.put(doc);
+        }).then(function () {
+          return DBlocal.db.get('parametros');
+        });
+    }
+
+    static setGranjaProductorCantidadMaxima(valor: number) {
+      Parametros.Granja_Productor_CantidadMaxima = valor;
+        DBlocal.db.get('parametros').then(function (doc) {
+          doc.Granja_Productor_CantidadMaxima = valor;
+          return DBlocal.db.put(doc);
+        }).then(function () {
+          return DBlocal.db.get('parametros');
+        });
+    }
+    static setGranjaProductorRatio(valor: number) {
+      Parametros.Granja_Productor_Ratio = valor;
+        DBlocal.db.get('parametros').then(function (doc) {
+          doc.Granja_Productor_Ratio = valor;
+          return DBlocal.db.put(doc);
+        }).then(function () {
+          return DBlocal.db.get('parametros');
+        });
+    }
+    static setGranjaAlmacenCapacidad(valor: number) {
+      Parametros.Granja_Almacen_Capacidad = valor;
+        DBlocal.db.get('parametros').then(function (doc) {
+          doc.Granja_Almacen_Capacidad = valor;
+          return DBlocal.db.put(doc);
+        }).then(function () {
+          return DBlocal.db.get('parametros');
+        });
+    }
+    static setGranjaCosechaTamanyo(valor: number) {
+      Parametros.Granja_Cosecha_Tamanyo = valor;
+        DBlocal.db.get('parametros').then(function (doc) {
+          doc.Granja_Cosecha_Tamanyo = valor;
+          return DBlocal.db.put(doc);
+        }).then(function () {
+          return DBlocal.db.get('parametros');
+        });
+    }
+    static setGranjaCosechaFrecuencia(valor: number) {
+      Parametros.Granja_Cosecha_Frecuencia = valor;
+        DBlocal.db.get('parametros').then(function (doc) {
+          doc.Granja_Cosecha_Frecuencia = valor;
+          return DBlocal.db.put(doc);
+        }).then(function () {
+          return DBlocal.db.get('parametros');
+        });
+    }
+    static setGranjaNumTotal(valor: number) {
+      Parametros.Granja_Num_Total = valor;
+        DBlocal.db.get('parametros').then(function (doc) {
+          doc.Granja_Num_Total = valor;
+          return DBlocal.db.put(doc);
+        }).then(function () {
+          return DBlocal.db.get('parametros');
+        });
+    }
+
+
+    static getSerreriaNumTotal() {
+      DBlocal.db.get('parametros').then(function (doc) {
+        console.log('parametros setSerreriaNumTotal', doc.Serreria_Num_Total);
+        return Parametros.Serreria_Num_Total = doc.Serreria_Num_Total;
+      });
+    }
+
+    static setSerreriaNumTotal(valor: number) {
+      Parametros.Serreria_Num_Total = valor;
+        DBlocal.db.get('parametros').then(function (doc) {
+          doc.Serreria_Num_Total = valor;
+          return DBlocal.db.put(doc);
+        }).then(function () {
+          return DBlocal.db.get('parametros');
+        });
     }
 
     static getOroInicial() {
         DBlocal.db.get('parametros').then(function (doc) {
-            // console.log('getOroInicial', doc);
             return Parametros.oroInicial = doc.Oro_Inicial;
         });
     }
@@ -106,16 +248,9 @@ class Parametros {
         Parametros.oroInicial = valor;
         DBlocal.db.get('parametros').then(function (doc) {
             doc.Oro_Inicial = valor;
-            // put them back
-            // console.log('setOroInicial', doc);
             return DBlocal.db.put(doc);
           }).then(function () {
-            // fetch mittens again
             return DBlocal.db.get('parametros');
-          }).then(function (doc) {
-            // console.log(doc);
           });
     }
 }
-
-export {Parametros};

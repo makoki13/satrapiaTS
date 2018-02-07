@@ -37,6 +37,41 @@
             Valor por defecto: {{ getGranjaCantidadMaxima() }} unidades
         </p>
       </div>
+      <div class="card-block">
+        <p class="card-text">
+            <label class="titulo">Ratio</label>
+            <input #granjaRatio type="number" value="{{ getGranjaRatio() }}" (change)="setGranjaRatio()">
+            Valor por defecto: {{ getGranjaRatio() }} porcentaje
+        </p>
+      </div>
+      <div class="card-block">
+        <p class="card-text">
+            <label class="titulo">Almacén capacidad</label>
+            <input #granjaCapacidadAlmacen type="number" value="{{ getGranjaCapacidadAlmacen() }}" (change)="setGranjaCapacidadAlmacen()">
+            Valor por defecto: {{ getGranjaCapacidadAlmacen() }} unidades
+        </p>
+      </div>
+      <div class="card-block">
+        <p class="card-text">
+            <label class="titulo">Tamaño cosecha</label>
+            <input #granjaTamanyoCosecha type="number" value="{{ getGranjaTamanyoCosecha() }}" (change)="setGranjaTamanyoCosecha()">
+            Valor por defecto: {{ getGranjaTamanyoCosecha() }} unidades
+        </p>
+      </div>
+      <div class="card-block">
+        <p class="card-text">
+            <label class="titulo">Frecuencia cosecha</label>
+            <input #granjaFrecuenciaCosecha type="number" value="{{ getGranjaCosechaFrecuencia() }}" (change)="setGranjaCosechaFrecuencia()">
+            Valor por defecto: {{ getGranjaCosechaFrecuencia() }} unidades
+        </p>
+      </div>
+      <div class="card-block">
+        <p class="card-text">
+            <label class="titulo">Número granjas máximo</label>
+            <input #granjaMaximoNumero type="number" value="{{ getGranjaMaximoNumero() }}" (change)="setGranjaMaximoNumero()">
+            Valor por defecto: {{ getGranjaMaximoNumero() }} unidades
+        </p>
+      </div>
     </div>
   </div>
 
@@ -75,6 +110,13 @@
           <label class="titulo">Cantidad máxima</label>
           <input #serreriaCantidadMaxima type="number" value="{{ getSerreriaCantidadMaxima() }}" (change)="setSerreriaCantidadMaxima()">
             Valor por defecto: {{ getSerreriaCantidadMaxima() }} unidades
+        </p>
+      </div>
+      <div class="card-block">
+        <p class="card-text">
+            <label class="titulo">Número serrerías máximo</label>
+            <input #serreriaMaximoNumero type="number" value="{{ getSerreriaMaximoNumero() }}" (change)="setSerreriaMaximoNumero()">
+            Valor por defecto: {{ getSerreriaMaximoNumero() }} unidades
         </p>
       </div>
     </div>
@@ -120,6 +162,6 @@
           <input #oroInicial type="number" value="{{ getOroInicial() }}" (change)="setOroInicial()">
             Valor por defecto: {{ getOroInicial() }} s. (real)
         </p>
-      </div>      
+      </div>
   </div>
 </div>

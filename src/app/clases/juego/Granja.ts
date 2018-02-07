@@ -13,6 +13,11 @@ class Granja extends Edificio {
   public static tiempoContruccion = Parametros.Granja_Construccion_Tiempo;
   public static cantidadInicial = Parametros.Granja_Productor_CantidadInicial;
   public static cantidadMaxima = Parametros.Granja_Productor_CantidadMaxima;
+  public static ratio = Parametros.Granja_Productor_Ratio;
+  public static capacidadAlmacen = Parametros.Granja_Almacen_Capacidad;
+  public static tamanyoCosecha = Parametros.Granja_Cosecha_Tamanyo;
+  public static cosechaFrecuencia = Parametros.Granja_Cosecha_Frecuencia;
+  public static maximoItems = Parametros.Granja_Num_Total;
 
   private granjeros: Extractor;
   private filon: Productor;

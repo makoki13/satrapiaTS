@@ -80,7 +80,9 @@ export class PaisComponent implements OnInit {
     return this.displayInforme;
   }
 
-  setMinaDeOro() { this.setTipoEleccion(TipoEdificio.MINA_DE_ORO); this.displayInforme = !this.displayInforme; }
+  setDisplayInforme() { this.displayInforme = !this.displayInforme; }
+
+  setMinaDeOro() { this.setTipoEleccion(TipoEdificio.MINA_DE_ORO); }
   getMinasDeOro() { return this.myCapital.getMinasDeOro(); }
   numeroMinasDeOro() { return this.myCapital.getMinasDeOro().length; }
   numeroTotalDeMinasDeOro() { return Parametros.MinaDeOro_Num_Total; }
