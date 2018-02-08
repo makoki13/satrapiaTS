@@ -30,7 +30,9 @@ class Dispatcher {
     let t: Tarea;
 
     nuevoVencimiento = new Date();
+    // console.log ('antes de : ', f, tiempo, nuevoVencimiento);
     nuevoVencimiento.setSeconds(nuevoVencimiento.getSeconds() + tiempo);
+    // console.log ('despues de : ', f, tiempo, nuevoVencimiento);
 
     t = new Tarea(c, f, nuevoVencimiento, tiempo, param);
 

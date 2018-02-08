@@ -4,9 +4,9 @@ export class DBlocal {
   static db = null;
 
   static async inicializa () {
-    console.log('inicializa db', 'inicio');
+    // console.log('inicializa db', 'inicio');
     DBlocal.db = new PouchDB('satrapia');
-    console.log('inicializa db', 'fin');
+    // console.log('inicializa db', 'fin');
     /*
     const doc = {
       '_id': 'partida',

@@ -2,89 +2,43 @@
 <div style="width:100%;border:0px solid green;">
   <div style="display:inline-block;border:1px solid red;width:20%">
     <div class="edificio" style="display: inline-block;padding-left:3px;">MINAS DE ORO</div>
-    <div class="edificio" style="display: inline-block;"> <span class="badge badge-secondary badge-pill" (click)="setDisplayInforme();">{{numeroMinasDeOro()}} de {{ numeroTotalDeMinasDeOro() }}</span></div>
+    <div class="edificio" style="display: inline-block;"> <span class="badge badge-secondary badge-pill" (click)="setDisplayInforme(1);">{{numeroMinasDeOro()}} de {{ numeroTotalDeMinasDeOro() }}</span></div>
     <div style="padding-left:8px;">
       <button class="btn btn-primary btn-sm" (click)="setMinaDeOro();">
         {{ statusMinaDeOro() }} {{costeMinaDeOro()}} <i class="fa fa-money"></i> {{tiempoMinaDeOro()}} <i class="fa fa-clock-o" aria-hidden="true"></i>
       </button>
     </div>
-    <div id="listaMO" *ngFor="let mina of getMinasDeOro()">
-        <ul>
-            <li>
-              {{ mina.getNombre() }} tiene {{ mina.getOroActual() }} de una capacidad máxima de {{ mina.getMaxAlmacen() }}
-              [<div style="display:inline-block;" *ngIf="mina.estaActiva()"> Activa </div><div style="display:inline-block;" *ngIf="!mina.estaActiva()"> Agotada </div>]
-              <div>{{ mina.getStatus() }}</div>
-            </li>
-          </ul>
-    </div>
 
     <div class="edificio" style="display: inline-block;padding-left:3px;">GRANJA</div>
-    <div class="edificio" style="display: inline-block;"><span class="badge badge-secondary badge-pill">{{numeroGranjas()}}</span></div>
+    <div class="edificio" style="display: inline-block;"><span class="badge badge-secondary badge-pill" (click)="setDisplayInforme(2);">{{numeroGranjas()}} de {{ numeroTotalDeGranjas() }}</span></div>
     <div style="padding-left:8px;">
       <button class="btn btn-primary btn-sm" (click)="setGranja();">
         Construir {{costeGranja()}} <i class="fa fa-money"></i> {{tiempoGranja()}} <i class="fa fa-clock-o" aria-hidden="true"></i>
       </button>
     </div>
-    <div id="listaGR" *ngFor="let granja of getGranjas()">
-          <ul>
-              <li>
-                {{ granja.getNombre() }} tiene {{ granja.getComidaActual() }} de una capacidad máxima de {{ granja.getMaxAlmacen() }}
-                [<div style="display:inline-block;" *ngIf="granja.estaActiva()"> Activa </div><div style="display:inline-block;" *ngIf="!granja.estaActiva()"> Agotada </div>]
-                <div>{{ granja.getStatus() }}</div>
-              </li>
-            </ul>
-    </div>
-
 
     <div class="edificio" style="display: inline-block;padding-left:3px;">SERRERIA</div>
-    <div class="edificio" style="display: inline-block;"><span class="badge badge-secondary badge-pill">{{numeroSerrerias()}}</span></div>
+    <div class="edificio" style="display: inline-block;"><span class="badge badge-secondary badge-pill" (click)="setDisplayInforme(3);">{{numeroSerrerias()}} de {{ numeroTotalDeSerrerias() }}</span></div>
     <div style="padding-left:8px;">
       <button class="btn btn-primary btn-sm" (click)="setSerreria();">
         Construir {{costeSerreria()}} <i class="fa fa-money"></i> {{tiempoSerreria()}} <i class="fa fa-clock-o" aria-hidden="true"></i>
       </button>
     </div>
-    <div id="listaSE" *ngFor="let serreria of getSerrerias()">
-      <ul>
-        <li>
-          {{ serreria.getNombre() }} tiene {{ serreria.getMaderaActual() }} de una capacidad máxima de {{ serreria.getMaxAlmacen() }}
-          [<div style="display:inline-block;" *ngIf="serreria.estaActiva()"> Activa </div><div style="display:inline-block;" *ngIf="!serreria.estaActiva()"> Agotada </div>]
-          <div>{{ serreria.getStatus() }}</div>
-        </li>
-      </ul>
-    </div>
 
     <div class="edificio" style="display: inline-block;padding-left:3px;">CANTERA</div>
-    <div class="edificio" style="display: inline-block;"><span class="badge badge-secondary badge-pill">{{numeroCanteras()}}</span></div>
+    <div class="edificio" style="display: inline-block;"><span class="badge badge-secondary badge-pill" (click)="setDisplayInforme(4);">{{numeroCanteras()}} de {{ numeroTotalDeCanteras() }}</span></div>
     <div style="padding-left:8px;">
       <button class="btn btn-primary btn-sm" (click)="setCantera();">
         Construir {{costeCantera()}} <i class="fa fa-money"></i> {{tiempoCantera()}} <i class="fa fa-clock-o" aria-hidden="true"></i>
       </button>
     </div>
-    <div id="listaCA" *ngFor="let cantera of getCanteras()">
-      <ul>
-        <li>
-          {{ cantera.getNombre() }} tiene {{ cantera.getPiedraActual() }} de una capacidad máxima de {{ cantera.getMaxAlmacen() }}
-          [<div style="display:inline-block;" *ngIf="cantera.estaActiva()"> Activa </div><div style="display:inline-block;" *ngIf="!cantera.estaActiva()"> Agotada </div>]
-          <div>{{ cantera.getStatus() }}</div>
-        </li>
-      </ul>
-    </div>
 
     <div class="edificio" style="display: inline-block;padding-left:3px;">MINAS DE HIERRO</div>
-    <div class="edificio" style="display: inline-block;"><span class="badge badge-secondary badge-pill">{{numeroMinasDeHierro()}}</span></div>
+    <div class="edificio" style="display: inline-block;"><span class="badge badge-secondary badge-pill" (click)="setDisplayInforme(5);">{{numeroMinasDeHierro()}} de {{ numeroTotalDeMinasDeHierro() }}</span></div>
     <div style="padding-left:8px;">
       <button class="btn btn-primary btn-sm" (click)="setMinaDeHierro();">
         Construir {{costeMinaDeHierro()}} <i class="fa fa-money"></i> {{tiempoMinaDeHierro()}} <i class="fa fa-clock-o" aria-hidden="true"></i>
       </button>
-    </div>
-    <div id="listaMH" *ngFor="let minaDeHierro of getMinasDeHierro()">
-      <ul>
-        <li>
-          {{ minaDeHierro.getNombre() }} tiene {{ minaDeHierro.getHierroActual() }} de una capacidad máxima de {{ minaDeHierro.getMaxAlmacen() }}
-          [<div style="display:inline-block;" *ngIf="minaDeHierro.estaActiva()"> Activa </div><div style="display:inline-block;" *ngIf="!minaDeHierro.estaActiva()"> Agotada </div>]
-          <div>{{ minaDeHierro.getStatus() }}</div>
-        </li>
-      </ul>
     </div>
 
     <app-informe *ngIf="getDisplayInforme()" class=""></app-informe>

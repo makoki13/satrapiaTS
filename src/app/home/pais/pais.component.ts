@@ -76,11 +76,11 @@ export class PaisComponent implements OnInit {
   }
 
   getDisplayInforme() {
-    console.log ('getDisplayInforme', this.displayInforme);
+    // console.log ('getDisplayInforme', this.displayInforme);
     return this.displayInforme;
   }
 
-  setDisplayInforme() { this.displayInforme = !this.displayInforme; }
+  setDisplayInforme(tipo) { this.displayInforme = !this.displayInforme; HomeComponent.tipoInformePais = tipo; }
 
   setMinaDeOro() { this.setTipoEleccion(TipoEdificio.MINA_DE_ORO); }
   getMinasDeOro() { return this.myCapital.getMinasDeOro(); }
@@ -95,24 +95,34 @@ export class PaisComponent implements OnInit {
   setGranja() { this.setTipoEleccion(TipoEdificio.GRANJA); }
   getGranjas() { return this.myCapital.getGranjas(); }
   numeroGranjas() { return this.myCapital.getGranjas().length; }
+  numeroTotalDeGranjas() { return Parametros.Granja_Num_Total; }
   costeGranja() { return Granja.costeConstruccion; }
   tiempoGranja() { return Granja.tiempoContruccion; }
 
-  setSerreria() { this.setTipoEleccion(TipoEdificio.SERRERIA); }
+  setSerreria() {
+    if (this.numeroSerrerias() === this.numeroTotalDeSerrerias()) {
+      alert('Número total de serrerías máximo alcanzado');
+    } else {
+     this.setTipoEleccion(TipoEdificio.SERRERIA);
+    }
+  }
   getSerrerias() { return this.myCapital.getSerrerias(); }
   numeroSerrerias() { return this.myCapital.getSerrerias().length; }
+  numeroTotalDeSerrerias() { return Parametros.Serreria_Num_Total; }
   costeSerreria() { return Serreria.costeConstruccion; }
   tiempoSerreria() { return Serreria.tiempoContruccion; }
 
   setCantera() { this.setTipoEleccion(TipoEdificio.CANTERA_DE_PIEDRA); }
   getCanteras() { return this.myCapital.getCanteras(); }
   numeroCanteras() { return this.myCapital.getCanteras().length; }
+  numeroTotalDeCanteras() { return Parametros.Cantera_Num_Total; }
   costeCantera() { return Cantera.costeConstruccion; }
   tiempoCantera() { return Cantera.tiempoContruccion; }
 
   setMinaDeHierro() { this.setTipoEleccion(TipoEdificio.MINA_DE_HIERRO); }
   getMinasDeHierro() { return this.myCapital.getMinasDeHierro(); }
   numeroMinasDeHierro() { return this.myCapital.getMinasDeHierro().length; }
+  numeroTotalDeMinasDeHierro() { return Parametros.MinaDeHierro_Num_Total; }
   costeMinaDeHierro() { return MinaDeHierro.costeConstruccion; }
   tiempoMinaDeHierro() { return MinaDeHierro.tiempoContruccion; }
 }

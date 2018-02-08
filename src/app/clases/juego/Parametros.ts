@@ -34,6 +34,8 @@ export class Parametros {
     public static Cantera_Cosecha_Frecuencia = 1;
     public static Cantera_Num_Total = 10;
 
+    public static MinaDeHierro_Num_Total = 10;
+
     public static Transporte_Tiempo_Recalculo_Ruta = 1;
     public static Transporte_Velocidad = 0.83; // m/s
 
@@ -48,20 +50,15 @@ export class Parametros {
       // DBlocal.inicializa();
     }
 
-    static async __test() {
-        console.log('TEST');
-    }
-
     static inicializa(objeto): Promise<any> {
         // DBlocal.inicializa();
-        console.log('inicializa inicio', objeto);
+        // console.log('inicializa inicio', objeto);
         const p1 = DBlocal.db.get(objeto).then(function (doc) {
-            Parametros.__test();
             // console.log('despues de');
             if (objeto === 'partida') {
               Parametros.IDpartida = doc.id;
             } else {
-              console.log('doc parametros: ', doc);
+              // console.log('doc parametros: ', doc);
               Parametros.Granja_Construccion_Coste = doc.Granja_Construccion_Coste;
               Parametros.Granja_Construccion_Tiempo = doc.Granja_Construccion_Tiempo;
               Parametros.Granja_Productor_CantidadInicial = doc.Granja_Productor_CantidadInicial;
@@ -77,10 +74,10 @@ export class Parametros {
               Parametros.oroInicial = doc.Oro_Inicial;
               // console.log('init:', Parametros.oroInicial);
             }
-            console.log('inicializa fin', objeto);
+            // console.log('inicializa fin', objeto);
         });
         return Promise.all([p1]).then(values => {
-          console.log('Promise.all parametros');
+          // console.log('Promise.all parametros');
         });
     }
 

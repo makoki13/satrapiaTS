@@ -1,7 +1,61 @@
 <div class="modal-body" id="myModal">
-    <h5>Popover in a modal</h5>
-    <p>This <a href="#" role="button" class="btn btn-secondary popover-test" title="Popover title" data-content="Popover body content is set in this attribute.">button</a> triggers a popover on click.</p>
-    <hr>
-    <h5>Tooltips in a modal</h5>
-    <p><a href="#" class="tooltip-test" title="Tooltip">This link</a> and <a href="#" class="tooltip-test" title="Tooltip">that link</a> have tooltips on hover.</p>
-  </div>
+  <ng-container *ngIf="muestraInformeMinaDeOro()">
+    <div id="listaMO" *ngFor="let mina of getMinasDeOro()">
+      <ul>
+        <li>
+          {{ mina.getNombre() }} tiene {{ mina.getOroActual() }} de una capacidad máxima de {{ mina.getMaxAlmacen() }}
+          [<div style="display:inline-block;" *ngIf="mina.estaActiva()"> Activa </div><div style="display:inline-block;" *ngIf="!mina.estaActiva()"> Agotada </div>]
+          <div>{{ mina.getStatus() }}</div>
+          </li>
+        </ul>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="muestraInformeGranja()">
+    <div id="listaGR" *ngFor="let granja of getGranjas()">
+      <ul>
+          <li>
+            {{ granja.getNombre() }} tiene {{ granja.getComidaActual() }} de una capacidad máxima de {{ granja.getMaxAlmacen() }}
+            [<div style="display:inline-block;" *ngIf="granja.estaActiva()"> Activa </div><div style="display:inline-block;" *ngIf="!granja.estaActiva()"> Agotada </div>]
+            <div>{{ granja.getStatus() }}</div>
+          </li>
+        </ul>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="muestraInformeSerreria()">
+    <div id="listaSE" *ngFor="let serreria of getSerrerias()">
+      <ul>
+        <li>
+          {{ serreria.getNombre() }} tiene {{ serreria.getMaderaActual() }} de una capacidad máxima de {{ serreria.getMaxAlmacen() }}
+          [<div style="display:inline-block;" *ngIf="serreria.estaActiva()"> Activa </div><div style="display:inline-block;" *ngIf="!serreria.estaActiva()"> Agotada </div>]
+          <div>{{ serreria.getStatus() }}</div>
+        </li>
+      </ul>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="muestraInformeCantera()">
+    <div id="listaCA" *ngFor="let cantera of getCanteras()">
+      <ul>
+        <li>
+          {{ cantera.getNombre() }} tiene {{ cantera.getPiedraActual() }} de una capacidad máxima de {{ cantera.getMaxAlmacen() }}
+          [<div style="display:inline-block;" *ngIf="cantera.estaActiva()"> Activa </div><div style="display:inline-block;" *ngIf="!cantera.estaActiva()"> Agotada </div>]
+          <div>{{ cantera.getStatus() }}</div>
+        </li>
+      </ul>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="muestraInformeMinaDeHierro()">
+    <div id="listaMH" *ngFor="let minaDeHierro of getMinasDeHierro()">
+      <ul>
+        <li>
+          {{ minaDeHierro.getNombre() }} tiene {{ minaDeHierro.getHierroActual() }} de una capacidad máxima de {{ minaDeHierro.getMaxAlmacen() }}
+          [<div style="display:inline-block;" *ngIf="minaDeHierro.estaActiva()"> Activa </div><div style="display:inline-block;" *ngIf="!minaDeHierro.estaActiva()"> Agotada </div>]
+          <div>{{ minaDeHierro.getStatus() }}</div>
+        </li>
+      </ul>
+    </div>
+  </ng-container>
+</div>

@@ -36,6 +36,7 @@ export class HomeComponent implements OnInit {
   static myProvincia: Provincia;
 
   static edificioSeleccionado: TipoEdificio;
+  static tipoInformePais: number;
 
   static IDpartida: number;
 
@@ -88,43 +89,15 @@ export class HomeComponent implements OnInit {
   // Parametros.inicializa('parametros');
   run() {
     const myself = this;
-    console.log ('home run fase 1');
+    // console.log ('home run fase 1');
     const p1 = Parametros.inicializa('parametros').then( function () {
-      console.log ('home run fase 2');
+      // console.log ('home run fase 2');
       myself.cargaClases();
-      console.log ('home run fase 3');
+      // console.log ('home run fase 3');
       myself.runDispatcher();
-      console.log ('home run fase 4');
+      // console.log ('home run fase 4');
     });
   }
-
-  /*
-  async run() {
-    console.log('home.component run 1');
-    const myself = this;
-    try {
-      // await DBlocal.inicializa();
-      console.log('home.component run 2');
-      await Parametros.inicializa('parametros').then (function() {
-        console.log('home.component run 3');
-        Granja.costeConstruccion = Parametros.Granja_Construccion_Coste;
-
-        HomeComponent.IDpartida = Parametros.IDpartida;
-        console.log('home.component constructor', Parametros.oroInicial);
-
-      }).then( function() {
-        // console.log('home.component constructor', Granja.costeConstruccion);
-        myself.runDispatcher();
-        // console.log('runDispatcher');
-      });
-    } catch (err) {
-      console.log('err', err);
-    }
-    // console.log('home.component run 2');
-
-    // this.moveToLogin();
-  }
-  */
 
   sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));

@@ -1,3 +1,4 @@
+import { Parametros } from './../../clases/juego/Parametros';
 import { PaisComponent } from './pais.component';
 import {Component} from '@angular/core';
 import { Punto } from '../../clases/juego/Punto';
@@ -113,6 +114,11 @@ export class MapaComponent {
           break;
 
         case TipoEdificio.SERRERIA:
+          console.log('Num Serrerias: ', this.myCapital.getSerrerias().length, Parametros.Serreria_Num_Total);
+          if (this.myCapital.getSerrerias().length >= Parametros.Serreria_Num_Total) {
+            alert('Número total de serrerías máximo alcanzado');
+            return;
+          }
           // this.setStatus ('Construendo mina de oro...');
           precio = Serreria.costeConstruccion;
           importeTotal = precio * 1;

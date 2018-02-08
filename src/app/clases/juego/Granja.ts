@@ -33,16 +33,18 @@ class Granja extends Edificio {
     this.almacen = new Almacen ( 67, 'Silo de comida', COMIDA, this.capital.getPosicion(), Parametros.Granja_Almacen_Capacidad);
     this.granjeros = new Extractor (this.filon, this.almacen, Parametros.Granja_Cosecha_Tamanyo);
 
-    this.disp.addTareaRepetitiva(this, 'extrae', Parametros.Granja_Cosecha_Frecuencia);
+    this.disp.addTareaRepetitiva(this, 'extrae', Granja.cosechaFrecuencia);
 
     this.setStatus ('Sin envios actuales');
   }
 
   extrae() {
     const cantidad = this.granjeros.getCantidad();
+    // console.log ('granja cantidad actual: ', cantidad);
     this.almacen.addCantidad (cantidad);
 
     /* Si el almacen alcanza el tope enviar un transporte de comida a palacio */
+    // console.log ('granja cantidad actual bis: ', this.almacen.getCantidad(), this.almacen.getMaxCantidad());
     if (this.almacen.getCantidad() >= this.almacen.getMaxCantidad()) {
       if (this.hayEnvioEnMarcha === false) {
         this.hayEnvioEnMarcha = true;
